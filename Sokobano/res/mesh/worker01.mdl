@@ -1,0 +1,79 @@
+model worker
+mesh body workerBody01.obj
+mesh head workerHead01.obj
+mesh arm1 workerArm01.obj
+mesh arm2 workerArm01.obj
+
+anim stand
+sequence body
+time 0 0 0
+r 0 0 0
+p 0 0.5 0
+
+sequence head
+time 0 0 0
+r 0 -90 0
+p 0 0.5 0
+
+sequence arm1
+time 0 0 0
+r 0 -90 0
+p 0.35 0.5 0
+
+sequence arm2
+time 0 0 0
+r 0 -90 20
+p -0.35 0.5 0
+
+anim move
+sequence body
+time 000
+r 0 0 0
+p 0 0.5 0
+
+time 100
+r 0 0 0
+p 0 0.7 0
+
+time 200
+r 0 0 0
+p 0 0.5 0
+
+sequence head
+time 000
+r 0 -90 0
+p 0 0.5 0
+
+time 100
+r 0 -90 0
+p 0 0.9 0
+
+time 200
+r 0 -90 0
+p 0 0.5 0
+
+sequence arm1
+time 000
+r 0 -90 0
+p 0.35 0.5 0
+
+time 100
+r 0 -90 0
+p 0.35 0.7 0
+
+time 200
+r 0 -90 0
+p 0.35 0.5 0
+
+sequence arm2
+time 000
+r 0 -90 20
+p -0.35 0.5 0
+
+time 100
+r 0 -90 0
+p -0.35 0.7 0
+
+time 200
+r 0 -90 20
+p -0.35 0.5 0

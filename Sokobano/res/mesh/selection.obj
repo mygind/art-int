@@ -1,0 +1,31 @@
+# Created with Anim8or 0.95
+# Object "object01":
+# ComRec:
+g mesh01
+
+mtlib selection.mtl
+
+# No. points 4:
+v -0.5 0 -0.5
+v -0.5 0 0.5
+v 0.5 0 -0.5
+v 0.5 0 0.5
+
+# No. normals 5:
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+
+# No. texture coordinates 4:
+vt 0 1
+vt 0 0
+vt 1 0
+vt 1 1
+
+# No. faces 1:
+usemtl selection01
+f 3/4/4 1/1/2 2/2/3 4/3/5
+
+

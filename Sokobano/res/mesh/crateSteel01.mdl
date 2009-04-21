@@ -1,0 +1,6 @@
+model crate
+mesh crate crateSteel01.obj
+
+anim rest
+sequence crate
+time 0000

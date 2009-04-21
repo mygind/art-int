@@ -1,0 +1,100 @@
+# Created with Anim8or 0.95
+# Object "object01":
+# ComRec:
+g mesh01
+
+# Material:
+mtlib skybox02.mtl
+
+# No. points 8:
+v -0.50000 -0.50000 -0.50000
+v -0.50000 -0.50000 0.50000
+v -0.50000 0.50000 -0.50000
+v -0.50000 0.50000 0.50000
+v 0.50000 -0.50000 -0.50000
+v 0.50000 -0.50000 0.50000
+v 0.50000 0.50000 -0.50000
+v 0.50000 0.50000 0.50000
+
+# No. normals 40:
+vn 0 0 -1
+vn 0 0 1
+vn -1 0 0
+vn 1 0 0
+vn 0 1 0
+vn 0 -1 0
+vn 0 0 -1
+vn 0 -1 0
+vn -1 0 0
+vn 0 0 1
+vn 0 -1 0
+vn -1 0 0
+vn 0 0 -1
+vn 0 1 0
+vn -1 0 0
+vn 0 0 1
+vn 0 1 0
+vn -1 0 0
+vn 0 0 -1
+vn 0 -1 0
+vn 1 0 0
+vn 0 0 1
+vn 0 -1 0
+vn 1 0 0
+vn 0 0 -1
+vn 0 1 0
+vn 1 0 0
+vn 0 0 1
+vn 0 1 0
+vn 1 0 0
+vn -1 0 0
+vn 1 0 0
+vn -1 0 0
+vn 1 0 0
+vn 0 1 0
+vn 0 -1 0
+vn 0 1 0
+vn 0 -1 0
+vn 0 0 -1
+vn 0 0 1
+
+# No. texture coordinates 24:
+vt 0 0
+vt 0 1
+vt 1 0
+vt 1 1
+vt 1 0
+vt 0 0
+vt 0 1
+vt 1 1
+vt 0 0
+vt 0 1
+vt 1 1
+vt 1 0
+vt 0 1
+vt 1 1
+vt 1 0
+vt 0 0
+vt 0 0
+vt 0 1
+vt 1 1
+vt 1 0
+vt 1 0
+vt 0 0
+vt 0 1
+vt 1 1
+# No. faces 6:
+usemtl skybox02_1
+f 3/24/13 1/21/7  5/22/19 7/23/25
+usemtl skybox02_0
+f 6/3/22 2/1/10 4/2/16 8/4/28
+usemtl skybox02_2
+f 2/12/12 1/9/9 3/10/15 4/11/18
+usemtl skybox02_3
+f 7/8/27 5/5/21 6/6/24 8/7/30
+usemtl skybox02_4
+f 4/16/17 3/13/14 7/14/26 8/15/29
+usemtl skybox02_5
+f 5/20/20 1/17/8 2/18/11 6/19/23
+
+

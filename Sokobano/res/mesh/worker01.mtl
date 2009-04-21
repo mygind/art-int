@@ -1,0 +1,14 @@
+newmtl workerBody01
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/workerBody01.png
+
+newmtl workerHead01
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/workerHead01.png
+
+newmtl workerArm01
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/workerArm01.png

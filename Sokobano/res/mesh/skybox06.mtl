@@ -1,0 +1,29 @@
+newmtl skybox02_0
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/skyboxes/skybox06_1.png
+
+newmtl skybox02_1
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/skyboxes/skybox06_1.png
+
+newmtl skybox02_2
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/skyboxes/skybox06_1.png
+
+newmtl skybox02_3
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/skyboxes/skybox06_1.png
+
+newmtl skybox02_4
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/skyboxes/skybox06_0.png
+
+newmtl skybox02_5
+Ka  0.2  0.2  0.2
+Kd  0.8  0.8  0.8
+map_Kd ../textures/skyboxes/skybox06_1.png
