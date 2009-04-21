@@ -1,0 +1,36 @@
+Minimale Ausbaustufe:
+DONE Parsen von Leveln (Forum: Erweiterter Levelcheck schon bei Konstruktion?)
+DONE Check auf syntaktische Korrektheit
+DONE toString()-Methode
+DONE Erkennen gelöster Level
+DONE Grafische Benutzerschnitstelle
+DONE Grafische Umsetzung
+DONE Korrekte Leveldarstellung
+DONE Tastensteuerung
+DONE Neustart und Beenden
+
+Ausbaustufe 1:
+DONE Bewegung über eine Methode
+DONE Zählen gültiger Schritte
+DONE Starten des nächsten Levels
+DONE Highscore-Liste
+DONE Vereinfachte Maussteuerung
+
+Ausbaustufe 2:
+DONE Undo und Redo
+DONE Spielstand sichern
+DONE Spielstand laden
+DONE Skin wechseln
+DONE Highscore-Liste mit Zeitangabe
+DONE About-Fenster
+
+Ausbaustufe 3:
+DONE Cheat-Code
+DONE Deadlock-Erkennung
+DONE Erweiterte Prüfung auf Korrektheit
+
+Bonuspunkte:
+DONE Solver
+DONE Erweiterte Maussteuerung
+DONE Nutzung von Audio-Clips
+DONE Überaschen Sie uns...
