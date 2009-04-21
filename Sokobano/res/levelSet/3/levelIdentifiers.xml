@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<levels>
+<identifier id="1" name="Entry" uri=""/>
+<identifier id="2" name="Darken" uri=""/>
+<identifier id="3" name="Holes" uri=""/>
+<identifier id="4" name="Deeper" uri=""/>
+<identifier id="5" name="Echo" uri=""/>
+<identifier id="6" name="Cave" uri=""/>
+<identifier id="7" name="Tunnel" uri=""/>
+<identifier id="8" name="Water" uri=""/>
+<identifier id="9" name="Trap" uri=""/>
+<identifier id="10" name="Gold" uri=""/>
+</levels>
