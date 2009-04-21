@@ -1,0 +1,2 @@
+tons of levels:
+http://www.sourcecode.se/sokoban/levels.php
