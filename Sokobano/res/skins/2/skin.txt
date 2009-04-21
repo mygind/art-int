@@ -1,0 +1,23 @@
+wall
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh wallAscii.obj
+
+floor
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh floorAscii.obj
+
+target
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh targetAscii.obj
+
+crates crateAscii.mdl crateAscii.mdl crateAscii.mdl
+skybox skybox06.obj
+worker test.mdl
+
+

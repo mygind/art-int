@@ -1,0 +1,73 @@
+wall
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh pipeSingle.obj
+
+wall
+p 0 0 0
+p 0 1 1
+p 0 0 0
+mesh pipeStart.obj
+mesh pipeEnd.obj
+
+wall
+p 0 0 0
+p 1 1 1
+p 0 0 0
+mesh pipeNormal.obj
+mesh pipeStand.obj
+
+wall
+p 0 1 0
+p 0 1 1
+p 0 0 0
+mesh pipeCurve.obj
+
+wall
+p 0 1 0
+p 1 1 1
+p 0 0 0
+mesh pipeJunktion.obj
+
+wall
+p 0 1 0
+p 1 1 1
+p 0 1 0
+mesh pipeSquare.obj
+
+floor
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh floorIndustrial.obj
+
+floor
+p 0 0 0
+p 0 1 1
+p 0 1 0
+mesh floorCurveIndustrial.obj
+
+floor
+p 0 1 0
+p 1 1 0
+p 0 1 0
+mesh floorIndustrial.obj
+
+floor
+p 0 1 0
+p 1 1 1
+p 0 1 0
+mesh floorIndustrial.obj
+
+target
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh targetIndustrial.obj
+
+crates crateSteel01.mdl crateSteel01.mdl crateSteel01.mdl
+skybox skybox02.obj
+worker test.mdl
+
+

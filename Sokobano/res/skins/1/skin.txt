@@ -1,0 +1,53 @@
+wall
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh wallSingle.obj
+
+wall
+p 0 0 0
+p 1 1 0
+p 0 0 0
+mesh wallStart.obj
+
+wall
+p 0 0 0
+p 1 1 1
+p 0 0 0
+mesh wallNormal.obj
+
+wall
+p 0 0 0
+p 1 1 0
+p 0 1 0
+mesh wallCurve.obj
+
+wall
+p 0 1 0
+p 1 1 0
+p 0 1 0
+mesh wallJunktion.obj
+
+wall
+p 0 1 0
+p 1 1 1
+p 0 1 0
+mesh wallSquare.obj
+
+floor
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh floorAsia.obj
+
+target
+p 0 0 0
+p 0 1 0
+p 0 0 0
+mesh targetAsia.obj
+
+crates crateWood01.mdl crateWood01.mdl crateWood01.mdl
+skybox skybox01.obj
+worker worker01.mdl
+
+
