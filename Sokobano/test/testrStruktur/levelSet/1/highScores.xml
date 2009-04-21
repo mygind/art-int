@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<levelSetHighScore>
+	<level name="Level 1" id="level_01.txt">
+  		<PlayerStatistic name="Shuo" score="20" time="50"/>
+  		<PlayerStatistic name="Martin" score="30" time="60" />
+  		<PlayerStatistic name="Ivan" score="23" time="70" />
+  		<PlayerStatistic name="John" score="45" time="30" />
+  		<PlayerStatistic name="John" score="56" time="40"/>
+	</level>
+	<level name="Level 2" id="level_02.txt">
+  		<PlayerStatistic name="Mike" score="20" time="50"/>
+  		<PlayerStatistic name="Peter" score="30" time="60"/>
+  		<PlayerStatistic name="Ivan" score="23" time="70"/>
+  		<PlayerStatistic name="Jack" score="45" time="30"/>
+  		<PlayerStatistic name="Deniel" score="56" time="40"/>
+	</level>
+	<level name="Level 3" id="level_03.txt">
+  		<PlayerStatistic name="Mike" score="20" time="50"/>
+  		<PlayerStatistic name="Peter" score="30" time="60"/>
+  		<PlayerStatistic name="Ivan" score="23" time="70"/>
+  		<PlayerStatistic name="John" score="45" time="30"/>
+  		<PlayerStatistic name="John" score="56" time="40"/>
+	</level>
+</levelSetHighScore>

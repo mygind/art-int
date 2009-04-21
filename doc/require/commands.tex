@@ -1,0 +1,54 @@
+% title page stuff
+
+
+\makeatletter
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
+\newcommand{\term}[1]{\gdef\@term{#1}}
+\newcommand{\supervisor}[1]{\gdef\@supervisor{#1}}
+\newcommand{\dtucourse}[2]{\gdef\@dtucourse{#1 $[#2]$}}
+\newcommand{\university}[1]{\gdef\@university{#1}}
+\newcommand{\department}[1]{\gdef\@department{#1}}
+\makeatother
+
+
+%other custom commands
+\newcommand{\akbackend}[1]{\ifmmode%
+ak_{#1}
+\else%
+$ak_{#1}$
+\fi}
+
+\newcommand{\rise}{$\uparrow$}
+\newcommand{\fall}{$\downarrow$}
+
+
+%signature command
+\newcommand{\signature}[1]{
+    \vspace*{1cm}\par\hfill\begin{center}\parbox[t]{80mm}{\hrulefill\newline#1}\end{center}\par
+}
+
+
+\newcommand{\file}[1]{{\ttfamily#1}}
+\newcommand{\class}[1]{{\sffamily#1}}
+\newcommand{\func}[1]{{\sffamily#1}}
+
+\newcommand{\logicnot}[1]{$\overline{\mathrm{#1}}$}
+
+\newcommand{\ak}{\akbackend{g}}
+\newcommand{\akg}[1]{\akbackend{#1}}
+\newcommand{\ckbackend}[2]{\ifmmode ck_{#2}({#1}) \else $ck_{#2}({#1})$ \fi}
+\newcommand{\ck}[1][t]{\ckbackend{#1}{i}}
+\newcommand{\cki}[2][t]{\ckbackend{#1}{#2}}
+
+\newcommand{\skbackend}[2]{\ifmmode sk^{#1}_{#2} \else $sk^{#1}_{#2}$ \fi}
+\newcommand{\sk}[1]{\skbackend{#1}{s}}
+\newcommand{\sks}[2]{\skbackend{#1}{#2}}
+
+
+% \crypt{clear text}{with key}{maybe decrypt} 
+\newcommand{\cryptbackend}[3]{\mathcal{D}_{#2}^{#3}\left\{ {#1} \right\}}
+\newcommand{\crypt}[3]{\ifmmode \cryptbackend{#1}{#2}{#3} \else $\cryptbackend{#1}{#2}{#3}$ \fi}
+% \encrypt{clear text}{with key}
+\newcommand{\encrypt}[2]{\crypt{#1}{#2}{ }}
+\newcommand{\decrypt}[2]{\crypt{#1}{#2}{-1}}
+

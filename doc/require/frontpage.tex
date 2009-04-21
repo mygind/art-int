@@ -1,0 +1,88 @@
+
+\makeatletter
+\newpage
+\begin{titlingpage}
+\setcounter{page}{0}
+%\ifx\pdfoutput\undefined % We're not running pdftex
+%\else
+%\pdfbookmark{Forside}{title}
+%\fi
+\newlength{\centeroffset}
+\setlength{\centeroffset}{-0.5\oddsidemargin}
+\addtolength{\centeroffset}{0.5\evensidemargin}
+%\addtolength{\textwidth}{-\centeroffset}
+\thispagestyle{empty}
+\vspace*{\stretch{1}}
+\noindent\hspace*{\centeroffset}\makebox[0pt][l]{
+\begin{minipage}{\textwidth}
+
+    \flushleft {\Huge\bfseries\scshape\color{themecolorprimary} \@title}
+    {\color{themecolorsecondary}\noindent\rule[-1ex]{\textwidth}{3pt}}\\%line   ??
+    \flushright \textit{\LARGE\bfseries\color{themecolorprimary} \@subtitle}
+
+\end{minipage}
+}
+
+%include image here?
+
+\vspace{\stretch{7}}
+\noindent\hspace*{\centeroffset}\makebox[0pt][l]{\begin{minipage}{\textwidth}
+\flushright
+{\bfseries 
+Author:\\
+Brian Stengaard [s071497] s071497@student.dtu.dk\\
+[3ex]}
+\@university\\
+\@department\\
+\@term\\
+[3ex]
+Deadline: \@date\\
+Pages: \pageref{lastpage}\\
+\end{minipage} }
+
+%\addtolength{\textwidth}{\centeroffset}
+\vspace{\stretch{2}}
+Supervisor: \textbf{\@supervisor}\\
+Course: \textbf{\@dtucourse}\\
+\end{titlingpage}
+\endinput
+
+
+
+%  \def\thickhrulefill{\leavevmode \leaders \hrule height
+%   1pt\hfill \kern \z@} \renewcommand{\maketitle}{\begin{titlepage}%
+%     \let\footnotesize\small \let\footnoterule\relax
+%     \parindent \z@ \reset@font
+%     \includegraphics[scale=0.2]{img/logo_dtu.pdf}
+%     \null\vfill
+%     \begin{flushleft}
+%       \Huge {\bf \@title}
+%     \end{flushleft}
+%     \par
+%     \hrule height 4pt
+%     \par
+%     \textit{\Large \@subtitle} \vfill \vspace{80pt}
+%     \begin{tabular}{r @{: } l}
+%       Teacher & \textbf{\@supervisor}\\
+%       Course &  \textbf{\@dtucourse }\\
+%       Term & \textbf{\@term }\\
+%       Date & \textbf{\@date}
+%     \end{tabular} \hfill \begin{tabular}{|rr}
+%       \multicolumn{1}{c}{\textbf{Author}}\\
+%       \cline{1-1}
+%       {\bf Brian Stengaard } & $[s071497]$\\
+%       % \textbf{Anders Mørk-Pedersen} & $[071313]$\\
+%     \end{tabular}
+%     \null
+%   \end{titlepage}%
+%   \setcounter{footnote}{0}%
+% } \makeatother
+
+
+\makeatletter
+\ifpdf \pdfinfo { 
+  /Author (\@author) 
+  /Title (\@title) 
+  /CreationDate (\@date) } 
+\fi
+\makeatother

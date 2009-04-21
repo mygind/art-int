@@ -1,0 +1,102 @@
+% \mainmatter sets secnumdepth to this 
+\maxsecnumdepth{subsubsection}
+
+\setcounter{tocdepth}{1}
+
+\lstset{language=Java,basicstyle={\tiny\sffamily},extendedchars=true,inputencoding=utf8,tabsize=5,frame=trLB,
+        frameround=tttt,breaklines=true,showstringspaces=false}
+
+%Set up theme.
+\newlength\themeheaderpicsize
+\setlength\themeheaderpicsize{15pt}
+
+\makeevenhead{ruled}{\color{themecolorsecondary}\scshape\leftmark}{}{\includegraphics[height=\themeheaderpicsize]{logo_dtu.pdf}}
+\makeoddhead{ruled}{\includegraphics[height=\themeheaderpicsize]{dtu-info-b-color.pdf}}{}{\color{themecolorsecondary}\rightmark}
+
+
+\pagestyle{ruled}
+
+
+%\definecolor{themecolorprimary}{gray}{0.2}
+\definecolor{themecolorprimary}{rgb}{.600,0,0}
+\definecolor{themecolorsecondary}{rgb}{.6,.6,.6}
+
+% %chapterstyle
+ \makeatletter
+ \newlength\dlf@normtxtw
+ \setlength\dlf@normtxtw{\textwidth}
+ \def\myhelvetfont{\def\sfdefault}
+ \newsavebox{\feline@chapter}
+ \newcommand\feline@chapter@marker[1][0.01\textheight]{%
+   \sbox\feline@chapter{%
+     \resizebox{!}{#1}{\fboxsep=1pt%
+       \colorbox{themecolorprimary}{\color{white}\bfseries\sffamily\thechapter}%
+     }}%
+   \rotatebox{90}{%
+     \resizebox{%
+       \heightof{\usebox{\feline@chapter}}+\depthof{\usebox{\feline@chapter}}}%
+     {!}{\scshape\so\@chapapp}}\quad%
+   \raisebox{\depthof{\usebox{\feline@chapter}}}{\usebox{\feline@chapter}}% 
+ }
+ \newcommand\feline@chm[1][0.01\textheight]{%
+   \sbox\feline@chapter{\feline@chapter@marker[#1]}%
+   \makebox[0pt][l]{% aka \rlap
+     \makebox[1cm][r]{\usebox\feline@chapter}%
+   }}
+
+ \makechapterstyle{daleif1}{
+   \renewcommand\chapnamefont{\normalfont\Large\scshape\raggedleft\so}
+   \renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape\color{themecolorprimary}}
+   \renewcommand\chapternamenum{}
+   \renewcommand\printchaptername{}
+   \renewcommand\printchapternum{\includegraphics[width=0.4\textwidth]{dtu-frise-color}\null\hfill\feline@chm[2.5cm]\par}
+   \renewcommand\afterchapternum{\par\vskip\midchapskip}
+   \renewcommand\printchaptertitle[1]{\chaptitlefont\raggedright ##1\\%
+     {\color{themecolorsecondary}\noindent\rule[-1ex]{1.1\textwidth}{0.4pt}}\par%
+   }}
+ \makeatother
+
+
+ \chapterstyle{daleif1}
+
+
+
+% BUG IN \PART in MEMOIR !! ARGH!
+\makeatletter
+\def\@endpart{\afterpartskip
+  \if@twoside
+    \if@openright
+      \thispagestyle{cleared}   
+      \cleartorecto
+    \fi
+  \fi
+  \if@tempswa
+    \twocolumn
+  \fi}
+
+\makeatother
+
+
+ %theme completion
+ \renewcommand{\parttitlefont}{\normalfont\Huge\bfseries\scshape\color{themecolorprimary}}
+ \renewcommand{\partnumfont}{\normalfont\huge\bfseries\scshape\color{themecolorprimary}}
+ \renewcommand{\partnamefont}{\normalfont\huge\bfseries\scshape\color{themecolorprimary}}
+ \setsecheadstyle{\normalfont\LARGE\bfseries\scshape\color{themecolorprimary}}
+ \setsubsecheadstyle{\normalfont\Large\bfseries\scshape\color{themecolorprimary}}
+ \setsubsubsecheadstyle{\normalfont\large\bfseries\scshape\color{themecolorprimary}}
+ \setparaheadstyle{\normalfont\bfseries\scshape\color{themecolorprimary}}
+
+ \renewcommand{\abstractnamefont}{\normalfont\LARGE\bfseries\scshape\color{themecolorprimary}}
+
+
+\DeclareCaptionFont{themetext}{\color{themecolorsecondary}}
+\DeclareCaptionFont{themelabel}{\color{themecolorsecondary}}
+
+\captionsetup{width=.8\textwidth,textfont={themetext,scriptsize},labelfont={themelabel,footnotesize,bf}}
+
+% \geometry{left=3cm,top=3cm,right=3cm,bottom=3cm,bindingoffset=1cm}
+\setlength{\parskip}{3mm} 
+\setlength{\parindent}{0mm}
+\setlength\tablinesep{5pt} 
+\setlength\arraylinesep{0pt}
+\setlength\extrarulesep{3pt} 

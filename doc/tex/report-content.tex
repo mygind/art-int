@@ -1,0 +1,61 @@
+\input{require/preamble.tex}
+\input{require/commands.tex}
+
+%remember to modify title-page with authors. Not perfect.
+\title{Report Name} 
+\subtitle{Subtitle}
+\supervisor{Some Guy}
+\term{Spring/Fall YEAR}
+\dtucourse{Course Name}{number}
+\university{Technical University of Denmark}
+\department{Department of Informatics and Mathematical Modelling}
+\author{Brian Stengaard}
+\date{date}
+
+
+
+\begin{document}
+
+\frontmatter
+
+\input{require/frontpage.tex}
+
+% \maketitle not in memoir
+
+%preface and abstract
+
+%\input{abstract}
+
+\setlength{\parskip}{0mm}
+\tableofcontents
+% \listoftables \listoffigures
+
+\setlength{\parskip}{3mm}
+
+%inputs here
+\mainmatter
+
+\input{intro.tex}
+
+%\input{Step1.tex}
+
+%\input{Step2.tex}
+ 
+%\input{Step3.tex}
+
+%\input{Step4.tex}
+
+%\input{Step5.tex}
+
+\label{lastpage}
+
+
+\bibliography{require/bibtex}
+
+\appendix
+
+
+%nput{app-source}
+\backmatter
+\end{document}
+ 
