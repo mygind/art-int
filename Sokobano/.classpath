@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src_test"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry exported="true" kind="lib" path="lib/lwjgl-2.0.1/jar/jinput.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/lwjgl-2.0.1/jar/lwjgl.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/lwjgl-2.0.1/jar/lwjgl_util.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="lib" path="lib/jmf.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
