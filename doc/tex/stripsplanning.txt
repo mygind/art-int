@@ -1,0 +1,25 @@
+LegalDir(x,y) = true if Dir in {(0,1), (0,-1), (1,0), (-1,0)}
+
+Action(Move(p, x, y, dx, dy)
+	Precond: Player(p) and LegalDir(dx, dy) and
+	         At(p, x, y) and Free(x+dx, y+dy)
+	Effect:  !At(p, x, y) and !Free(x+dx, y+dy) and
+	         Free(x, y) and At(p, x+dx, y+dy)
+	         
+Action(Push(p, b, x, y, dx, dy)
+	Precond: Player(p) and LegalDir(dx, dy) and Box(b) and
+	         At(p, x, y) and At(b, x+dx, y+dy) and Free(x+dx+dx, y+dy+dy) and
+	         !Target(x+dx+dx, y+dy+dy)
+	         
+	Effect:  !At(p, x, y) and !At(b, x+dx, y+dy) and !Free(x+dx+dx, y+dy+dy) and
+	         Free(x, y) and At(p, x+dx, y+dy) and At(b, x+dx+dx, y+dy+dy) and
+	         !AtTarget(b)
+	         
+Action(PushToTarget(p, b, x, y, dx, dy)
+	Precond: Player(p) and LegalDir(dx, dy) and Box(b) and
+	         At(p, x, y) and At(b, x+dx, y+dy) and Free(x+dx+dx, y+dy+dy) and
+	         Target(x+dx+dx, y+dy+dy)
+	         
+	Effect:  !At(p, x, y) and !At(b, x+dx, y+dy) and !Free(x+dx+dx, y+dy+dy) and
+	         Free(x, y) and At(p, x+dx, y+dy) and At(b, x+dx+dx, y+dy+dy) and
+	         AtTarget(b)
