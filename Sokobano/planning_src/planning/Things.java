@@ -33,7 +33,7 @@ public class Things {
     }
 
     public void setFloor(char f){
-	floor = new String(f);
+	floor = "" + f;
     }
 
     public String toString(){

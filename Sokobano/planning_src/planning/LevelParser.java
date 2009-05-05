@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LevelParser {
 	
-	public Level parse(String filename) throws FileNotFoundException{
+	public Level parse(String filename) throws FileNotFoundException, ParseException{
 		Level level = new Level();
 		
 		List<String> lines = readAll(filename);
