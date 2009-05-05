@@ -3,6 +3,7 @@ package planning;
 import java.util.LinkedList;
 
 public class Things {
+    private String floor = " ";
 
 	private LinkedList<Thing> things;
 	public Things(){
@@ -29,5 +30,39 @@ public class Things {
 	} 
 
 	return true;
+    }
+
+    public void setFloor(char f){
+	floor = new String(f);
+    }
+
+    public String toString(){
+
+	if ( things.size() == 0){
+	    return floor;
+	} else if ( things.size() == 1){
+	    Thing t = things.peek(); 
+	    if ( t instanceof Wall ){
+		return "#";
+	    } else if (t instanceof Player ){
+		return "@";
+	    } else if ( t instanceof Box ){
+		return "$";
+	    } else if ( t instanceof Goal ){
+		return ".";
+	    } else {
+		return "a";
+	    }
+	} else if ( things.size() == 2 && things.contains(new Goal) ){
+	    if ( things.contains(new Box) ){
+		return "*";
+	    }else if (things.contains(new Player)){
+		return "+";
+	    }else {
+		return "b";
+	    }
+	} else {
+	    return "c";
+	}
     }
 }
