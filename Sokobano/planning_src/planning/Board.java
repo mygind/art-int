@@ -5,24 +5,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
-	ArrayList<ArrayList<List<Thing>>> board;
+	Things[][] board;
 	
-	public Board(){
-		
+	public Board(int x, int y){
+		board = new Things[x][y];
 	}
 	
 	public List<Thing> get(int x, int y) throws IndexOutOfBoundsException{
-		return board.get(y).get(x);
+		return board[x][y].getThings();
 	}
 	
-	public void add(List<Thing> things, int x, int y){
-		for(int i = y-board.size()+1; i > 0; i--){
-			board.add(new ArrayList<List<Thing>>());
-		}
-		for(int i = x-board.get(y).size()+1; i > 0; i--){
-			board.get(y).add(new LinkedList<Thing>());
-		}
+	public void add(LinkedList<Thing> things, int x, int y){
 		
-		board.get(y).get(x).addAll(things);
+		board[x][y] = new Things(things);
 	}
 }
