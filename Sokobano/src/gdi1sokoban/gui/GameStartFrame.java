@@ -22,10 +22,10 @@ import gdi1sokoban.logic.Savegame;
 
 //vor dem Start: -> game mit 
 //     Rotation rendern, keine Eingaben zulassen.
-//     Wenn schon Moves verfügbar, mit doppelter Geschwindigkeit rendern
+//     Wenn schon Moves verfï¿½gbar, mit doppelter Geschwindigkeit rendern
 //     Wenn keine Replay:
 //       Nach max. 3 Sek. automatisch zum Game(Play)Frame
-//       Mit Klick zum Game(Play)Frame oder zurück.
+//       Mit Klick zum Game(Play)Frame oder zurï¿½ck.
 // = GameStartFrame
 public class GameStartFrame extends Frame {
 
@@ -41,6 +41,9 @@ public class GameStartFrame extends Frame {
 	private Player _player;
 	private Game _game;
 	private long _time;
+	
+	// Following by Mygind and Stengaard
+	private Button _buttonPlanning;
 	
 	public GameStartFrame(Frame frame, LevelSetIdentifier levelSetIdentifier, Level level, Player player, LevelStatistic levelStatistic) throws Exception {
 		super(frame);
@@ -95,6 +98,12 @@ public class GameStartFrame extends Frame {
 			_buttonStart.addActionListener(new ButtonStartActionListener());
 			add(_buttonStart);
 			setFocus(_buttonStart, true);
+			
+			// Following by Mygind and Stengaard
+			_buttonPlanning = new Button(-0.2f - 0.5f, 0.35f, 0.4f, 0.08f, "Planning", Button.CAP_BOTH);
+			_buttonPlanning.setIconTexture(TextureManager.getInstance().getInstance(new TextureDescriptor("res/textures/gui/start_icon.png", GL11.GL_LINEAR, GL11.GL_LINEAR)));
+			add(_buttonPlanning);
+			//setFocus(_buttonStart, true);
 		}
 
 		addKeyboardListener(new FrameKeyboardListener());
