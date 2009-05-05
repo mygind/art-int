@@ -91,4 +91,7 @@ public class Level {
 		
 		return things;
 	}
+    public String toString() {
+	return board.toString();
+    }
 }

@@ -18,12 +18,12 @@ public class Things {
 		return things;
 	}
     public boolean equals(Object o ){
-	if ( o instanceof this.getClass() ){
+	if ( this.getClass().isInstance(o) ){
 	    Things t  = (Things) o;
 
-	    LinkedList<Thing> l = t.getThings().clone();
+	    LinkedList<Thing> l = (LinkedList<Thing>) t.getThings().clone();
 	    for ( Thing i : things ){
-		if ( ! l.removeFirstOccurance(i) ){
+		if ( ! l.removeFirstOccurrence(i) ){
 		    return false;
 		}
 	    }
@@ -53,10 +53,10 @@ public class Things {
 	    } else {
 		return "a";
 	    }
-	} else if ( things.size() == 2 && things.contains(new Goal) ){
-	    if ( things.contains(new Box) ){
+	} else if ( things.size() == 2 && things.contains(new Goal()) ){
+	    if ( things.contains(new Box()) ){
 		return "*";
-	    }else if (things.contains(new Player)){
+	    }else if (things.contains(new Player())){
 		return "+";
 	    }else {
 		return "b";
