@@ -2,7 +2,18 @@ package planning;
 
 public class Box extends MoveableThing {
 
-	public Box(int x, int y){
-		super(x, y);
+	private boolean atTarget;
+	
+	public Box(){
+		super();
 	}
+
+	public boolean isAtTarget() {
+		return atTarget;
+	}
+	
+	public void setAtTarget(boolean atTarget) {
+		this.atTarget = atTarget;
+	}
+	
 }

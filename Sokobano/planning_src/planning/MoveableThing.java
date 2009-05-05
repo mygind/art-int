@@ -2,8 +2,8 @@ package planning;
 
 public abstract class MoveableThing extends ObstructingThing {
 
-	public MoveableThing(int x, int y){
-		super(x, y);
+	public MoveableThing(){
+		super();
 	}
 	
 	/**
