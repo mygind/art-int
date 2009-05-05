@@ -15,6 +15,14 @@ public abstract class Thing {
 	public int getY() {
 		return y;
 	}
+    
+    public boolean equals(Object o){
+	if ( o instanceof this.getClass() ){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
 }
 
-}
+

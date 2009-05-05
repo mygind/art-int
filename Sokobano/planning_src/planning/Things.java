@@ -16,4 +16,18 @@ public class Things {
 	public LinkedList<Thing> getThings() {
 		return things;
 	}
+    public boolean equals(Object o ){
+	if ( o instanceof this.getClass() ){
+	    Things t  = (Things) o;
+
+	    LinkedList<Thing> l = t.getThings().clone();
+	    for ( Thing i : things ){
+		if ( ! l.removeFirstOccurance(i) ){
+		    return false;
+		}
+	    }
+	} 
+
+	return true;
+    }
 }
