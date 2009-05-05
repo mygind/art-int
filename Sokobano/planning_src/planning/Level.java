@@ -1,0 +1,87 @@
+package planning;
+
+import java.text.ParseException;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Level {
+
+	Board board;
+	List<Goal> goals;
+	
+	public Level(){
+		this.goals = new LinkedList<Goal>();
+	}
+	
+	public void intialize(List<String> asciimap) throws ParseException{
+		board = new Board();
+				
+		int x = 0;
+		int y = 0;
+		
+		for (String string : asciimap) {
+			for (char c : string.toCharArray()) { // Converting to a charArray is the fastest: http://www.christianschenk.org/blog/iterating-over-the-characters-in-a-string/
+				List<Thing> things = char2Thing(c, x, y);
+				board.add(things, x, y);
+				
+				x++;
+			}
+			y++;
+		}
+	}
+	
+	private List<Thing> char2Thing(char c, int x, int y) throws ParseException{
+		List<Thing> things = new LinkedList<Thing>();
+		
+		Thing t1 = null;
+		Thing t2 = null;
+		switch(c){
+		case '#': //wall
+			t1 = new Wall(x, y);
+			things.add(t1);
+			break;
+		
+		case '@': //player
+			t1 = new Player(x, y);
+			things.add(t1);
+			break;
+		
+		case '+': //Player on goal square
+			t1 = new Player(x, y);
+			t2 = new Goal(x,y);
+			things.add(t1);
+			things.add(t2);
+			goals.add((Goal)t2);
+			break;
+		
+		case '$': //Box 	$ 	0x24
+			t1 = new Box(x, y);
+			things.add(t1);
+			break;
+		
+		case '*': //Box on goal square 	* 	0x2a
+			t1 = new Box(x, y);
+			t2 = new Goal(x, y);
+			things.add(t1);
+			things.add(t2);
+			goals.add((Goal)t2);
+			break;
+			
+		case '.': //Goal square 	. 	0x2e
+			t1 = new Goal(x, y);
+			things.add(t1);
+			goals.add((Goal)t1);
+			break;
+		
+		case '-': //Floor
+		case '_': //Floor
+		case ' ': //Floor 	(Space) 	0x20
+			break;
+			
+		default:
+			throw new ParseException("Oh no a map we can't handle!");
+		}
+		
+		return things;
+	}
+}
