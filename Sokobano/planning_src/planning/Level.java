@@ -14,14 +14,21 @@ public class Level {
 	}
 	
 	public void intialize(List<String> asciimap) throws ParseException{
-		board = new Board();
+		int maxY = asciimap.size();
+		int maxX = 0;
+		for(String s: asciimap){
+			if(s.length() > maxX){
+				maxX = s.length();
+			}
+		}
+		board = new Board(maxX, maxY);
 				
 		int x = 0;
 		int y = 0;
 		
 		for (String string : asciimap) {
 			for (char c : string.toCharArray()) { // Converting to a charArray is the fastest: http://www.christianschenk.org/blog/iterating-over-the-characters-in-a-string/
-				List<Thing> things = char2Thing(c, x, y);
+				LinkedList<Thing> things = char2Thing(c, x, y);
 				board.add(things, x, y);
 				
 				x++;
@@ -30,8 +37,8 @@ public class Level {
 		}
 	}
 	
-	private List<Thing> char2Thing(char c, int x, int y) throws ParseException{
-		List<Thing> things = new LinkedList<Thing>();
+	private LinkedList<Thing> char2Thing(char c, int x, int y) throws ParseException{
+		LinkedList<Thing> things = new LinkedList<Thing>();
 		
 		Thing t1 = null;
 		Thing t2 = null;
