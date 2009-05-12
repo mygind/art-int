@@ -7,11 +7,14 @@ public class PushToTarget extends Action {
 	public PushToTarget(Board b, int x, int y, int dx, int dy, Player p) throws IllegalActionException{
 		super(b, x, y, dx, dy, p);
 		if(b.isFree(x+dx+dx, y+dy+dy)){
-			int boxInt = 0;
-			if((boxInt = b.get(x+dx, y+dy).getThings().indexOf(new Box())) != -1){
-			   if(b.get(x+dx+dx, y+dy+dy).getThings().contains(new Goal())){
-		
-				   _box = (Box)b.get(x+dx, y+dy).getThings().get(boxInt);
+			if(b.boxAt(x+dx, y+dy)){
+				if(b.goalAt(x+dx+dx, y+dy+dy)){
+					
+//			int boxInt = 0;
+//			if((boxInt = b.get(x+dx, y+dy).getThings().indexOf(new Box())) != -1){
+//			   if(b.get(x+dx+dx, y+dy+dy).getThings().contains(new Goal())){
+//		
+//				   _box = (Box)b.get(x+dx, y+dy).getThings().get(boxInt);
 			   } else {
 				   throw new IllegalActionException("Can't pushToTarget the box onto a non-goal square.");
 			   }
@@ -25,15 +28,19 @@ public class PushToTarget extends Action {
 	
 	@Override
 	public Board perform() {
-		Board nb = _b.clone();
+		Board nb = new Board(_b)//.clone();
 		
-		nb.get(_x+_dx, _y+_dy).getThings().remove(_box);
-		nb.get(_x+_dx+_dx, _y+_dy+_dy).getThings().add(_box);
+		nb.moveBox(_x+_dx, _y+_dy, _dx, _dy);
 		
-		nb.get(_x, _y).getThings().remove(_p);
-		nb.get(_x+_dx, _y+_dy).getThings().add(_p);
+		nb.movePlayer(_x, _y, _dx, _dy);
 		
-		_box.setAtTarget(true);
+//		nb.get(_x+_dx, _y+_dy).getThings().remove(_box);
+//		nb.get(_x+_dx+_dx, _y+_dy+_dy).getThings().add(_box);
+//		
+//		nb.get(_x, _y).getThings().remove(_p);
+//		nb.get(_x+_dx, _y+_dy).getThings().add(_p);
+//		
+//		_box.setAtTarget(true);
 		
 		return nb;
 	}

@@ -1,5 +1,7 @@
 package planning;
 
+import java.util.Stack;
+
 public abstract class Solver {
 	
 	protected Level level;
@@ -8,6 +10,6 @@ public abstract class Solver {
 		this.level = startState;
 	}
 	
-	public abstract boolean solve();
+	public abstract Stack<SolutionPart> solve();
 
 }
