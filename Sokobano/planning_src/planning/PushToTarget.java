@@ -27,8 +27,8 @@ public class PushToTarget extends Action {
 	}
 	
 	@Override
-	public Board perform() {
-		Board nb = new Board(_b)//.clone();
+	public Board perform() throws IllegalActionException{
+		Board nb = new Board(_b);//.clone();
 		
 		nb.moveBox(_x+_dx, _y+_dy, _dx, _dy);
 		

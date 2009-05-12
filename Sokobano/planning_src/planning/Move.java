@@ -13,8 +13,8 @@ public class Move extends Action {
 				
 	}
 	
-	public Board perform(){
-		Board nb = _b.clone();
+	public Board perform() throws IllegalActionException{
+		Board nb = new Board(_b);//.clone();
 		nb.movePlayer(_x, _y, _dx, _dy);
 		_p.setPosition(_x+_dx, _y+_dy);
 		

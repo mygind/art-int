@@ -1,5 +1,6 @@
 package planning;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,9 +31,11 @@ public class Level {
 		    	maxX = s.length();
 		    }
 		}
-		board = new Board(maxX, maxY);
+		
+		board = new Board(new ArrayList<String>(asciimap));
+		//board = new Board(maxX, maxY);
 					
-		int x = 0;
+		/*int x = 0;
 		int y = 0;
 			
 		for (String string : asciimap) {
@@ -49,7 +52,7 @@ public class Level {
 				board.add(things, x, y);
 		    }
 		    y++;
-		}
+		}*/
     }
 	
     private LinkedList<Thing> char2Thing(char c, int x, int y) throws ParseException{

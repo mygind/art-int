@@ -22,7 +22,7 @@ public class Push extends Action {
 		}
 	}
 	
-	public Board perform(){
+	public Board perform() throws IllegalActionException{
 		Board nb = new Board(_b);
 		
 		nb.moveBox(_x+_dx, _y+_dy, _dx, _dy);

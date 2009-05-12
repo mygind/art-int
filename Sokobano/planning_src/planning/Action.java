@@ -31,5 +31,5 @@ public abstract class Action {
 		        (y == -1 || y == 0 || y == 1)); // Maybe not nescessary to check for
 	}
 	
-	public abstract Board perform();
+	public abstract Board perform() throws IllegalActionException;
 }
