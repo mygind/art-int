@@ -11,6 +11,8 @@ public class Board {
 	//ArrayList<Player> players; // s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
 
 
+    private Player p;
+
 	private int hash;    
 
 	public Board(Board oldBoard){
@@ -66,12 +68,29 @@ public class Board {
 
 	}
 
+    public Player getPlayer() {
+	if ( p == null ){
+	    for ( int x = 0; x < landscape.size(); x++){
+		for ( int y = 0; y< landscape.get(x).size(); y++){
+		    char c = get(x,y);
+		    if ( c == '@' || c == '+'){
+			p = new Player(x,y);
+			return p;
+		    }
+		}
+	    }
+	}else{
+	    return p;
+	}
+	return null;
+    }
 
 	public void movePlayer ( int x, int y, int dx, int dy) throws IllegalActionException {
 		try {
 
 			removePlayer(x,y);
 			addPlayer(x+dx,y+dy);
+			Player.setPosition(x+dx,y+dy);
 
 		} catch (IndexOutOfBoundsException i) {
 			throw new IllegalActionException("You moved out of the board");

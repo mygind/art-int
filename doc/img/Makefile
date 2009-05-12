@@ -9,7 +9,7 @@ clean:
 	rm $(OUT)/*
 
 ## PDF GENERATION SECTION
-SRCPDFDIR=$(SRC)/pdf
+SRCPDFDIR=$(SRC)
 OUTPDFDIR=$(OUT)
 SRCPDFFILES=$(wildcard $(SRCPDFDIR)/*.pdf)
 OUTPDFFILES=$(addprefix $(OUTPDFDIR)/,$(notdir $(SRCPDFFILES)))
@@ -22,7 +22,7 @@ pdf: $(OUTPDFFILES)
 
 
 ## DOT -> PDF GENERATION SECTION
-SRCDOTDIR=$(SRC)/dot
+SRCDOTDIR=$(SRC)
 OUTDOTDIR=$(OUT)
 SRCDOTFILES=$(wildcard $(SRCDOTDIR)/*.dot)
 OUTDOTFILES=$(addsuffix .pdf,$(basename $(addprefix $(OUTDOTDIR)/,$(notdir $(SRCDOTFILES)))))
@@ -38,7 +38,7 @@ dot: $(OUTDOTFILES)
 
 
 ## EPS -> PDF GENERATION SECTION
-SRCEPSDIR=$(SRC)/eps
+SRCEPSDIR=$(SRC)
 OUTEPSDIR=$(OUT)
 SRCEPSFILES=$(wildcard $(SRCEPSDIR)/*.eps)
 OUTEPSFILES=$(addsuffix .pdf,$(basename $(addprefix $(OUTEPSDIR)/,$(notdir $(SRCEPSFILES)))))
@@ -53,7 +53,7 @@ eps: $(OUTEPSFILES)
 
 
 ## PNG -> PDF GENERATION SECTION
-SRCPNGDIR=$(SRC)/png
+SRCPNGDIR=$(SRC)
 OUTPNGDIR=$(OUT)
 SRCPNGFILES=$(wildcard $(SRCPNGDIR)/*.png)
 OUTPNGFILES=$(addsuffix .pdf,$(basename $(addprefix $(OUTPNGDIR)/,$(notdir $(SRCPNGFILES)))))
