@@ -189,9 +189,15 @@ public class Board {
 	 	return landscape.get(x).charAt(y);
 	 }
 
-	  public boolean isCompleted(){
-	  	return false;
-	  }
+    public boolean isCompleted(){
+	for ( String l : landscape ) {
+	    if ( l.contains('.')){
+		return true;
+	    }
+	}
+	
+	return true;
+    }
 
 	// public void add(LinkedList<Thing> things, int x, int y){
 
