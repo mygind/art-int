@@ -145,6 +145,25 @@ public class Board {
 		}
 		return false;
 	}
+    
+    public int hashCode(){
+	int n = landscape.length();
+	int sum = 0;
+	for ( i = n-1; i >= 0; i--){
+	    int t = landscape.get(i).hashCode();
+	    sum += t*((int)Math.pow(31,i));
+	}
+	
+    }
+
+    public String toString(){
+	StringBuilder s = new StringBuilder();
+	
+	for (String l : landscape ){
+	    s.append(l+"\n");
+	}
+	return s.toString();
+    }
 
 	// private Board(){
 	// 	goals = new ArrayList<Goal>();
