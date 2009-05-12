@@ -6,19 +6,23 @@ public class Push extends Action {
 	
 	public Push(Board b, int x, int y, int dx, int dy, Player p) throws IllegalActionException{
 		super(b, x, y, dx, dy, p);
-		if(b.isFree(x+dx+dx, y+dy+dy)){
-			if(b.boxAt(x+dx, y+dy)){
-				if(!b.goalAt(x+dx+dx, y+dy+dy)){
-					// _box = ???
-					
+		try{
+			if(b.isFree(x+dx+dx, y+dy+dy)){
+				if(b.boxAt(x+dx, y+dy)){
+					if(!b.goalAt(x+dx+dx, y+dy+dy)){
+						// _box = ???
+						
+				   } else {
+					   throw new IllegalActionException("Can't push the box onto a goal square.");
+				   }
 			   } else {
-				   throw new IllegalActionException("Can't push the box onto a goal square.");
+				   throw new IllegalActionException("Can't push if there is no box.");
 			   }
-		   } else {
-			   throw new IllegalActionException("Can't push if there is no box.");
-		   }
-		} else {
-			throw new IllegalActionException("Can't push because space beyond box isn't free.");
+			} else {
+				throw new IllegalActionException("Can't push because space beyond box isn't free.");
+			}
+		} catch(IndexOutOfBoundsException e){
+			throw new IllegalActionException("About to move out of the map: ("+(x+dx+dx)+", "+(y+dy+dy)+") is outside map.");
 		}
 	}
 	

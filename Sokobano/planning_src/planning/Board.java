@@ -52,8 +52,8 @@ public class Board {
 
 	private void removePlayer( int x, int y) throws IndexOutOfBoundsException, IllegalActionException {
 		char from = this.get(x,y);
-		if ( ! boxAt(x,y) ) {
-			throw new IllegalActionException("No box at ("+x+","+y+"). Slot contained: ["+from+"]"); 
+		if ( ! playerAt(x,y) ) {
+			throw new IllegalActionException("No player at ("+x+","+y+"). Slot contained: ["+from+"]"); 
 		}
 		char res = ' ';
 		//if moving from goal square we still have a goal square there
@@ -133,11 +133,11 @@ public class Board {
 	}
 
 
-	public boolean  isFree ( int x, int y) throws IndexOutOfBoundsException {
+	public boolean  isFree ( int x, int y) throws IndexOutOfBoundsException{
 		return this.checkCharAt(x,y, new char[] {' ','_','.'});
 	}
 
-	private boolean checkCharAt(int x, int y, char[] chars) throws IndexOutOfBoundsException {
+	private boolean checkCharAt(int x, int y, char[] chars) throws IndexOutOfBoundsException{
 		for ( char c : chars ){
 			if ( this.get(x,y ) == c ){
 				return true;
@@ -147,20 +147,21 @@ public class Board {
 	}
 
 	public int hashCode(){
-		int n = landscape.size();
-		int sum = 0;
-		for (int i = n-1; i >= 0; i--){
-			int t = landscape.get(i).hashCode();
-			sum += t*((int)Math.pow(31,i));
-		}
-		return sum;
+		return landscape.hashCode();
+//		int n = landscape.size();
+//		int sum = 0;
+//		for (int i = n-1; i >= 0; i--){
+//			int t = landscape.get(i).hashCode()+i;
+//			sum += (t)*((int)Math.pow(31,i));
+//		}
+//		return sum;
 	}
 
 	public String toString(){
 		StringBuilder s = new StringBuilder();
 
 		for (String l : landscape ){
-			s.append(l+"\n");
+			s.append(l+" "+l.hashCode()+"\n");
 		}
 		return s.toString();
 	}
@@ -189,9 +190,14 @@ public class Board {
 		return landscape.get(x).charAt(y);
 	}
 
-	public boolean isCompleted(){
-		return false;
-	}
+    public boolean isCompleted(){
+		for ( String l : landscape ) {
+		    if ( l.contains(".")){
+		    	return false;
+		    }
+		}
+		return true;
+    }
 
 	// public void add(LinkedList<Thing> things, int x, int y){
 
@@ -245,26 +251,13 @@ public class Board {
 	// 	return 0;
 	// }
 
-	// public boolean equals(Object o){
-	// 	if(o == null || !(o instanceof Board)){
-	// 		return false;
-	// 	}
-	// 	Board b = (Board)o;
-	// 	for(int x = 0; x < board.length; x++){
-	// 		for(int y = 0; y < board[x].length; y++){
-	// 			try{
-	// 				if(!board[x][y].equals(b.get(x, y))){
-	// 					return false;
-	// 				}
-	// 			} catch (ArrayIndexOutOfBoundsException e){
-	// 				return false;
-	// 			}
-	// 		}
-	// 	}
-
-
-	// 	return true;
-	// }
+	 public boolean equals(Object o){
+	 	if(o == null || !(o instanceof Board)){
+	 		return false;
+	 	}
+	 	Board other = (Board) o;
+	 	return landscape.equals(other.getLandscape());
+	 }
 
 
 }
