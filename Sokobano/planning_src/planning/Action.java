@@ -6,19 +6,22 @@ public abstract class Action {
 	protected Board _b;
 	
 	public Action (Board b, int x, int y, int dx, int dy, Player p) throws IllegalActionException{
-		if(legalDir(dx, dy) &&
-		   b.get(x, y).contains(p)){
+		if(legalDir(dx, dy)){
+			if(b.get(x, y).getThings().contains(p)){
 			
-			_dx = dx;
-			_dy = dy;
-			
-			_x = x;
-			_y = y;
-			
-			_b = b;
-			_p = p;
+				_dx = dx;
+				_dy = dy;
+				
+				_x = x;
+				_y = y;
+				
+				_b = b;
+				_p = p;
+			} else {
+				throw new IllegalActionException("Player is not located at this position (" + x + "," + y + ").");
+			}
 		} else {
-			throw new IllegalActionException("You have violated the basic rules of Sokobano.");
+			throw new IllegalActionException("The direction is not legal.");
 		}
 	}
 	

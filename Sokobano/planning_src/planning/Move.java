@@ -15,8 +15,9 @@ public class Move extends Action {
 	
 	public Board perform(){
 		Board nb = _b.clone();
-		nb.get(_x, _y).remove(_p);
-		nb.get(_x+_dx, _y+_dy).add(_p);
+		nb.get(_x, _y).getThings().remove(_p);
+		nb.get(_x+_dx, _y+_dy).getThings().add(_p);
+		_p.setPosition(_x+_dx, _y+_dy);
 		
 		return nb;
 	}

@@ -15,8 +15,8 @@ public class Board {
 	this.board = board;
     };
 	
-    public List<Thing> get(int x, int y) throws IndexOutOfBoundsException{
-	return board[x][y].getThings();
+    public Things get(int x, int y) throws IndexOutOfBoundsException{
+	return board[x][y];
     }
 	
     public void add(LinkedList<Thing> things, int x, int y){
@@ -32,17 +32,52 @@ public class Board {
     }
 	
     public Board clone(){
-	return new Board(board.clone());
+    	Board nb = new Board(board.length, board[0].length);
+    	for(int x = 0; x < board.length; x++){
+    		for(int y = 0; y < board[x].length; y++){
+    			LinkedList<Thing> newThings = new LinkedList<Thing>();
+    			for(Thing thing: board[x][y].getThings()){
+    				newThings.add(thing);
+    			}
+    			nb.add(newThings, x, y);
+    		}
+    	}
+    	
+    	return nb;
     }
     
     public String toString(){
 	StringBuilder s = new StringBuilder();
-	for(int x = 0; x < board.length; x++){
-	    for ( int y = 0; y < board[x].length; y++){
-		s.append(board[x][y].toString()); 
-	    }
-	    s.append("\n");
+	if(board.length > 0){
+		for(int y = 0; y < board[0].length; y++){
+			for(int x = 0; x < board.length; x++){
+				s.append(board[x][y]);
+			}
+			s.append("\n");
+		}
+		
 	}
 	return s.toString();
+    }
+    
+    public boolean equals(Object o){
+    	if(o == null || !(o instanceof Board)){
+    		return false;
+    	}
+    	Board b = (Board)o;
+    	for(int x = 0; x < board.length; x++){
+    		for(int y = 0; y < board[x].length; y++){
+    			try{
+    				if(!board[x][y].equals(b.get(x, y))){
+    					return false;
+    				}
+    			} catch (ArrayIndexOutOfBoundsException e){
+    				return false;
+    			}
+    		}
+    	}
+    	
+    	
+    	return true;
     }
 }
