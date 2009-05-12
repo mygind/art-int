@@ -15,8 +15,7 @@ public class Move extends Action {
 	
 	public Board perform(){
 		Board nb = _b.clone();
-		nb.get(_x, _y).getThings().remove(_p);
-		nb.get(_x+_dx, _y+_dy).getThings().add(_p);
+		nb.movePlayer(_x, _y, _dx, _dy);
 		_p.setPosition(_x+_dx, _y+_dy);
 		
 		return nb;

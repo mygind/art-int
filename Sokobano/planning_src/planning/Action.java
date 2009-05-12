@@ -7,7 +7,7 @@ public abstract class Action {
 	
 	public Action (Board b, int x, int y, int dx, int dy, Player p) throws IllegalActionException{
 		if(legalDir(dx, dy)){
-			if(b.get(x, y).getThings().contains(p)){
+			if(b.playerAt(x, y)){
 			
 				_dx = dx;
 				_dy = dy;
