@@ -56,6 +56,8 @@ public class Level extends LevelIdentifier{
 	// Observer:
 	private LinkedList<LevelListener> _listeners = new LinkedList<LevelListener>();
 	
+	
+	private String filename;
 	/**
 	 * Initializes the level from a given file corresponding to the microban
 	 * rules.
@@ -68,6 +70,8 @@ public class Level extends LevelIdentifier{
 	public Level(String levelFilename, LevelIdentifier ident) throws LevelFormatException,
 			IllegalFormatException, IOException {
 		super(ident);
+
+		this.filename = levelFilename;
 		// Create string representation from level file:
 		int width = 0;
 		int height = 0;
@@ -89,6 +93,10 @@ public class Level extends LevelIdentifier{
 		
 		// Initialize the level from the read list of strings:
 		initialize(strings, width, height);
+	}
+	
+	public String getFilename() {
+		return filename;
 	}
 	
 	public boolean containsCharTiles(String string) {
@@ -137,6 +145,8 @@ public class Level extends LevelIdentifier{
 	public Level(String levelFilename)
 			throws IllegalFormatException, IOException {
 		super(new LevelIdentifier("", 0, ""));
+		
+		this.filename = levelFilename;
 		
 		// Create string representation from level file:
 		int width = 0;
@@ -884,7 +894,7 @@ public class Level extends LevelIdentifier{
 
 	/**
 	 * This tiny method soon will become the mighty solver.
-	 * Der Solver funktioniert folgendermaßen:
+	 * Der Solver funktioniert folgendermaï¿½en:
 	 * Zuerst wird der Key der Startposition gebildet.
 	 * Dann wird 
 	 * 
@@ -940,14 +950,14 @@ public class Level extends LevelIdentifier{
 		// Alle Crates auf Verschiebbarkeit testen:
 		for (int i = 0; i < key.capacity(); i++) {
 
-		 	// Pruefe alle Verschiebungen auf Lösung:
+		 	// Pruefe alle Verschiebungen auf Lï¿½sung:
         	if (findSolutionPush(solution, depth, maxDepth, keys, key, i, Position.TOP, worker)) return true;
         	if (findSolutionPush(solution, depth, maxDepth, keys, key, i,  Position.LEFT, worker)) return true;
         	if (findSolutionPush(solution, depth, maxDepth, keys, key, i,  Position.BOTTOM, worker)) return true;
         	if (findSolutionPush(solution, depth, maxDepth, keys, key, i,  Position.RIGHT, worker)) return true;
 		}
 		
-		// Es wurde hier und in den Unterbäumen keine Lösung gefunden:
+		// Es wurde hier und in den Unterbï¿½umen keine Lï¿½sung gefunden:
 		return false;
 	}
 	
@@ -958,11 +968,11 @@ public class Level extends LevelIdentifier{
 		Position crateTarget = crate.neighbor(direction);
 		Position workerTarget = crate;
 		
-		// Kann die Crate überhaupt verschoben werden?
+		// Kann die Crate ï¿½berhaupt verschoben werden?
 		if (_board.isType(crateTarget, Board.TYPE_WALL) ||
 			_board.isFlag(crateTarget, FLAG_CRATE)) return false;
 		
-		// Kann der Worker die Crate überhaupt zum Verschieben erreichen?
+		// Kann der Worker die Crate ï¿½berhaupt zum Verschieben erreichen?
 		int length = existsPath(worker, workerTarget.neighbor(Position.reverse(direction)));
 		if ((length == -1) || (depth + length > maxDepth)) return false;
 		
@@ -979,7 +989,7 @@ public class Level extends LevelIdentifier{
 			 
 			if (addKey(keys, testKey, workerTarget)) {
 			
-				// Auf Lösung testen:
+				// Auf Lï¿½sung testen:
 				if (_board.isType(crateTarget, Board.TYPE_TARGET) && isSolution(testKey)) {
 			    	
 					solution.addLast(worker);
@@ -988,7 +998,7 @@ public class Level extends LevelIdentifier{
 			    	return true; 
 				 }
 
-			     // Lösungspfad erweitern:
+			     // Lï¿½sungspfad erweitern:
 				 solution.addLast(worker);
 				 solution.addLast(workerTarget.neighbor(Position.reverse(direction)));
 				 if (findSolutionNode(solution, depth + length, maxDepth, keys, testKey, workerTarget)) return true;
@@ -997,11 +1007,11 @@ public class Level extends LevelIdentifier{
 		    }
 		}
 	
-		// Verschiebung der Crate auf Spielfeld rückgängig machen:
+		// Verschiebung der Crate auf Spielfeld rï¿½ckgï¿½ngig machen:
 		_board.removeFlag(crateTarget, FLAG_CRATE);
 		_board.addFlag(crate, FLAG_CRATE);
 		
-		// Es wurde in diesem Unterbaum keine Lösung gefunden:
+		// Es wurde in diesem Unterbaum keine Lï¿½sung gefunden:
 		return false;
 	}
 	
@@ -1016,7 +1026,7 @@ public class Level extends LevelIdentifier{
 		// Wenn es diesen Key schonmal gegeben hat:
 		if ((positions != null)) {
 		    	
-		    // Prüfe, ob der Key auch diese Situation beschreibt, d.h.
+		    // Prï¿½fe, ob der Key auch diese Situation beschreibt, d.h.
 		    // ob der Worker die Workerposition des Keys erreichen kann:
 		    for (Integer position : positions) {
 		    	
@@ -1026,11 +1036,11 @@ public class Level extends LevelIdentifier{
 
 		    if (!situationFound) return false;
 		    
-		    // Situation ist eindeutig neu, zu Key hinzufügen:
+		    // Situation ist eindeutig neu, zu Key hinzufï¿½gen:
 		    positions.add(worker.toInt());
 		    keys.put(key, positions);
 		}
-		else { // Key ist neu, Key hinzufügen:
+		else { // Key ist neu, Key hinzufï¿½gen:
 	
 			positions = new LinkedList<Integer>();
 			positions.add(worker.toInt());
@@ -1063,7 +1073,7 @@ public class Level extends LevelIdentifier{
 		System.arraycopy(key.array(), 0, arrayKey, 0, arrayKey.length);
 		IntBuffer newKey = IntBuffer.wrap(arrayKey);
 		
-		// Finde Index des nächstgrößeren Elementes:
+		// Finde Index des nï¿½chstgrï¿½ï¿½eren Elementes:
 		int successor;
 		for (successor = 1; successor < newKey.capacity(); successor++) {
 			int xcoord = newKey.get(successor) & 0xFF;

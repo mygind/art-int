@@ -7,7 +7,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BFSolver extends Solver {
-
+	
 	public BFSolver(Level level) {
 		super(level);
 	}
@@ -45,6 +45,7 @@ public class BFSolver extends Solver {
 								
 								currentState = ar.getParentState();
 							}
+							this.solution = finalSolution;
 							return finalSolution;
 						}
 						
@@ -52,7 +53,7 @@ public class BFSolver extends Solver {
 							int depth = discoveredStates.get(currentState).intValue()+1;
 							if(depth > maxDepth){
 								maxDepth = depth;
-								System.out.println("Depth: " + maxDepth + " States: " + discoveredStates.size());
+								//System.out.println("Depth: " + maxDepth + " States: " + discoveredStates.size());
 							}
 							discoveredStates.put(newState, new Integer(depth));
 							

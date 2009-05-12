@@ -1,8 +1,5 @@
 package gdi1sokoban.gui;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
 import gdi1sokoban.SoundMaster;
 import gdi1sokoban.control.Game;
 import gdi1sokoban.graphic.base.TextureDescriptor;
@@ -19,6 +16,15 @@ import gdi1sokoban.logic.LevelSetIdentifier;
 import gdi1sokoban.logic.LevelStatistic;
 import gdi1sokoban.logic.Player;
 import gdi1sokoban.logic.Savegame;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+
+import planning.LevelParser;
 
 //vor dem Start: -> game mit 
 //     Rotation rendern, keine Eingaben zulassen.
@@ -102,6 +108,7 @@ public class GameStartFrame extends Frame {
 			// Following by Mygind and Stengaard
 			_buttonPlanning = new Button(-0.2f - 0.5f, 0.35f, 0.4f, 0.08f, "Planning", Button.CAP_BOTH);
 			_buttonPlanning.setIconTexture(TextureManager.getInstance().getInstance(new TextureDescriptor("res/textures/gui/start_icon.png", GL11.GL_LINEAR, GL11.GL_LINEAR)));
+			_buttonPlanning.addActionListener(new ButtonPlanningActionListener());
 			add(_buttonPlanning);
 			//setFocus(_buttonStart, true);
 		}
@@ -122,6 +129,102 @@ public class GameStartFrame extends Frame {
 					Frame nextFrame = new GameFrame(GameStartFrame.this, _game, _levelSetIdentifier, _level, _player, _levelStatistic, _time);
 					processFrameEvent(new FrameEvent(FrameEvent.FRAME_EXIT, nextFrame));
 					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private class PlanningThread extends Thread{
+		GameFrame gf;
+		String filename;
+		
+		public PlanningThread(GameFrame gf, String filename){
+			this.gf = gf;
+			this.filename = filename;
+		}
+		
+		public void run(){
+			try{
+				planning.LevelParser lp = new LevelParser();
+				planning.BFSolver solver = new planning.BFSolver(lp.parse(filename));
+				solver.solve();
+				String solution = solver.getSolutionString();
+				System.out.println(solution);
+				
+				long time = 300;
+	
+				Queue<KeyboardEvent> moves = generateMoves(solution);
+				
+				for(KeyboardEvent kb: moves){
+					try{Thread.sleep(time);}catch(Exception e){};
+					gf.processKeyboardEvent(kb);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		private Queue<KeyboardEvent> generateMoves(String solution){
+			char[] chars = solution.toLowerCase().toCharArray();
+			Queue<KeyboardEvent> moves = new LinkedList<KeyboardEvent>();
+			for(int i = 0; i < chars.length; i++){
+				KeyboardEvent kb = null;
+				switch(chars[i]){
+					case 'u':
+						kb = new KeyboardEvent(Keyboard.KEY_UP, ' ', true);
+						break;
+					case 'd':
+						kb = new KeyboardEvent(Keyboard.KEY_DOWN, ' ', true);
+						break;
+					case 'l':
+						kb = new KeyboardEvent(Keyboard.KEY_LEFT, ' ', true);
+						break;
+					case 'r':
+						kb = new KeyboardEvent(Keyboard.KEY_RIGHT, ' ', true);
+						break;
+					default: System.err.println("NOOOOOOO!"); 
+				}
+				if(kb != null){
+					moves.add(kb);
+				}
+				
+			}
+			return moves;
+		}
+	}
+	
+	private class ButtonPlanningActionListener implements ActionListener {
+		public void actionEvent(ActionEvent event) {
+			if (event.getCommand() == Button.ACTION_PRESSED) {
+				try {
+					// Resume level:
+					_level.forward();
+					_game.forward();
+					
+					Frame nextFrame = new GameFrame(GameStartFrame.this , _game, _levelSetIdentifier, _level, _player, _levelStatistic, _time);
+					processFrameEvent(new FrameEvent(FrameEvent.FRAME_EXIT, nextFrame));
+					// and then some...
+					
+					PlanningThread pt = new PlanningThread((GameFrame)nextFrame, _level.getFilename());
+					pt.start();
+					/*gf.render();
+					gf.move(Position.TOP);
+					gf.render();
+					gf.move(Position.LEFT);
+					gf.render();
+					gf.move(Position.TOP);
+					gf.render();
+					gf.move(Position.RIGHT);
+					gf.render();
+					gf.move(Position.BOTTOM);
+					gf.render();
+					gf.move(Position.BOTTOM);
+					gf.render();
+					gf.move(Position.BOTTOM);
+					gf.render();
+					*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

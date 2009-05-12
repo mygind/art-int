@@ -416,7 +416,7 @@ public class GameFrame extends Frame {
 		_game.highlightCratePath(null);
 	}
 	
-	private void move(int direction) {
+	public void move(int direction) {
 		_angleX %= 360f;
 		
 		float fdir = _angleX;
