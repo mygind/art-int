@@ -71,7 +71,7 @@ public class Board {
     public Player getPlayer() {
 	if ( p == null ){
 	    for ( int x = 0; x < landscape.size(); x++){
-		for ( int y = 0; y< landscape.get(x).size(); y++){
+		for ( int y = 0; y< landscape.get(x).length(); y++){
 		    char c = get(x,y);
 		    if ( c == '@' || c == '+'){
 			p = new Player(x,y);
@@ -90,7 +90,7 @@ public class Board {
 
 			removePlayer(x,y);
 			addPlayer(x+dx,y+dy);
-			Player.setPosition(x+dx,y+dy);
+			getPlayer().setPosition(x+dx,y+dy);
 
 		} catch (IndexOutOfBoundsException i) {
 			throw new IllegalActionException("You moved out of the board");
@@ -212,6 +212,9 @@ public class Board {
     public boolean isCompleted(){
 		for ( String l : landscape ) {
 		    if ( l.contains(".")){
+		    	return false;
+		    }
+		    if( l.contains("+")){
 		    	return false;
 		    }
 		}

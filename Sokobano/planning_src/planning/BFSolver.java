@@ -1,6 +1,7 @@
 package planning;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -12,27 +13,25 @@ public class BFSolver extends Solver {
 	}
 
 	public Stack<SolutionPart> solve(){
-		Player player = level.getPlayer();
+		
+		int maxDepth = 0;
 		
 		Queue<Board> unexploredStates = new LinkedList<Board>();	
 		unexploredStates.add(level.getBoard());
+
+		HashMap<Board, Integer> discoveredStates = new HashMap<Board, Integer>();
+		discoveredStates.put(level.getBoard(), new Integer(0));
 		
 		HashMap<Board, ActionResult> solution = new HashMap<Board, ActionResult>();
-		System.out.println("StartState:");
-		System.out.println(level.getBoard());
 		
 		Board currentState;
 		while((currentState = unexploredStates.poll()) != null){
-			System.out.println("States:("+unexploredStates.size()+")");
-			//System.out.println("GO...");
-			Queue<Action> unexploredActions = getPossibleActions(currentState, player);
+			Queue<Action> unexploredActions = getPossibleActions(currentState, currentState.getPlayer());
 			
 			if(unexploredActions.size() > 0){
-				//System.out.println("\tTrying "+unexploredActions.size()+" actions");
 				
 				Action currentAction;
 				while((currentAction = unexploredActions.poll()) != null){
-					System.out.println("\tActions:("+unexploredActions.size()+")");
 					try{
 						Board newState = currentAction.perform();
 						
@@ -49,23 +48,24 @@ public class BFSolver extends Solver {
 							return finalSolution;
 						}
 						
-						if(!solution.containsKey(newState)){
-							unexploredStates.add(newState);
+						if(!discoveredStates.containsKey(newState)){
+							int depth = discoveredStates.get(currentState).intValue()+1;
+							if(depth > maxDepth){
+								maxDepth = depth;
+								System.out.println("Depth: " + maxDepth + " States: " + discoveredStates.size());
+							}
+							discoveredStates.put(newState, new Integer(depth));
 							
+							unexploredStates.add(newState);
+
 							solution.put(newState, new ActionResult(newState, currentAction, currentState));
-							System.out.println("State("+newState.hashCode()+") added.");
-							//System.out.println(newState);
+							
 						} else {
-							System.out.println("State("+newState.hashCode()+") exists already.");
-							//System.out.println(newState);
 						}
 					} catch (IllegalActionException e){
 					}
 				}
 			} else {
-				// No actions found!
-				System.out.println("No actions in:");
-				System.out.println(currentState);
 			}
 		}
 

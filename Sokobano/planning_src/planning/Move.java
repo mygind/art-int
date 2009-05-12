@@ -24,15 +24,15 @@ public class Move extends Action {
 	public String toString(){
 		if(_dx != 0){
 			if(_dx == 1){
-				return "r";
-			} else {
-				return "l";
-			}
-		} else {
-			if(_dy == 1){
 				return "d";
 			} else {
 				return "u";
+			}
+		} else {
+			if(_dy == 1){
+				return "r";
+			} else {
+				return "l";
 			}
 		}
 	}

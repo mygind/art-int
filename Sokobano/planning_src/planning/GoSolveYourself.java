@@ -1,5 +1,6 @@
 package planning;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class GoSolveYourself {
@@ -12,18 +13,24 @@ public class GoSolveYourself {
 		Board b = l.getBoard();
 		Solver solver = new BFSolver(l);
 		
+		System.out.println("StartState:");
 		System.out.println(b);
 		
 		
 		Stack<SolutionPart> solution = solver.solve();
 		
 		String str = "";
-		if(solution == null){
+		if(solution == null ||
+				solution.size() == 0){
 			str = "No Solution!";
 		} else {
 			SolutionPart s;
-			while((s = solution.pop()) != null){
-				str += s;
+			try{
+				while((s = solution.pop()) != null){
+					str += s;
+				}
+			} catch (EmptyStackException e){
+				// Stack empty, that means we are done
 			}
 		}
 		System.out.println("### Solution ###");
