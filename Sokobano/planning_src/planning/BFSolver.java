@@ -22,33 +22,36 @@ public class BFSolver extends Solver {
 		
 		Board currentState;
 		while((currentState = unexploredStates.poll()) != null){
+			System.out.println("GO...");
 			Queue<Action> unexploredActions = getPossibleActions(currentState, player);
 			
-			Action currentAction;
-			while((currentAction = unexploredActions.poll()) != null){
-				try{
-					Board newState = currentAction.perform();
-					
-					if(newState.isCompleted()){
-						Stack<SolutionPart> finalSolution = new Stack<SolutionPart>();
-						finalSolution.add(new SolutionPart(currentState, currentAction));
+			if(unexploredActions != null){
+				Action currentAction;
+				while((currentAction = unexploredActions.poll()) != null){
+					try{
+						Board newState = currentAction.perform();
 						
-						ActionResult ar;
-						while((ar = solution.get(currentState)) != null){			
-							finalSolution.add(new SolutionPart(ar.getParentState(), ar.getAction()));
+						if(newState.isCompleted()){
+							Stack<SolutionPart> finalSolution = new Stack<SolutionPart>();
+							finalSolution.add(new SolutionPart(currentState, currentAction));
 							
-							currentState = ar.getParentState();
+							ActionResult ar;
+							while((ar = solution.get(currentState)) != null){			
+								finalSolution.add(new SolutionPart(ar.getParentState(), ar.getAction()));
+								
+								currentState = ar.getParentState();
+							}
+							return finalSolution;
 						}
-						return finalSolution;
-					}
-					
-					if(solution.containsKey(newState)){
-						unexploredStates.add(newState);
 						
-						solution.put(newState, new ActionResult(newState, currentAction, currentState));
+						if(solution.containsKey(newState)){
+							unexploredStates.add(newState);
+							
+							solution.put(newState, new ActionResult(newState, currentAction, currentState));
+						}
+					} catch (IllegalActionException e){
+						System.out.println(e.getMessage());
 					}
-				} catch (IllegalActionException e){
-					// Do nothing
 				}
 			}
 		}
@@ -88,7 +91,12 @@ public class BFSolver extends Solver {
 
 		}
 
-		return null;
+		if(actions.size() == 0){
+			System.out.println("Error no solutions in:");
+			System.out.println(state);
+		}
+		
+		return actions;
 	}
 
 }

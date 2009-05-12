@@ -1,5 +1,7 @@
 package planning;
 
+import java.util.Stack;
+
 public class GoSolveYourself {
 
     public static void main(String args[]){
@@ -8,29 +10,26 @@ public class GoSolveYourself {
 	try{		
 		Level l = lp.parse(args[0]);
 		Board b = l.getBoard();
+		Solver solver = new BFSolver(l);
+		
+		System.out.println(b);
+		
+		
+		Stack<SolutionPart> solution = solver.solve();
+		
+		String str = "";
+		if(solution == null){
+			str = "No Solution!";
+		} else {
+			SolutionPart s;
+			while((s = solution.pop()) != null){
+				str += s;
+			}
+		}
+		System.out.println("### Solution ###");
+		System.out.println(str);
 
-		Player p = l.getPlayer();
-
-		System.out.println("~~~ Step 1 ~~~");
-		System.out.println("P(" + p.getX() + "," + p.getY() + ")");
-		System.out.print(b);
 		
-		Action a = new Move(b , p.getX(), p.getY(), 1, 0, p);
-		Board c = a.perform();
-		
-		System.out.println("~~~ Step 2 ~~~");
-		System.out.println("P(" + p.getX() + "," + p.getY() + ")");
-		System.out.print(c);
-		
-		a = new Move(c , p.getX(), p.getY(), -1, 0, p);
-		Board d = a.perform();
-		
-		System.out.println(b.equals(c));
-		System.out.println(b.equals(d));
-		
-		System.out.println("~~~ Step 3 ~~~");
-		System.out.println("P(" + p.getX() + "," + p.getY() + ")");
-		System.out.print(d);
 	} catch (Exception e){
 		e.printStackTrace();
 	}

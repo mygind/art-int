@@ -17,4 +17,9 @@ public class SolutionPart {
 	public Action getAction() {
 		return action;
 	}
+	
+	@Override
+	public String toString() {
+		return "" + action;
+	}
 }

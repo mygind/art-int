@@ -32,4 +32,7 @@ public abstract class Action {
 	}
 	
 	public abstract Board perform() throws IllegalActionException;
+	
+	@Override
+	public abstract String toString();
 }

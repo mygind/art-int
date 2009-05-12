@@ -38,7 +38,20 @@ public class Push extends Action {
 		return nb;
 	}
 	
+	@Override
 	public String toString(){
-		return super.toString().toUpperCase();
+		if(_dx != 0){
+			if(_dx == 1){
+				return "R";
+			} else {
+				return "L";
+			}
+		} else {
+			if(_dy == 1){
+				return "D";
+			} else {
+				return "U";
+			}
+		}
 	}
 }

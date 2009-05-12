@@ -49,7 +49,7 @@ public class Board {
 		}
 		setCharAt(x,y,res);
 	}
-	
+
 	private void removePlayer( int x, int y) throws IndexOutOfBoundsException, IllegalActionException {
 		char from = this.get(x,y);
 		if ( ! boxAt(x,y) ) {
@@ -145,25 +145,25 @@ public class Board {
 		}
 		return false;
 	}
-    
-    public int hashCode(){
-	int n = landscape.length();
-	int sum = 0;
-	for ( i = n-1; i >= 0; i--){
-	    int t = landscape.get(i).hashCode();
-	    sum += t*((int)Math.pow(31,i));
-	}
-	
-    }
 
-    public String toString(){
-	StringBuilder s = new StringBuilder();
-	
-	for (String l : landscape ){
-	    s.append(l+"\n");
+	public int hashCode(){
+		int n = landscape.size();
+		int sum = 0;
+		for (int i = n-1; i >= 0; i--){
+			int t = landscape.get(i).hashCode();
+			sum += t*((int)Math.pow(31,i));
+		}
+		return sum;
 	}
-	return s.toString();
-    }
+
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+
+		for (String l : landscape ){
+			s.append(l+"\n");
+		}
+		return s.toString();
+	}
 
 	// private Board(){
 	// 	goals = new ArrayList<Goal>();
@@ -185,13 +185,13 @@ public class Board {
 	// 	return landscape;
 	// }
 
-	 public char get(int x, int y) throws IndexOutOfBoundsException{
-	 	return landscape.get(x).charAt(y);
-	 }
+	public char get(int x, int y) throws IndexOutOfBoundsException{
+		return landscape.get(x).charAt(y);
+	}
 
-	  public boolean isCompleted(){
-	  	return false;
-	  }
+	public boolean isCompleted(){
+		return false;
+	}
 
 	// public void add(LinkedList<Thing> things, int x, int y){
 

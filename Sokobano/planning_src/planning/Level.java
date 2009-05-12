@@ -24,15 +24,31 @@ public class Level {
 	}
     
     public void intialize(List<String> asciimap) throws ParseException{
-		int maxY = asciimap.size();
-		int maxX = 0;
-		for(String s: asciimap){
-		    if(s.length() > maxX){
-		    	maxX = s.length();
-		    }
-		}
+//		int maxY = asciimap.size();
+//		int maxX = 0;
+//		
+//		for(String s: asciimap){
+//		    if(s.length() > maxX){
+//		    	maxX = s.length();
+//		    }
+//		}
+		
+		
 		
 		board = new Board(new ArrayList<String>(asciimap));
+		
+		outerLoop:
+		for(int x = 0; x < board.getLandscape().size(); x++){
+			for(int y = 0; y < board.getLandscape().get(x).length(); y++){
+				if(board.playerAt(x, y)){
+					player = new Player(x, y);
+					break outerLoop;
+				}
+			}
+		}
+		if(player == null){
+			throw new ParseException("Level contains no player!");
+		}
 		//board = new Board(maxX, maxY);
 					
 		/*int x = 0;
