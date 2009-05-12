@@ -26,25 +26,29 @@ public class BFSolver extends Solver {
 			
 			Action currentAction;
 			while((currentAction = unexploredActions.poll()) != null){
-				Board newState = currentAction.perform();
-				
-				if(newState.isCompleted()){
-					Stack<SolutionPart> finalSolution = new Stack<SolutionPart>();
-					finalSolution.add(new SolutionPart(currentState, currentAction));
+				try{
+					Board newState = currentAction.perform();
 					
-					ActionResult ar;
-					while((ar = solution.get(currentState)) != null){			
-						finalSolution.add(new SolutionPart(ar.getParentState(), ar.getAction()));
+					if(newState.isCompleted()){
+						Stack<SolutionPart> finalSolution = new Stack<SolutionPart>();
+						finalSolution.add(new SolutionPart(currentState, currentAction));
 						
-						currentState = ar.getParentState();
+						ActionResult ar;
+						while((ar = solution.get(currentState)) != null){			
+							finalSolution.add(new SolutionPart(ar.getParentState(), ar.getAction()));
+							
+							currentState = ar.getParentState();
+						}
+						return finalSolution;
 					}
-					return finalSolution;
-				}
-				
-				if(solution.containsKey(newState)){
-					unexploredStates.add(newState);
 					
-					solution.put(newState, new ActionResult(newState, currentAction, currentState));
+					if(solution.containsKey(newState)){
+						unexploredStates.add(newState);
+						
+						solution.put(newState, new ActionResult(newState, currentAction, currentState));
+					}
+				} catch (IllegalActionException e){
+					// Do nothing
 				}
 			}
 		}
