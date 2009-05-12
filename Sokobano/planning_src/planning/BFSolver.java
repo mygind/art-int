@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class BFSolver extends Solver {
 
@@ -11,18 +12,44 @@ public class BFSolver extends Solver {
 		super(level);
 	}
 
-	public boolean solve(){
-		HashMap<Board, Queue<Action>> stateActionsNotExplored = new HashMap<Board, Queue<Action>>();	
-
+	public Stack<SolutionPart> solve(){
 		Player player = level.getPlayer();
-		Board currentState = level.getBoard();
-		Queue<Action> actions = getPossibleActions(currentState, player);
+		
+		Queue<Board> unexploredStates = new LinkedList<Board>();	
+		unexploredStates.add(level.getBoard());
+		
+		HashMap<Board, ActionResult> solution = new HashMap<Board, ActionResult>();
+		
+		Board currentState;
+		while((currentState = unexploredStates.poll()) != null){
+			Queue<Action> unexploredActions = getPossibleActions(currentState, player);
+			
+			Action currentAction;
+			while((currentAction = unexploredActions.poll()) != null){
+				Board newState = currentAction.perform();
+				
+				if(newState.isCompleted()){
+					Stack<SolutionPart> finalSolution = new Stack<SolutionPart>();
+					finalSolution.add(new SolutionPart(currentState, currentAction));
+					
+					ActionResult ar;
+					while((ar = solution.get(currentState)) != null){			
+						finalSolution.add(new SolutionPart(ar.getParentState(), ar.getAction()));
+						
+						currentState = ar.getParentState();
+					}
+					return finalSolution;
+				}
+				
+				if(solution.containsKey(newState)){
+					unexploredStates.add(newState);
+					
+					solution.put(newState, new ActionResult(newState, currentAction, currentState));
+				}
+			}
+		}
 
-
-
-		while()
-
-			return false;
+			return null;
 	}
 
 	private Queue<Action> getPossibleActions(Board state, Player player) {
