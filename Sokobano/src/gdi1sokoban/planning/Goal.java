@@ -2,7 +2,8 @@ package gdi1sokoban.planning;
 
 public class Goal extends Thing {
 	
-	public Goal(){
+	public Goal(int x, int y){
+		super(x, y);
 	}
 
 }

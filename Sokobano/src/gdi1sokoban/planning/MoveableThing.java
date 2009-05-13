@@ -2,8 +2,8 @@ package gdi1sokoban.planning;
 
 public abstract class MoveableThing extends ObstructingThing {
 
-	public MoveableThing(){
-		super();
+	public MoveableThing(int x, int y){
+		super(x, y);
 	}
 	
 	/**

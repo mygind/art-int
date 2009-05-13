@@ -1,7 +1,10 @@
 package gdi1sokoban.planning;
 
+import java.io.FileWriter;
 import java.util.EmptyStackException;
 import java.util.Stack;
+
+import com.sun.xml.internal.ws.Closeable;
 
 public class GoSolveYourself {
 
@@ -11,13 +14,33 @@ public class GoSolveYourself {
 	try{		
 		Level l = lp.parse(args[0]);
 		Board b = l.getBoard();
-		Solver solver = new BFSolver(l);
+		Solver s1 = new BFSolver(l.getBoard());
+		Solver s2 = new AstarSolver(l.getBoard(), new SubGoalIndependence());
 		
 		System.out.println("StartState:");
 		System.out.println(b);
 		
+		boolean doStats = (args.length > 1);
 		
-		Stack<SolutionPart> solution = solver.solve();
+		long before = System.currentTimeMillis();
+		Stack<SolutionPart> solution = s1.solve(doStats);
+		long after = System.currentTimeMillis();
+		System.out.println(s1.getClass() + ": " + (after-before) + "ms");
+			
+		before = System.currentTimeMillis();
+		solution = s2.solve(doStats);
+		after = System.currentTimeMillis();
+		System.out.println(s2.getClass() + ": " + (after-before) + "ms");
+		
+		if(doStats){
+			String filename = args[1];
+			FileWriter o1 = new FileWriter(filename + "_bf.stat");
+			FileWriter o2 = new FileWriter(filename + "_astar.stat");
+			o1.write(s1.getStatistics());
+			o2.write(s2.getStatistics());
+			o1.close();
+			o2.close();
+		}
 		
 		String str = "";
 		if(solution == null ||
