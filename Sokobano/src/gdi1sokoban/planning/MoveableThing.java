@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 public abstract class MoveableThing extends ObstructingThing {
 

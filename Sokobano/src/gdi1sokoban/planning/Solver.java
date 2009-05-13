@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 import java.util.EmptyStackException;
 import java.util.Stack;

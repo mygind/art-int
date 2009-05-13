@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

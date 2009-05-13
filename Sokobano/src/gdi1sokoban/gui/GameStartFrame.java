@@ -16,6 +16,7 @@ import gdi1sokoban.logic.LevelSetIdentifier;
 import gdi1sokoban.logic.LevelStatistic;
 import gdi1sokoban.logic.Player;
 import gdi1sokoban.logic.Savegame;
+import gdi1sokoban.planning.LevelParser;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,7 +25,6 @@ import java.util.Queue;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import planning.LevelParser;
 
 //vor dem Start: -> game mit 
 //     Rotation rendern, keine Eingaben zulassen.
@@ -147,8 +147,8 @@ public class GameStartFrame extends Frame {
 		
 		public void run(){
 			try{
-				planning.LevelParser lp = new LevelParser();
-				planning.BFSolver solver = new planning.BFSolver(lp.parse(filename));
+				gdi1sokoban.planning.LevelParser lp = new LevelParser();
+				gdi1sokoban.planning.BFSolver solver = new gdi1sokoban.planning.BFSolver(lp.parse(filename));
 				solver.solve();
 				String solution = solver.getSolutionString();
 				System.out.println(solution);
