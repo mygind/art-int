@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 public class Goal extends Thing {
 	

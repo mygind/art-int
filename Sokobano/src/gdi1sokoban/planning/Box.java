@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 public class Box extends MoveableThing {
 

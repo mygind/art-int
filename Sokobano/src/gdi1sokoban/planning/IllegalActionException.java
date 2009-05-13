@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 public class IllegalActionException extends Exception {
 	public IllegalActionException(String msg) {

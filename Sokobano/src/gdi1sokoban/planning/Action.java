@@ -1,4 +1,4 @@
-package planning;
+package gdi1sokoban.planning;
 
 public abstract class Action {
 	protected int _dx, _dy, _x, _y;
