@@ -6,6 +6,7 @@ explores the use of AI (Artificial Intelligence) in the context of the
 Sokoban game.
 
 \section{Background and Rules}
+\label{sec:rules}
 
 Sokoban (means Warehouskeeper) was created in 1980 by Japanese
 software company. The object of the game is to place boxes on goal
@@ -64,12 +65,38 @@ We will implement at least 3 different techniques for solving the
 Sokoban challenges:
 \begin{itemize}
 \item Simple breadth first progression planner. %done
-\item The same as above, only using a general heuristic. 
-\item The same as above, replacing the general heuristic with one we design ourselves.
+\item The same as above, only using a general heuristic. %done
+\item The same as above, replacing the general heuristic with one we
+  design ourselves.
 \end{itemize}
 
-\section{Scope Limitation}
-% EXPLAIN WHAT WE DID NOT DO. AND WHY!
 
+
+\section{Scope Limitation}
+\label{sec:scope}
+\subsection{Implementing Sokoban Variants}
+We will not try to implement the multi-agent variant of Sokoban in our
+solver implementation, since we feel that solving solving the original
+problem is already a rather large challenge. As an example it took
+among others a full-time Ph.D. student, full-time summer student and a
+part-time proffessor two years to implement a Sokoban solver that
+could solve 52 of the standard 90 puzzles that come with the
+game. \citep{Junghanns99domain-dependentsingle-agent}
+
+Furthermore we will not vary the rules in the implementation, e.g. by
+adding colors to boxes and goals, adding trap doors or allowing
+several boxes to pushed simultaneously. Adding these variants would
+require us to change our underlying model.
+
+\section{Structure of Report}
+
+
+First we develop a STRIPS formulation of Sokoban (Chapter
+\ref{cha:strips}). This description will be used in Chapter
+\ref{cha:design} to construct an executable model of the game along
+with a breadth-first solver. In Chapter \ref{cha:heuristics} we define
+the heuristics needed to guide the search. We then continue to analyse
+our findings in Chapter \ref{cha:analysis}. Before finally we summing
+the results in Chapter \ref{ref:conclusion}.
 
 

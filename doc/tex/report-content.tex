@@ -12,19 +12,20 @@
 \author{Brian Stengaard and Henrik Mygind}
 \date{2009-05-20}
 
-\newcounter{stripsactioncnt}
 
 \newcommand\stripsaction[3]{%
-  \stepcounter{stripsactioncnt}%
-  \subsubsection*{Action \arabic{stripsactioncnt}: $#1$}
+
   \begin{center}%
     \begin{longtable}{r p{11cm}}%
-      \textit{Preconditions:} & #2\\%
-      \textit{Effects} & #3\\%
+      \toprule
+      \textbf{Action:} & #1\\%
+      \textbf{Preconditions:} & #2\\%
+      \textbf{Effects:} & #3\\%
+      \bottomrule
     \end{longtable}%
   \end{center}%
-}
 
+}
 
 
 \begin{document}
@@ -48,33 +49,24 @@
 %inputs here
 \mainmatter
 
-\input{intro.tex}
+\input{intro}
 
 \input{strips-formulation}
 
+\input{design}
+
 \input{heuristics}
 
-%\input{}
+\input{analysis}
 
-%\input{Step1.tex}
-
-%\input{Step2.tex}
- 
-%\input{Step3.tex}
-
-%\input{Step4.tex}
-
-%\input{Step5.tex}
+\input{conclusion}
 
 \label{lastpage}
 
+\appendix
 
 \bibliography{require/bibtex}
 
-\appendix
-
-
-%nput{app-source}
 \backmatter
 \end{document}
  

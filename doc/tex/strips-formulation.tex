@@ -1,5 +1,5 @@
 \chapter{Formally Defining Sokoban}
-
+\label{cha:strips}
 \section{Introduction}
 In order to effectively solve the Sokoban problem we need to define
 the game in a formal manner. To this end we chose to define the
@@ -19,18 +19,81 @@ look at the rules of the game we see that the only real action is to
 move the player, everything else happens is a result of this.
 
 \subsection{Required Actions}
+Sokoban can be viewed as a single agent system\footnote{At least in in
+  this incarnation. See Section \ref{sec:scope}.} As such the primary
+action needed must be to move this agent.
 
-% Rolling Stone 
-% http://www.cs.ualberta.ca/~games/Sokoban/ 
+As described in Section \ref{sec:rules} there are a number of
+preconditions that need to be satisfied before the move action is
+possible (or allowed if you will).
+
+\begin{itemize}
+\item The player can move at most a single tile any of the four
+  directions.
+\item There must not be an obstructing object in the chosen direction.
+\end{itemize}
+
+If we create that there is a list of allowed moves, that we do not
+alter in any of our action, this is effectively a static list. In our
+problem instance this list would contain the values $(x,y)$: $(-1,0)$,
+$(1,0)$, $(0,-1)$ and $(0,1)$, representing the directions up, down,
+left and right, i.e. we define the upper-left corner to be $(0,0)$,
+for implementation purposes. We use the LegalDir predicate to indicate
+this notion.
 
 
-\stripsaction{a}{b}{c}
-%\stripsaction{$Move(p, x, y, dx, dy)$}%
-%{$Player(p) \wedge LegalDir(dx, dy) \wedge At(p, x, y) \wedge Free(x+dx, y+dy)$}{test}
-%{$\neg~At(p, x, y) \wedge \neg~Free(x+dx, y+dy) \wedge Free(x, y) \wedge At(p, x+dx, y+dy)$}
+\begin{figure}[!h]
+  \centering \stripsaction{Move$(p, x, y, dx, dy)$}%
+  {Player$(p)$ $\wedge$ LegalDir$(dx, dy)$ $\wedge$ At$(p, x, y)$
+    $\wedge$ Free$(x+dx, y+dy)$}%
+  {$\neg$At$(p, x, y)$ $\wedge$ $\neg$Free$(x+dx, y+dy)$ $\wedge$
+    Free$(x, y)$ $\wedge$ At$(p, x+dx, y+dy)$}
+  \caption{STRIPS description of the Move action. Only move if the
+    adjacent spot is free.}
+  \label{fig:strips-move}
+\end{figure}
 
 
+Figure \ref{fig:strips-move} show our STRIPS description of the Move
+action. The Free predicate indicates whether a given space is
+unoccupied. After the move we mark the source as being Free and the
+destination as being occupied.
 
+In order to move the boxes we must be adjacent to them and the box
+present in the given direction must have free on the other side of it.
+\begin{center}
+\begin{verbatim}
+                       #####
+                       #@$ # 
+                       #####
+\end{verbatim}
+\end{center}
+
+\begin{figure}[!h]
+  \centering \stripsaction{Push$(p, b, x, y, dx, dy)$}%
+  {Player$(p)$ $\wedge$ LegalDir$(dx, dy)$ $\wedge$ Box$(b)$ $\wedge$
+    At$(p, x, y)$ $\wedge$ At$(b, x+dx, y+dy)$ $\wedge$ Free$(x+dx+dx,
+    y+dy+dy)$ $\wedge$ $\neg$Target$(x+dx+dx, y+dy+dy)$}%
+  {$\neg$At$(p, x, y)$ $\wedge$ $\neg$At$(b, x+dx, y+dy)$ $\wedge$
+    $\neg$Free$(x+dx+dx, y+dy+dy)$ $\wedge$ Free$(x, y)$ $\wedge$
+    At$(p, x+dx, y+dy)$ $\wedge$ At$(b, x+dx+dx, y+dy+dy)$ $\wedge$
+    $\neg$AtTarget$(b)$}
+  \caption{STRIPS description of the Push action}
+  \label{fig:strips-push}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering \stripsaction{PushToTarget$(p, b, x, y, dx, dy)$}%
+  {Player$(p)$ $\wedge$ LegalDir$(dx, dy)$ $\wedge$ Box$(b)$ $\wedge$
+    At$(p, x, y)$ $\wedge$ At$(b, x+dx, y+dy)$ $\wedge$ Free$(x+dx+dx,
+    y+dy+dy)$ $\wedge$ Target$(x+dx+dx, y+dy+dy)$}%
+  {$\neg$At$(p, x, y)$ $\wedge$ $\neg$At$(b, x+dx, y+dy)$ $\wedge$
+    $\neg$Free$(x+dx+dx, y+dy+dy)$ $\wedge$ Free$(x, y)$ $\wedge$
+    At$(p, x+dx, y+dy)$ $\wedge$ At$(b, x+dx+dx, y+dy+dy)$ $\wedge$
+    AtTarget$(b)$}
+  \caption{STRIPS description of the Push to target action}
+  \label{fig:strips-pushtotarget}
+\end{figure}
 
 \subsection{What we need to know about the world}
 
