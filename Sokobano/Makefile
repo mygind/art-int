@@ -8,7 +8,8 @@ FILES=$(shell find src -name *.java)
 
 compile: $(FILES)
 	if [ ! -d bin ]; then mkdir bin; fi
-	javac -sourcepath $(SOURCEPATH) -d bin src/gdi1sokoban/Application.java 
+	javac -sourcepath $(SOURCEPATH) -d bin src/gdi1sokoban/Application.java src/gdi1sokoban/planning/GoSolveYourself.java
+
 
 run: 
 	java -Xmx128m -Djava.library.path="lib/lwjgl-2.0.1/native/linux/:planning_src" gdi1sokoban.Application

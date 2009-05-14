@@ -5,6 +5,7 @@ import gdi1sokoban.planning.heuristics.BoxOnGoalHeuristic;
 import gdi1sokoban.planning.heuristics.CornerHeuristic;
 import gdi1sokoban.planning.heuristics.HeuristicsAdder;
 import gdi1sokoban.planning.heuristics.HeuristicsMultiplier;
+import gdi1sokoban.planning.heuristics.RandomHeuristic;
 import gdi1sokoban.planning.heuristics.ShortestPathHeuristic;
 import gdi1sokoban.planning.heuristics.SubGoalIndependence;
 
@@ -60,7 +61,8 @@ public class GoSolveYourself {
 		h8.add(new CornerHeuristic(b));
 		h8.add(new Box4x4Heuristic(b));
 		
-		boolean[] run = {false, false, false, false, false, false, true, true};
+
+		boolean[] run = {false, false, false, false, false, false, false, false, true};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
@@ -68,7 +70,9 @@ public class GoSolveYourself {
 		                    new AstarSolver(new Board(l.getBoard()), h5),
 		                    new AstarSolver(new Board(l.getBoard()), h6),
 		                    new AstarSolver(new Board(l.getBoard()), h7),
-		                    new AstarSolver(new Board(l.getBoard()), h8)
+		                    new AstarSolver(new Board(l.getBoard()), h8),
+				    new AstarSolver(new Board(l.getBoard()), new RandomHeuristic(b))
+				    
 		};
 
 		if(solvers.length != run.length){
