@@ -2,18 +2,22 @@ package gdi1sokoban.planning;
 
 public class BoxOnGoalHeuristic extends Heuristic {
 
+	private int lowest;
 	public BoxOnGoalHeuristic(Board board) {
 		super(board);
+		this.lowest = Integer.MAX_VALUE;
 	}
 	@Override
 	public int estimate(Board b) {
 		int boxesNotGoaled = b.getBoxes().size();
 		for(Box box: b.getBoxes()){
-			if(b.get(box.getX(), box.getY()) == '*' ||
-			   b.get(box.getX(), box.getY()) == '+' ||
-			   b.get(box.getX(), box.getY()) == '.'){
-				
+			if(b.get(box.getX(), box.getY()) == '*'){
 				boxesNotGoaled--;
+				if(boxesNotGoaled < lowest){
+					lowest = boxesNotGoaled;
+					//System.out.println(lowest);
+					//System.out.println(b);
+				}
 			}
 		}
 		

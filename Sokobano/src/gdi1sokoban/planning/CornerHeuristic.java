@@ -22,7 +22,7 @@ public class CornerHeuristic extends Heuristic {
 		
 		ArrayList<String> landscape = board.getLandscape();
 
-		System.out.println(b);
+		//System.out.println(b);
 		
 		// Finding corners:
 		// o = outer corner
@@ -38,7 +38,7 @@ public class CornerHeuristic extends Heuristic {
 				markCorner(x, y, 1, -1, b);
 			}
 		}
-		System.out.println(b);
+		//System.out.println(b);
 		
 		// Marking illegal areas between corners
 		for(Corner c: corners){
@@ -107,7 +107,7 @@ public class CornerHeuristic extends Heuristic {
 		
 		drawIllegalArrays(b);
 		
-		System.out.println(b);
+		//System.out.println(b);
 		
 	}
 	

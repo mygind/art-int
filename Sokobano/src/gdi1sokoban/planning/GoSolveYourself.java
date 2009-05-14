@@ -45,13 +45,14 @@ public class GoSolveYourself {
 		HeuristicsAdder h8 = new HeuristicsAdder(b);
 		HeuristicsMultiplier h8a = new HeuristicsMultiplier(b);
 		h8a.add(new BoxOnGoalHeuristic(b));
+		h8a.add(new BoxOnGoalHeuristic(b));
 		//h8a.add(new ShortestPathHeuristic(b));
 		h8a.add(new ShortestPathHeuristic(b));
 		h8.add(h8a);
 		h8.add(new CornerHeuristic(b));
 		h8.add(new Box4x4Heuristic(b));
 		
-		boolean[] run = {false, false, false, false, false, false, true, true};
+		boolean[] run = {false, false, false, false, false, false, false, true};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
@@ -66,8 +67,8 @@ public class GoSolveYourself {
 			throw new Exception("run != solvers");
 		}
 		
-		System.out.println("StartState:");
-		System.out.println(b);
+		//System.out.println("StartState:");
+		//System.out.println(b);
 		
 		boolean doStats = (args.length > 1);
 		

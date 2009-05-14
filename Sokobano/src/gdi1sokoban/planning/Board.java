@@ -109,7 +109,7 @@ public class Board {
 	}
 	
 	private void updateLists(){
-		System.out.println("updating lists");
+	//	System.out.println("updating lists");
 		LinkedList<Box> newBoxes = new LinkedList<Box>();
 		LinkedList<Goal> newGoals = new LinkedList<Goal>();
 		Player newPlayer = null;

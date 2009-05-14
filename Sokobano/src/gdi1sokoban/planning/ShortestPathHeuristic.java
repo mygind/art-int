@@ -32,7 +32,11 @@ public class ShortestPathHeuristic extends SubGoalIndependence{
 		for(Goal g : goals){
 			goalPaths.add(new GoalPath(createPaths(b, g), g));
 		}
-		
+		//printGoalPaths();
+	}
+	
+	private void printGoalPaths(){
+
 		for(ArrayList<Integer> a :goalPaths.get(0).path){
 			for(Integer i : a){
 				if(i.intValue() > 99){
@@ -45,7 +49,6 @@ public class ShortestPathHeuristic extends SubGoalIndependence{
 			
 		}
 	}
-	
 	private ArrayList<ArrayList<Integer>> createPaths(Board b, Goal g){
 		
 		// Initialiser paths med maxValue i alle værdier
