@@ -1,4 +1,9 @@
-package gdi1sokoban.planning;
+package gdi1sokoban.planning.heuristics;
+
+import gdi1sokoban.planning.Board;
+import gdi1sokoban.planning.Box;
+import gdi1sokoban.planning.CornerBoard;
+import gdi1sokoban.planning.Goal;
 
 import java.util.ArrayList;
 import java.util.HashSet;

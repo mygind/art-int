@@ -1,4 +1,6 @@
-package gdi1sokoban.planning;
+package gdi1sokoban.planning.heuristics;
+
+import gdi1sokoban.planning.Board;
 
 
 public class HeuristicsAdder extends HeuristicsCombiner {

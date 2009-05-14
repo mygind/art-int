@@ -1,5 +1,7 @@
 package gdi1sokoban.planning;
 
+import gdi1sokoban.planning.heuristics.Heuristic;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

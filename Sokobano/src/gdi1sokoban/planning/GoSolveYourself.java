@@ -1,5 +1,13 @@
 package gdi1sokoban.planning;
 
+import gdi1sokoban.planning.heuristics.Box4x4Heuristic;
+import gdi1sokoban.planning.heuristics.BoxOnGoalHeuristic;
+import gdi1sokoban.planning.heuristics.CornerHeuristic;
+import gdi1sokoban.planning.heuristics.HeuristicsAdder;
+import gdi1sokoban.planning.heuristics.HeuristicsMultiplier;
+import gdi1sokoban.planning.heuristics.ShortestPathHeuristic;
+import gdi1sokoban.planning.heuristics.SubGoalIndependence;
+
 import java.io.FileWriter;
 import java.util.EmptyStackException;
 import java.util.LinkedList;

@@ -1,4 +1,10 @@
-package gdi1sokoban.planning;
+package gdi1sokoban.planning.heuristics;
+
+import gdi1sokoban.planning.Board;
+import gdi1sokoban.planning.Box;
+import gdi1sokoban.planning.Goal;
+import gdi1sokoban.planning.Player;
+import gdi1sokoban.planning.Thing;
 
 import java.util.List;
 
