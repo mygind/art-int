@@ -43,11 +43,11 @@ public class Level extends LevelIdentifier{
 	public static final int FLAG_CRATE = 4;
 	public static final int FLAG_VISITED = 8;
 	
-	private Board _board;
+	protected Board _board;
 	
-	private HashSet<Position> _crates = new HashSet<Position>();
-	private ArrayList<Position> _targets = new ArrayList<Position>();
-	private Position _worker;
+	protected HashSet<Position> _crates = new HashSet<Position>();
+	protected ArrayList<Position> _targets = new ArrayList<Position>();
+	protected Position _worker;
 	
 	// Moves:
 	LinkedList<Move> _moves = new LinkedList<Move>();

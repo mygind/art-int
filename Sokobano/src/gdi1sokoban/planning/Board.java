@@ -54,7 +54,7 @@ public class Board {
 		}
 	}
 
-	private void setCharAt(int x, int y, char res) throws IndexOutOfBoundsException {
+	protected void setCharAt(int x, int y, char res) throws IndexOutOfBoundsException {
 		StringBuffer s = new StringBuffer(landscape.get(x));
 		s.setCharAt(y, res);
 		landscape.set(x, s.toString());

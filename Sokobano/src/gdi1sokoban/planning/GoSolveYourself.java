@@ -2,47 +2,79 @@ package gdi1sokoban.planning;
 
 import java.io.FileWriter;
 import java.util.EmptyStackException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
-import com.sun.xml.internal.ws.Closeable;
 
 public class GoSolveYourself {
 
     public static void main(String args[]){
 
+    	
 	LevelParser lp = new LevelParser();
 	try{		
 		Level l = lp.parse(args[0]);
 		Board b = l.getBoard();
-		Solver s1 = new BFSolver(l.getBoard());
-		Solver s2 = new AstarSolver(l.getBoard(), new SubGoalIndependence());
+
+		HeuristicsAdder h4 = new HeuristicsAdder(b);
+		h4.add(new CornerHeuristic(b));
+		h4.add(new SubGoalIndependence(b));
+		
+		HeuristicsAdder h5 = new HeuristicsAdder(b);
+		h5.add(new CornerHeuristic(b));
+		h5.add(new SubGoalIndependence(b));
+		h5.add(new Box4x4Heuristic(b));
+
+		boolean[] run = {false, false, false, false, true};
+		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
+		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
+		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
+		                    new AstarSolver(new Board(l.getBoard()), h4),
+		                    new AstarSolver(new Board(l.getBoard()), h5)};
+
+		if(solvers.length != run.length){
+			throw new Exception("run != solvers");
+		}
 		
 		System.out.println("StartState:");
 		System.out.println(b);
 		
 		boolean doStats = (args.length > 1);
 		
-		long before = System.currentTimeMillis();
-		Stack<SolutionPart> solution = s1.solve(doStats);
-		long after = System.currentTimeMillis();
-		System.out.println(s1.getClass() + ": " + (after-before) + "ms");
-			
-		before = System.currentTimeMillis();
-		solution = s2.solve(doStats);
-		after = System.currentTimeMillis();
-		System.out.println(s2.getClass() + ": " + (after-before) + "ms");
+		Stack<SolutionPart> solution;
+		long before, after;
 		
-		if(doStats){
-			String filename = args[1];
-			FileWriter o1 = new FileWriter(filename + "_bf.stat");
-			FileWriter o2 = new FileWriter(filename + "_astar.stat");
-			o1.write(s1.getStatistics());
-			o2.write(s2.getStatistics());
-			o1.close();
-			o2.close();
+		for(int i = 0; i < solvers.length; i++){
+			if(run[i]){
+				before = System.currentTimeMillis();
+				solution = solvers[i].solve(doStats);
+				after = System.currentTimeMillis();
+				System.out.println(solvers[i].getClass() + ": " + (after-before) + "ms");
+				printSolution(solution);
+			}
 		}
 		
-		String str = "";
+		if(doStats){
+			for(int i = 0; i < solvers.length; i++){
+				if(run[i]){
+					String filename = args[1];
+					FileWriter o = new FileWriter(filename + "_s"+i+".stat");
+					o.write(solvers[i].getStatistics());
+					o.close();
+				}
+			}
+		}
+		
+		
+	} catch (Exception e){
+		e.printStackTrace();
+	}
+
+    }
+
+    private static void printSolution(Stack<SolutionPart> solution){
+    	String str = "";
 		if(solution == null ||
 				solution.size() == 0){
 			str = "No Solution!";
@@ -58,12 +90,5 @@ public class GoSolveYourself {
 		}
 		System.out.println("### Solution ###");
 		System.out.println(str);
-
-		
-	} catch (Exception e){
-		e.printStackTrace();
-	}
-
     }
-
 }

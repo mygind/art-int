@@ -24,9 +24,9 @@ public class AstarSolver extends Solver {
 		ArrayList<Estimate> unexploredStates = new ArrayList<Estimate>();
 		Estimate startEstimate = new Estimate(startState, heuristic.estimate(startState), 0);
 		unexploredStates.add(startEstimate);
-		
 		HashMap<Board, ActionResult> solution = new HashMap<Board, ActionResult>();
 	
+				
 		statistics = "depth discovered_states estimated\n";
 		while(!unexploredStates.isEmpty()){
 			Estimate currentEstimate = unexploredStates.get(0);
@@ -46,7 +46,9 @@ public class AstarSolver extends Solver {
 						(exploredStates.size()+unexploredStates.size()) + " " +
 						currentEstimate.getEstimatedValue() + "\n";
 			}
+			
 			while(!actions.isEmpty()){
+				
 				Action action = actions.poll();
 				try{
 					Board newState = action.perform();
@@ -64,10 +66,8 @@ public class AstarSolver extends Solver {
 						unexploredStates.add(newEstimate);
 						Collections.sort(unexploredStates);
 						updateSolution = true;
-					
 					} else {
-						Estimate formerEstimate = unexploredStates.get(index);
-						
+						Estimate formerEstimate = unexploredStates.get(index);						
 						if(newStep < formerEstimate.getStepValue()){
 							formerEstimate.setStepValue(newStep);
 							updateSolution = true;

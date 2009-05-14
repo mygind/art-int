@@ -148,8 +148,8 @@ public class GameStartFrame extends Frame {
 		public void run(){
 			try{
 				gdi1sokoban.planning.LevelParser lp = new LevelParser();
-				gdi1sokoban.planning.BFSolver solver = new gdi1sokoban.planning.BFSolver(lp.parse(filename));
-				solver.solve();
+				gdi1sokoban.planning.BFSolver solver = new gdi1sokoban.planning.BFSolver(lp.parse(filename).getBoard());
+				solver.solve(false);
 				String solution = solver.getSolutionString();
 				System.out.println(solution);
 				

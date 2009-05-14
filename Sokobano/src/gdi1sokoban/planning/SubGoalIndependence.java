@@ -4,6 +4,10 @@ import java.util.List;
 
 public class SubGoalIndependence extends Heuristic {
 
+	public SubGoalIndependence(Board board) {
+		super(board);
+	}
+	
 	@Override
 	public int estimate(Board b) {
 		List<Box> boxes = b.getBoxes();
