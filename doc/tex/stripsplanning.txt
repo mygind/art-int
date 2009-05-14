@@ -1,3 +1,5 @@
+
+
 LegalDir(x,y) = true if Dir in {(0,1), (0,-1), (1,0), (-1,0)}
 
 Action(Move(p, x, y, dx, dy)

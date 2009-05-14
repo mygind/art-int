@@ -1,0 +1,38 @@
+\chapter{Formally Defining Sokoban}
+
+\section{Introduction}
+In order to effectively solve the Sokoban problem we need to define
+the game in a formal manner. To this end we chose to define the
+Sokoban game in a variant of STRIPS.
+
+
+
+\section{Analysis}
+Numerical STRIPS developed by \citet{Hoffmann03themetric-ff} in
+\citeyear{Hoffmann03themetric-ff} adds arithmetic and boolean
+operators along with numeric state variables to the STRIPS
+language. Using this extension gives us a more powerful language,
+which in turn lets us create a more simpel STRIPS model of Sokoban.
+
+We wish to keep our STRIPS description as simple as possible. If we
+look at the rules of the game we see that the only real action is to
+move the player, everything else happens is a result of this.
+
+\subsection{Required Actions}
+
+% Rolling Stone 
+% http://www.cs.ualberta.ca/~games/Sokoban/ 
+
+
+\stripsaction{a}{b}{c}
+%\stripsaction{$Move(p, x, y, dx, dy)$}%
+%{$Player(p) \wedge LegalDir(dx, dy) \wedge At(p, x, y) \wedge Free(x+dx, y+dy)$}{test}
+%{$\neg~At(p, x, y) \wedge \neg~Free(x+dx, y+dy) \wedge Free(x, y) \wedge At(p, x+dx, y+dy)$}
+
+
+
+
+\subsection{What we need to know about the world}
+
+
+

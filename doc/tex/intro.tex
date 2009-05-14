@@ -26,8 +26,13 @@ The game itself is rich in complexity and difficulty can vary from
 very easy to incredibly complex, for both human players and automatic
 solvers. This of course depends on the initial floor plan.
 
-The high game complexity stems from the many different different
-choices available to the player at each game state.
+The high game complexity stems from, among other things: 
+\begin{itemize}
+\item The game is PSPACE Complete. \cite{culberson97sokobanpspace}
+\item Some game states cannot be reversed (deadlocks, pushing boxes against walls, etc.)
+\item Up to moves at each state. (Grows as $n^4$.)
+\end{itemize}
+
 
 Figure \ref{fig:soko-org-screen} shows the floor plan of the first
 level original game.
@@ -59,14 +64,12 @@ We will implement at least 3 different techniques for solving the
 Sokoban challenges:
 \begin{itemize}
 \item Simple breadth first progression planner. %done
-\item The same as above, only using a general heuristic.
+\item The same as above, only using a general heuristic. 
 \item The same as above, replacing the general heuristic with one we design ourselves.
 \end{itemize}
 
-
-
 \section{Scope Limitation}
-
+% EXPLAIN WHAT WE DID NOT DO. AND WHY!
 
 
 
