@@ -67,4 +67,9 @@ public class BFSolver extends Solver {
 
 			return null;
 	}
+	
+	@Override
+	public String toString() {
+		return "BFSolver";
+	}
 }

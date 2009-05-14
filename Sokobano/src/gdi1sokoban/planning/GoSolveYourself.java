@@ -25,13 +25,42 @@ public class GoSolveYourself {
 		h5.add(new CornerHeuristic(b));
 		h5.add(new SubGoalIndependence(b));
 		h5.add(new Box4x4Heuristic(b));
-
-		boolean[] run = {false, false, false, false, true};
+		
+		HeuristicsAdder h6 = new HeuristicsAdder(b);
+		HeuristicsMultiplier h6a = new HeuristicsMultiplier(b);
+		h6a.add(new SubGoalIndependence(b));
+		h6a.add(new SubGoalIndependence(b));
+		h6.add(h6a);
+		h6.add(new CornerHeuristic(b));
+		h6.add(new Box4x4Heuristic(b));
+		
+		HeuristicsAdder h7 = new HeuristicsAdder(b);
+		HeuristicsMultiplier h7a = new HeuristicsMultiplier(b);
+		h7a.add(new ShortestPathHeuristic(b));
+		h7a.add(new ShortestPathHeuristic(b));
+		h7.add(h7a);
+		h7.add(new CornerHeuristic(b));
+		h7.add(new Box4x4Heuristic(b));
+		
+		HeuristicsAdder h8 = new HeuristicsAdder(b);
+		HeuristicsMultiplier h8a = new HeuristicsMultiplier(b);
+		h8a.add(new BoxOnGoalHeuristic(b));
+		//h8a.add(new ShortestPathHeuristic(b));
+		h8a.add(new ShortestPathHeuristic(b));
+		h8.add(h8a);
+		h8.add(new CornerHeuristic(b));
+		h8.add(new Box4x4Heuristic(b));
+		
+		boolean[] run = {false, false, false, false, false, false, true, true};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
 		                    new AstarSolver(new Board(l.getBoard()), h4),
-		                    new AstarSolver(new Board(l.getBoard()), h5)};
+		                    new AstarSolver(new Board(l.getBoard()), h5),
+		                    new AstarSolver(new Board(l.getBoard()), h6),
+		                    new AstarSolver(new Board(l.getBoard()), h7),
+		                    new AstarSolver(new Board(l.getBoard()), h8)
+		};
 
 		if(solvers.length != run.length){
 			throw new Exception("run != solvers");
@@ -50,7 +79,7 @@ public class GoSolveYourself {
 				before = System.currentTimeMillis();
 				solution = solvers[i].solve(doStats);
 				after = System.currentTimeMillis();
-				System.out.println(solvers[i].getClass() + ": " + (after-before) + "ms");
+				System.out.println(solvers[i] + ": " + (after-before) + "ms");
 				printSolution(solution);
 			}
 		}

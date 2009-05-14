@@ -11,10 +11,17 @@ import java.util.Stack;
 public class AstarSolver extends Solver {
 
 	Heuristic heuristic;
+	boolean doPrint;
 	
 	public AstarSolver(Board board, Heuristic heuristic) {
+		this(board, heuristic, false);
+		
+	}
+	
+	public AstarSolver(Board board, Heuristic heuristic, boolean doPrint) {
 		super(board);
 		this.heuristic = heuristic;
+		this.doPrint = doPrint;
 	}
 	
 	@Override
@@ -26,7 +33,8 @@ public class AstarSolver extends Solver {
 		unexploredStates.add(startEstimate);
 		HashMap<Board, ActionResult> solution = new HashMap<Board, ActionResult>();
 	
-				
+		int depth = 0;		
+		
 		statistics = "depth discovered_states estimated\n";
 		while(!unexploredStates.isEmpty()){
 			Estimate currentEstimate = unexploredStates.get(0);
@@ -34,6 +42,10 @@ public class AstarSolver extends Solver {
 			
 			if(currentState.isCompleted()){
 				return getSolutionPath(currentState, solution.get(currentState).getAction(), solution);
+			} else if(currentEstimate.getTotalValue() >= Integer.MAX_VALUE/2){
+				System.out.println("Nooooo!");
+				System.out.println(currentState);
+				try{System.in.read();}catch(Exception e){};
 			}
 			
 			unexploredStates.remove(0);
@@ -45,6 +57,15 @@ public class AstarSolver extends Solver {
 				statistics += currentEstimate.getStepValue() + " " +
 						(exploredStates.size()+unexploredStates.size()) + " " +
 						currentEstimate.getEstimatedValue() + "\n";
+			}
+			if(doPrint){
+				if(currentEstimate.getStepValue() > depth){
+					depth = currentEstimate.getStepValue(); 
+					System.out.println("depth discovered_states estimated\n" + 
+							           currentEstimate.getStepValue() + " " +
+					                   (exploredStates.size()+unexploredStates.size()) + " " +
+					                   currentEstimate.getEstimatedValue() + "\n");
+				}
 			}
 			
 			while(!actions.isEmpty()){
@@ -89,4 +110,8 @@ public class AstarSolver extends Solver {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "Astar using:{\n" + heuristic + "\n}";
+	}
 }

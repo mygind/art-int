@@ -21,10 +21,10 @@ public class SubGoalIndependence extends Heuristic {
 		}
 		
 		// TODO Auto-generated method stub
-		return sum;
+		return sum + distanceToNearestBox(player, boxes);
 	}
 	
-	private int estimateSingleBox(Player player, Box box, List<Goal> goals){
+	protected int estimateSingleBox(Player player, Box box, List<Goal> goals){
 		int shortest = Integer.MAX_VALUE;
 		for(Goal goal: goals){
 			int dist = distance(box, goal);
@@ -32,12 +32,27 @@ public class SubGoalIndependence extends Heuristic {
 				shortest = dist;
 			}
 		}
-		return shortest + distance(player, box);
+		return shortest;// + distance(player, box);
 	}
 	
-	private int distance(Thing t1, Thing t2){
+	protected int distance(Thing t1, Thing t2){
 		return Math.abs(t1.getX()-t2.getX()) +
 				Math.abs(t1.getY() - t2.getY());
 	}
+	
+	protected int distanceToNearestBox(Player p, List<Box> b){
+		int dist = Integer.MAX_VALUE;
+		for(Box box : b){
+			int newDist = distance(p, box);
+			if(newDist < dist){
+				dist = newDist;
+			}
+		}
+		return dist;
+	}
 
+	@Override
+	public String toString() {
+		return "SubGoalIndependence";
+	}
 }

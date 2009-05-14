@@ -129,6 +129,10 @@ public class CornerHeuristic extends Heuristic {
 		}
 	}
 	
+	public HashSet<Integer> getIllegalBoxPositions() {
+		return illegalBoxPositions;
+	}
+	
 	private void mark(int x, int y, char c, CornerBoard b){
 		corners.add(new Corner(x, y, c));
 		b.set(x, y, c);
@@ -178,4 +182,8 @@ public class CornerHeuristic extends Heuristic {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "CornerHeuristic";
+	}
 }

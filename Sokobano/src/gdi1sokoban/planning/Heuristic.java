@@ -9,5 +9,6 @@ public abstract class Heuristic {
 	}
 	
 	public abstract int estimate(Board b);
-		
+
+	public abstract String toString();
 }

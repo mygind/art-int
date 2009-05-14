@@ -20,13 +20,31 @@ public class Board {
 	private int hash;    
 
 	public Board(Board oldBoard){
-		this(oldBoard.getLandscape() );
+		boxes = new LinkedList<Box>();
+		for(Box b :oldBoard.getBoxes()){
+			boxes.add(new Box(b.getX(), b.getY()));
+		}
+		
+		goals = oldBoard.getGoals();
+		
+		p = new Player(oldBoard.getPlayer().getX(),
+		               oldBoard.getPlayer().getY());
+		
+		initialize(oldBoard.getLandscape());
 	}
 
 	public Board(ArrayList<String> layout){
+		initialize(layout);
+	}
+	
+	private void initialize(ArrayList<String> layout){
 		landscape = new ArrayList<String>();
 		for ( String line : layout ){
 			landscape.add(new String(line));
+		}
+
+		if(boxes == null){
+			updateLists();
 		}
 	}
 
@@ -91,6 +109,7 @@ public class Board {
 	}
 	
 	private void updateLists(){
+		System.out.println("updating lists");
 		LinkedList<Box> newBoxes = new LinkedList<Box>();
 		LinkedList<Goal> newGoals = new LinkedList<Goal>();
 		Player newPlayer = null;
@@ -155,7 +174,7 @@ public class Board {
 
 			removePlayer(x,y);
 			addPlayer(x+dx,y+dy);
-			getPlayer().setPosition(x+dx,y+dy);
+			p.setPosition(x+dx,y+dy);
 
 		} catch (IndexOutOfBoundsException i) {
 			throw new IllegalActionException("You moved out of the board");
@@ -197,6 +216,9 @@ public class Board {
 
 			removeBox(x,y);
 			addBox(x+dx,y+dy);
+			
+			boxes.remove(new Box(x, y));
+			boxes.add(new Box(x+dx, y+dy));
 
 		} catch (IndexOutOfBoundsException i) {
 			throw new IllegalActionException("You moved out of the board");

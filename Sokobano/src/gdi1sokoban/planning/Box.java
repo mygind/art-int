@@ -16,4 +16,13 @@ public class Box extends MoveableThing {
 		this.atTarget = atTarget;
 	}
 	
+	public boolean equals(Object o){
+		if(o instanceof Box){
+			Box other = (Box)o;
+			return x == other.getX() &&
+			       y == other.getY();
+		}
+		return false;
+	}
+	
 }

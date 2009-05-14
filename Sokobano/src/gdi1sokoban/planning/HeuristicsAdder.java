@@ -1,20 +1,10 @@
 package gdi1sokoban.planning;
 
-import java.util.LinkedList;
-import java.util.List;
 
-public class HeuristicsAdder extends Heuristic {
+public class HeuristicsAdder extends HeuristicsCombiner {
 
-	private List<Heuristic> heuristics;
-	
 	public HeuristicsAdder(Board board){
 		super(board);
-		
-		this.heuristics = new LinkedList<Heuristic>();
-	}
-	
-	public void add(Heuristic heuristic){
-		heuristics.add(heuristic);
 	}
 	
 	@Override
@@ -31,4 +21,8 @@ public class HeuristicsAdder extends Heuristic {
 		return sum;
 	}
 
+	@Override
+	public String toString() {	
+		return "HeuristicsAdder{\n"+super.toString()+"\n}";
+	}
 }

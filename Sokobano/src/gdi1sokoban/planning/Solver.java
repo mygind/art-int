@@ -86,4 +86,6 @@ public abstract class Solver {
 		this.finalSolution = newSolution;
 		return newSolution;		
 	}
+	
+	public abstract String toString();
 }

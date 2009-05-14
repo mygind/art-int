@@ -14,10 +14,10 @@ public class Box4x4Heuristic extends Heuristic {
 		
 		for(Box box: boxes){
 			if(b.get(box.getX(), box.getY()) == '$'){
-				if(isStuck(box.getX(), box.getY(), 1, 0, b) ||
-				   isStuck(box.getX(), box.getY(), -1, 0, b) ||
-				   isStuck(box.getX(), box.getY(), 0, 1, b) ||
-				   isStuck(box.getX(), box.getY(), 0, -1, b)){
+				if(isStuck(box.getX(), box.getY(), 1, 1, b) ||
+				   isStuck(box.getX(), box.getY(), -1, 1, b) ||
+				   isStuck(box.getX(), box.getY(), -1, -1, b) ||
+				   isStuck(box.getX(), box.getY(), 1, -1, b)){
 					return Integer.MAX_VALUE/2;
 				}
 			}
@@ -36,4 +36,8 @@ public class Box4x4Heuristic extends Heuristic {
 		return c == '#' || c == '$' || c == '*';
 	}
 
+	@Override
+	public String toString() {
+		return "Box4x4Heuristic";
+	}
 }
