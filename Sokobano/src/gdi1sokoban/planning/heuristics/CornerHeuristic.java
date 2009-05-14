@@ -13,6 +13,7 @@ public class CornerHeuristic extends Heuristic {
 
 	HashSet<Integer> illegalBoxPositions;
 	List<Corner> corners;
+	CornerBoard cornerBoard;
 	
 	public CornerHeuristic(Board board) {
 		super(board);
@@ -112,8 +113,13 @@ public class CornerHeuristic extends Heuristic {
 		
 		drawIllegalArrays(b);
 		
+		this.cornerBoard = b;
 		//System.out.println(b);
 		
+	}
+	
+	public CornerBoard getCornerBoard() {
+		return cornerBoard;
 	}
 	
 	private void markCorner(int x, int y, int dx, int dy, CornerBoard b){
@@ -163,14 +169,14 @@ public class CornerHeuristic extends Heuristic {
 	}
 	
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException {
 		List<Box> boxes = b.getBoxes();
 		
 		
 		for(Box box: boxes){
 			Integer pos = new Integer(box.getX()<<16 | box.getY());
 			if(illegalBoxPositions.contains(pos)){
-				return Integer.MAX_VALUE/2;
+				throw new DeadLockException("" + b);
 			}
 		}
 		return 0;

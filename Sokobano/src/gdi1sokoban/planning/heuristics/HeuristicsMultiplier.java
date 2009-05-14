@@ -9,7 +9,7 @@ public class HeuristicsMultiplier extends HeuristicsCombiner {
 	}
 		
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException {
 		int product = 1;
 		for(Heuristic h: heuristics){
 			if(product < Integer.MAX_VALUE/2){

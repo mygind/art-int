@@ -60,7 +60,7 @@ public class GoSolveYourself {
 		h8.add(new CornerHeuristic(b));
 		h8.add(new Box4x4Heuristic(b));
 		
-		boolean[] run = {false, false, false, false, false, false, false, true};
+		boolean[] run = {false, false, false, false, false, false, true, true};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
@@ -83,13 +83,15 @@ public class GoSolveYourself {
 		Stack<SolutionPart> solution;
 		long before, after;
 		
+		System.out.println("Times:");
 		for(int i = 0; i < solvers.length; i++){
 			if(run[i]){
 				before = System.currentTimeMillis();
 				solution = solvers[i].solve(doStats);
 				after = System.currentTimeMillis();
-				System.out.println(solvers[i] + ": " + (after-before) + "ms");
-				printSolution(solution);
+				//System.out.println(solvers[i] + ": " + (after-before) + "ms");
+				System.out.println((after-before) + "ms");
+				//printSolution(solution);
 			}
 		}
 		

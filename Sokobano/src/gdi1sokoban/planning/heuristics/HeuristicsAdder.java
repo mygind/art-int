@@ -10,7 +10,7 @@ public class HeuristicsAdder extends HeuristicsCombiner {
 	}
 	
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException {
 		int sum = 0;
 		for(Heuristic h: heuristics){
 			if(sum < Integer.MAX_VALUE/2){

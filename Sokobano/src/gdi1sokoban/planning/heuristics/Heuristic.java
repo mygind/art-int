@@ -10,7 +10,7 @@ public abstract class Heuristic {
 		this.board = new Board(board);
 	}
 	
-	public abstract int estimate(Board b);
+	public abstract int estimate(Board b) throws DeadLockException;
 
 	public abstract String toString();
 }

@@ -19,7 +19,7 @@ public abstract class HeuristicsCombiner extends Heuristic {
 	}
 	
 	@Override
-	public abstract int estimate(Board b);
+	public abstract int estimate(Board b) throws DeadLockException;
 
 	@Override
 	public String toString() {

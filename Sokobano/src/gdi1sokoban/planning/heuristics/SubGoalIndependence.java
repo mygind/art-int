@@ -15,7 +15,7 @@ public class SubGoalIndependence extends Heuristic {
 	}
 	
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException {
 		List<Box> boxes = b.getBoxes();
 		List<Goal> goals = b.getGoals();
 		

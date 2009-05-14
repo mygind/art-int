@@ -12,7 +12,7 @@ public class Box4x4Heuristic extends Heuristic {
 	}
 	
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException {
 		List<Box> boxes = b.getBoxes();
 		
 		for(Box box: boxes){
@@ -21,7 +21,7 @@ public class Box4x4Heuristic extends Heuristic {
 				   isStuck(box.getX(), box.getY(), -1, 1, b) ||
 				   isStuck(box.getX(), box.getY(), -1, -1, b) ||
 				   isStuck(box.getX(), box.getY(), 1, -1, b)){
-					return Integer.MAX_VALUE/2;
+					throw new DeadLockException("" + b);
 				}
 			}
 		}

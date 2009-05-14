@@ -20,10 +20,8 @@ public class Things {
 	}
     public boolean equals(Object o){
 		if ( o == null){
-			System.out.println("shit");
 		}
 		if(!(o instanceof Things) ){
-			System.out.println("damin");
 			return false;
 		}
 	    LinkedList<Thing> l  = ((Things) o).getThings();

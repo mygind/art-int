@@ -11,7 +11,7 @@ public class BoxOnGoalHeuristic extends Heuristic {
 		this.lowest = Integer.MAX_VALUE;
 	}
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException {
 		int boxesNotGoaled = b.getBoxes().size();
 		for(Box box: b.getBoxes()){
 			if(b.get(box.getX(), box.getY()) == '*'){

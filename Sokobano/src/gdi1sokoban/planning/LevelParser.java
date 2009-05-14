@@ -29,7 +29,7 @@ public class LevelParser {
 				lines.add(line);
 			}
 		} catch (IOException e){
-			System.out.println("FILE ERROR!");
+			System.err.println("FILE ERROR!");
 			e.printStackTrace();
 		}
 		

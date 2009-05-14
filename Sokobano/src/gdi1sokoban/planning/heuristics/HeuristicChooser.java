@@ -2,7 +2,7 @@ package gdi1sokoban.planning.heuristics;
 
 import gdi1sokoban.planning.Board;
 
-public abstract class HeuristicChooser extends Heuristic {
+public class HeuristicChooser extends Heuristic {
 
 	Heuristic heuristic;
 	
@@ -11,10 +11,14 @@ public abstract class HeuristicChooser extends Heuristic {
 		this.heuristic = chooseHeuristic(board);
 	}
 
-	protected abstract Heuristic chooseHeuristic(Board b);
+	protected Heuristic chooseHeuristic(Board b){
+		
+		
+		return null;
+	}
 	
 	@Override
-	public int estimate(Board b) {
+	public int estimate(Board b) throws DeadLockException{
 		return heuristic.estimate(b);
 	}
 
