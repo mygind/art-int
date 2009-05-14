@@ -18,7 +18,7 @@ We wish to keep our STRIPS description as simple as possible. If we
 look at the rules of the game we see that the only real action is to
 move the player, everything else happens is a result of this.
 
-\subsection{Required Actions}
+%\subsection{Required Actions}
 Sokoban can be viewed as a single agent system\footnote{At least in in
   this incarnation. See Section \ref{sec:scope}.} As such the primary
 action needed must be to move this agent.
@@ -59,16 +59,6 @@ action. The Free predicate indicates whether a given space is
 unoccupied. After the move we mark the source as being Free and the
 destination as being occupied.
 
-In order to move the boxes we must be adjacent to them and the box
-present in the given direction must have free on the other side of it.
-\begin{center}
-\begin{verbatim}
-                       #####
-                       #@$ # 
-                       #####
-\end{verbatim}
-\end{center}
-
 \begin{figure}[!h]
   \centering \stripsaction{Push$(p, b, x, y, dx, dy)$}%
   {Player$(p)$ $\wedge$ LegalDir$(dx, dy)$ $\wedge$ Box$(b)$ $\wedge$
@@ -81,6 +71,11 @@ present in the given direction must have free on the other side of it.
   \caption{STRIPS description of the Push action}
   \label{fig:strips-push}
 \end{figure}
+
+In order to move the boxes we must be adjacent to them and the box
+present in the given direction must have free space on the other side
+of it. Otherwise the requirements are them same is it is to the Move
+action. We refer to Figure \ref{fig:strips-push}.
 
 \begin{figure}[!h]
   \centering \stripsaction{PushToTarget$(p, b, x, y, dx, dy)$}%
@@ -95,7 +90,6 @@ present in the given direction must have free on the other side of it.
   \label{fig:strips-pushtotarget}
 \end{figure}
 
-\subsection{What we need to know about the world}
-
+We need to avoid 
 
 
