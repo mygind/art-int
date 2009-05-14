@@ -1,1 +1,7 @@
 *.class
+res/player/*
+res/config/*
+global.cfg
+highScores.xml
+player.xml
+
