@@ -78,7 +78,7 @@ public class Level {
 	Thing t2 = null;
 	switch(c){
 	case '#': //wall
-	    t1 = new Wall();
+	    t1 = new Wall(x, y);
 	    things.add(t1);
 	    break;
 		
@@ -91,7 +91,7 @@ public class Level {
 		
 	case '+': //Player on goal square
 	    t1 = new Player(x, y);
-	    t2 = new Goal();
+	    t2 = new Goal(x, y);
 	    things.add(t1);
 	    things.add(t2);
 	    goals.add((Goal)t2);
@@ -100,20 +100,20 @@ public class Level {
 	    break;
 		
 	case '$': //Box 	$ 	0x24
-	    t1 = new Box();
+	    t1 = new Box(x, y);
 	    things.add(t1);
 	    break;
 		
 	case '*': //Box on goal square 	* 	0x2a
-	    t1 = new Box();
-	    t2 = new Goal();
+	    t1 = new Box(x, y);
+	    t2 = new Goal(x, y);
 	    things.add(t1);
 	    things.add(t2);
 	    goals.add((Goal)t2);
 	    break;
 			
 	case '.': //Goal square 	. 	0x2e
-	    t1 = new Goal();
+	    t1 = new Goal(x, y);
 	    things.add(t1);
 	    goals.add((Goal)t1);
 	    break;

@@ -70,8 +70,8 @@ public class Things {
 	    } else {
 		return "a";
 	    }
-	} else if ( things.size() == 2 && things.contains(new Goal()) ){
-	    if ( things.contains(new Box()) ){
+	} else if ( things.size() == 2 && things.contains(new Goal(0, 0)) ){
+	    if ( things.contains(new Box(0,0)) ){
 		return "*";
 	    }else if (things.contains(new Player(0, 0))){
 		return "+";

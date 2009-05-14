@@ -4,8 +4,8 @@ public class Box extends MoveableThing {
 
 	private boolean atTarget;
 	
-	public Box(){
-		super();
+	public Box(int x, int y){
+		super(x, y);
 	}
 
 	public boolean isAtTarget() {

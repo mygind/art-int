@@ -1,17 +1,21 @@
 package gdi1sokoban.planning;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Board {
 	//Things[][] board;
 
-	ArrayList<String> landscape;
+	private ArrayList<String> landscape;
 	//ArrayList<Goal> goals; 
 	//ArrayList<Box> boxes; // s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
 	//ArrayList<Player> players; // s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
 
 
     private Player p;
+    private List<Box> boxes;
+    private List<Goal> goals;
 
 	private int hash;    
 
@@ -30,6 +34,24 @@ public class Board {
 
 	public ArrayList<String> getLandscape() {
 		return landscape;
+	}
+	
+	public boolean add(Thing t){
+		int x = t.getX();
+		int y = t.getY();
+		try{
+			if(t instanceof Box){
+				addBox(x, y);
+			} else if(t instanceof Player){
+				addPlayer(x, y);
+			} else {
+				return false;
+			}
+			return true;
+			
+		} catch (IllegalActionException e){
+			return false;
+		}
 	}
 
 	private void setCharAt(int x, int y, char res) throws IndexOutOfBoundsException {
@@ -67,17 +89,60 @@ public class Board {
 
 
 	}
+	
+	private void updateLists(){
+		LinkedList<Box> newBoxes = new LinkedList<Box>();
+		LinkedList<Goal> newGoals = new LinkedList<Goal>();
+		Player newPlayer = null;
+		for ( int x = 0; x < landscape.size(); x++){
+			for ( int y = 0; y< landscape.get(x).length(); y++){
+			    char c = get(x,y);
+			    if ( c == '$' || c == '*'){
+			    	newBoxes.add(new Box(x, y));
+			    }
+			    if(c == '.' || c == '+' || c == '*'){
+			    	newGoals.add(new Goal(x, y));
+			    }
+			    if ( c == '@' || c == '+'){
+			    	newPlayer = new Player(x, y);
+			    }
+		    }
+		}
+		if(newPlayer == null){
+			System.err.println("Player has not been found.");
+		}
+		if(newBoxes.size() != newGoals.size()){
+			System.err.println("Number of goals differs from number of boxes: ("+newGoals.size()+"<>"+newBoxes.size()+")");			
+		}
+		boxes = newBoxes;
+		goals = newGoals;
+		p = newPlayer;
+	}
+	
+	public List<Goal> getGoals(){
+		if(goals == null){
+			updateLists();
+		}
+		return goals;
+	}
+	
+	public List<Box> getBoxes(){
+		if(boxes == null){
+			updateLists();
+		}
+		return boxes;
+	}
 
     public Player getPlayer() {
 	if ( p == null ){
 	    for ( int x = 0; x < landscape.size(); x++){
-		for ( int y = 0; y< landscape.get(x).length(); y++){
-		    char c = get(x,y);
-		    if ( c == '@' || c == '+'){
-			p = new Player(x,y);
-			return p;
-		    }
-		}
+			for ( int y = 0; y< landscape.get(x).length(); y++){
+			    char c = get(x,y);
+			    if ( c == '@' || c == '+'){
+				p = new Player(x,y);
+				return p;
+			    }
+			}
 	    }
 	}else{
 	    return p;
@@ -280,6 +345,22 @@ public class Board {
 	 	Board other = (Board) o;
 	 	return landscape.equals(other.getLandscape());
 	 }
-
-
+	 
+	 /**
+	  * Removes all boxes from the board
+	  */
+	 public void cleanBoard(){
+		 for(String str: landscape){
+			 char[] chars = str.toCharArray();
+			 for(int i = 0; i < chars.length; i++){
+				 char c = str.charAt(i);
+				 if(c == '$'){
+					 chars[i] = ' ';
+				 
+				 } else if(c == '*'){
+					 chars[i] = '.';
+				 }
+			 }
+		 }
+	 }
 }
