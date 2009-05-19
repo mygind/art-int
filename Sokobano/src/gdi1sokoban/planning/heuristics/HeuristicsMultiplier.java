@@ -24,7 +24,7 @@ public class HeuristicsMultiplier extends HeuristicsCombiner {
 
 	@Override
 	public String toString() {	
-		return "HeuristicsMultiplier{\n"+super.toString()+"\n}";
+		return "*{"+super.toString()+"}";
 	}
 
 }

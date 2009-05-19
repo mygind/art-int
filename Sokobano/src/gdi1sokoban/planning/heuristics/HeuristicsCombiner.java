@@ -24,9 +24,13 @@ public abstract class HeuristicsCombiner extends Heuristic {
 	@Override
 	public String toString() {
 		String str = "";
-		for(Heuristic h: heuristics){
-			str += h + "\n";
+		for(int i = 0; i < heuristics.size(); i++){
+		    str += heuristics.get(i);
+		    if ( i+1 < heuristics.size() ){
+			str += ", ";
+		    }
 		}
+		str+="";
 		return str;
 	}
 }

@@ -142,6 +142,6 @@ public class ShortestPathHeuristic extends SubGoalIndependence{
 	
 	@Override
 	public String toString() {
-		return "ShortestPathHeuristic";
+		return "s";
 	}
 }

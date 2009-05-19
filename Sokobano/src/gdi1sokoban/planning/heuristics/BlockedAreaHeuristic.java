@@ -76,7 +76,7 @@ public class BlockedAreaHeuristic extends Heuristic {
 
 	@Override
 	public String toString() {
-		return "BlockedAreaHeuristic";
+		return "b";
 	}
 
 	private class Pos{

@@ -59,6 +59,6 @@ public class SubGoalIndependence extends Heuristic {
 
 	@Override
 	public String toString() {
-		return "SubGoalIndependence";
+		return "i";
 	}
 }

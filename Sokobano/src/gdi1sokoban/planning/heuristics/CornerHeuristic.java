@@ -195,6 +195,6 @@ public class CornerHeuristic extends Heuristic {
 
 	@Override
 	public String toString() {
-		return "CornerHeuristic";
+		return "c";
 	}
 }
