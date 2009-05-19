@@ -80,16 +80,17 @@ The heuristic works by for all boxes not standing on goal squares checking if th
 \paragraph{CornerHeuristic}Another very powerful deadlock detector is the CornerHeuristic. It decides on which squares the boxes will never be allowed, illegal squares, as the boxes will not be able to leave these areas thus making them reach the goal imposible. The illegal squares are found using corners: inner corners indicated by \textit{i} in figure \ref{fig:cornerheuristic} and outer corners indicated by \textit{o}.
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=0.18\textwidth]{corner1}
+	\includegraphics[scale=0.3]{cornerfind}
 	\caption{Finding corners}
 	\label{fig:cornerheuristic}
 \end{figure}
-To find the corners the algorithm checks all wall squares. The algorithm only look at the squares located diagonally from the wall, that is the squares NE, NW, SE and SW.
+To find the corners the algorithm checks all wall squares. At each wall the algorithm look at the squares located diagonally from the wall, that is the squares NE, NW, SE and SW shown in figure \ref{fig:cornerheuristic}. Using this figure as example the algorithm would check corners as described here:
 \begin{itemize}
 	\item As the square in NE is a wall it can not be a corner.
 	\item The square NW is not a wall and none of the squares N and W are walls. Therefore the square NW is an outer corner.
 	\item The squareSW is not a wall but one of the squares S and W is a wall while the other is not. Therefore there is no corner in square SW.
 	\item Finally the square SE is not a wall while both of the squares S and E are. This makes the square SE an inner corner.
+\end{itemize}
 
 All squares between two inner corners are then seen as illegal squares and these squares will be indicated by \textit{\!}. The inner corner squares are also marked as illegal squares. Squares on the same line as an outer square or a goal is not illegal squares, so when the squares have been marked, the squares on line with goals are unmarked. This is done by checking each goal if they have been marked as an illegal square. If it has been marked, the algorithm finds out in which direction a wall is located and unmarks all fields in the direction ortogonal to this.
 
@@ -104,11 +105,11 @@ In steps the algorithm does the following. The steps is also illustrated in figu
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[width=0.18\textwidth]{corner1}
-	\includegraphics[width=0.18\textwidth]{corner2}
-	\includegraphics[width=0.18\textwidth]{corner3}
-	\includegraphics[width=0.18\textwidth]{corner4}
-	\includegraphics[width=0.18\textwidth]{corner5}
+	\includegraphics[width=0.33\textwidth]{corner1}
+	\includegraphics[width=0.33\textwidth]{corner2}
+	\includegraphics[width=0.33\textwidth]{corner3}
+	\includegraphics[width=0.33\textwidth]{corner4}
+	\includegraphics[width=0.33\textwidth]{corner5}
 	\caption{CornerHeuristic in steps}
 	\label{fig:cornerheuristic}
 \end{figure}
