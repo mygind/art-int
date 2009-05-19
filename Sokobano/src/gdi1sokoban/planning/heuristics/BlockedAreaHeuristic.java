@@ -37,7 +37,7 @@ public class BlockedAreaHeuristic extends Heuristic {
 				}
 			}
 			if(sidesReached == 0){
-				throw new DeadLockException("Deadlock reached:\n"+b);
+				//throw new DeadLockException("Deadlock reached:\n"+b);
 			} else if(sidesReached == 1){
 				// Potentially stuck...
 			} else {

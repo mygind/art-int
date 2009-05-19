@@ -14,9 +14,9 @@ import java.util.Queue;
 
 public class ShortestPathHeuristic extends SubGoalIndependence{
 
-	List<GoalPath> goalPaths;
-	HashSet<Integer> illegalPositions;
-	HashSet<Goal> usedGoals;
+	protected List<GoalPath> goalPaths;
+	protected HashSet<Integer> illegalPositions;
+	protected HashSet<Goal> usedGoals;
 	
 	public ShortestPathHeuristic(Board board) {
 		super(board);
@@ -121,7 +121,7 @@ public class ShortestPathHeuristic extends SubGoalIndependence{
 		return nearestGoal;//+distance(player, box);
 	}
 
-	private class GoalPath{
+	protected class GoalPath{
 		public ArrayList<ArrayList<Integer>> path;
 		public Goal g;
 		

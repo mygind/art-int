@@ -1,5 +1,6 @@
 package gdi1sokoban.planning;
 
+import gdi1sokoban.planning.heuristics.AveragePathHeuristic;
 import gdi1sokoban.planning.heuristics.Box4x4Heuristic;
 import gdi1sokoban.planning.heuristics.BoxOnGoalHeuristic;
 import gdi1sokoban.planning.heuristics.CornerHeuristic;
@@ -11,8 +12,6 @@ import gdi1sokoban.planning.heuristics.SubGoalIndependence;
 
 import java.io.FileWriter;
 import java.util.EmptyStackException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
 
@@ -61,8 +60,18 @@ public class GoSolveYourself {
 		h8.add(new CornerHeuristic(b));
 		h8.add(new Box4x4Heuristic(b));
 		
+		HeuristicsAdder h9 = new HeuristicsAdder(b);
+		HeuristicsMultiplier h9a = new HeuristicsMultiplier(b);
+		h9a.add(new BoxOnGoalHeuristic(b));
+		//h9a.add(new BoxOnGoalHeuristic(b));
+		h9a.add(new AveragePathHeuristic(b));
+		h9a.add(new AveragePathHeuristic(b));
+		h9.add(h9a);
+		h9.add(new CornerHeuristic(b));
+		h9.add(new Box4x4Heuristic(b));
+		
 
-		boolean[] run = {false, false, false, false, false, false, false, false, true};
+		boolean[] run = {false, false, false, false, false, false, false, false, true, false};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
@@ -71,7 +80,8 @@ public class GoSolveYourself {
 		                    new AstarSolver(new Board(l.getBoard()), h6),
 		                    new AstarSolver(new Board(l.getBoard()), h7),
 		                    new AstarSolver(new Board(l.getBoard()), h8),
-				    new AstarSolver(new Board(l.getBoard()), new RandomHeuristic(b))
+		                    new AstarSolver(new Board(l.getBoard()), h9),
+		                    new AstarSolver(new Board(l.getBoard()), new RandomHeuristic(b))
 				    
 		};
 
@@ -95,7 +105,7 @@ public class GoSolveYourself {
 				after = System.currentTimeMillis();
 				//System.out.println(solvers[i] + ": " + (after-before) + "ms");
 				System.out.println((after-before) + "ms");
-				//printSolution(solution);
+				printSolution(solution);
 			}
 		}
 		
