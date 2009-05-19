@@ -98,7 +98,7 @@ public class GoSolveYourself {
 		HeuristicsMultiplier h8a = new HeuristicsMultiplier(b);
 		h8a.add(new BoxOnGoalHeuristic(b));
 		h8a.add(new BoxOnGoalHeuristic(b));
-		//h8a.add(new ShortestPathHeuristic(b));
+		h8a.add(new ShortestPathHeuristic(b));
 		h8a.add(new ShortestPathHeuristic(b));
 		h8.add(h8a);
 		h8.add(new CornerHeuristic(b));
@@ -107,7 +107,7 @@ public class GoSolveYourself {
 		HeuristicsAdder h9 = new HeuristicsAdder(b);
 		HeuristicsMultiplier h9a = new HeuristicsMultiplier(b);
 		h9a.add(new BoxOnGoalHeuristic(b));
-		//h9a.add(new BoxOnGoalHeuristic(b));
+		h9a.add(new BoxOnGoalHeuristic(b));
 		h9a.add(new AveragePathHeuristic(b));
 		h9a.add(new AveragePathHeuristic(b));
 		h9.add(h9a);
