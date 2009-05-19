@@ -68,3 +68,19 @@ $(OUTPNGDIR)/%.pdf: $(SRCPNGDIR)/%.png
 png: $(OUTPNGFILES)
 
 
+
+## SVG -> PDF GENERATION SECTION
+SRCSVGDIR=$(SRC)
+OUTSVGDIR=$(OUT)
+SRCSVGFILES=$(wildcard $(SRCSVGDIR)/*.svg)
+OUTSVGFILES=$(addsuffix .pdf,$(basename $(addprefix $(OUTSVGDIR)/,$(notdir $(SRCSVGFILES)))))
+
+
+SVGTOPDFARGS=
+
+$(OUTSVGDIR)/%.pdf: $(SRCSVGDIR)/%.svg
+	convert $(SVGTOPDFARGS) $< $@
+
+
+png: $(OUTSVGFILES)
+
