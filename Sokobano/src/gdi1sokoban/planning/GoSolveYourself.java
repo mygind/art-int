@@ -54,7 +54,7 @@ public class GoSolveYourself {
 		HeuristicsMultiplier h8a = new HeuristicsMultiplier(b);
 		h8a.add(new BoxOnGoalHeuristic(b));
 		h8a.add(new BoxOnGoalHeuristic(b));
-		//h8a.add(new ShortestPathHeuristic(b));
+		h8a.add(new ShortestPathHeuristic(b));
 		h8a.add(new ShortestPathHeuristic(b));
 		h8.add(h8a);
 		h8.add(new CornerHeuristic(b));
@@ -63,7 +63,7 @@ public class GoSolveYourself {
 		HeuristicsAdder h9 = new HeuristicsAdder(b);
 		HeuristicsMultiplier h9a = new HeuristicsMultiplier(b);
 		h9a.add(new BoxOnGoalHeuristic(b));
-		//h9a.add(new BoxOnGoalHeuristic(b));
+		h9a.add(new BoxOnGoalHeuristic(b));
 		h9a.add(new AveragePathHeuristic(b));
 		h9a.add(new AveragePathHeuristic(b));
 		h9.add(h9a);
@@ -71,7 +71,7 @@ public class GoSolveYourself {
 		h9.add(new Box4x4Heuristic(b));
 		
 
-		boolean[] run = {false, false, false, false, false, false, false, false, true, false};
+		boolean[] run = {false, false, false, false, false, false, false, true, true, false};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
