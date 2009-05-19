@@ -29,7 +29,7 @@ public class BoxOnGoalHeuristic extends Heuristic {
 
 	@Override
 	public String toString() {
-		return "+";
+		return "B";
 	}
 
 }

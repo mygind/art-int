@@ -27,7 +27,7 @@ public abstract class HeuristicsCombiner extends Heuristic {
 		for(int i = 0; i < heuristics.size(); i++){
 		    str += heuristics.get(i);
 		    if ( i+1 < heuristics.size() ){
-			str += ", ";
+			str += ",";
 		    }
 		}
 		str+="";

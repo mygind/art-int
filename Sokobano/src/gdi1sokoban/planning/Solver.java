@@ -1,5 +1,7 @@
 package gdi1sokoban.planning;
 
+import java.util.Collections;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,14 +12,16 @@ public abstract class Solver {
 	
 	protected Board startState;
 	protected Stack<SolutionPart> finalSolution;
-	
-	protected String statistics;
+        protected HashMap<Integer,Integer> stateGrowth;
 
+	protected String statistics;
+        protected boolean killed =false;
         protected long execTime;
 
 	public Solver(Board startState) {
 		this.startState = startState;
 		this.statistics = "";
+		this.stateGrowth = new HashMap<Integer,Integer>();
 	}
 	
 	public String getSolutionString(){
@@ -38,6 +42,10 @@ public abstract class Solver {
 		}
 	}
 	
+    public void killMe(){
+	killed =true;
+    }
+
 	public abstract Stack<SolutionPart> solve(boolean statMode);
 
 	public String getStatistics() {
@@ -94,4 +102,22 @@ public abstract class Solver {
         public void setExecutionTime(long execTime){
 	    this.execTime = execTime;
 	}
+
+    public HashMap<Integer, Integer> getGrowthHistory(){
+	return stateGrowth;
+    }
+
+        public String getStats(){
+
+	    StringBuilder stats = new StringBuilder();
+	    ArrayList<String> list = new ArrayList<String>();
+	    
+	    //all depths
+	    for ( Integer i : stateGrowth.keySet() ){
+		stats.append(i+"\t"+stateGrowth.get(i)+"\n");
+	    }
+	    
+	    return stats.toString();
+	}
+
 }

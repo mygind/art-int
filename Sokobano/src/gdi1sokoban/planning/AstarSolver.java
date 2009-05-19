@@ -14,10 +14,9 @@ public class AstarSolver extends Solver {
 
 	Heuristic heuristic;
 	boolean doPrint;
-	
+    	
 	public AstarSolver(Board board, Heuristic heuristic) {
 		this(board, heuristic, false);
-		
 	}
 	
 	public AstarSolver(Board board, Heuristic heuristic, boolean doPrint) {
@@ -25,9 +24,10 @@ public class AstarSolver extends Solver {
 		this.heuristic = heuristic;
 		this.doPrint = doPrint;
 	}
-	
+
 	@Override
 	public Stack<SolutionPart> solve(boolean statMode) {
+	       
 		boolean highValues = false;
 		
 		HashSet<Board> exploredStates = new HashSet<Board>();
@@ -45,7 +45,7 @@ public class AstarSolver extends Solver {
 		int depth = 0;		
 		
 		statistics = "depth discovered_states estimated\n";
-		while(!unexploredStates.isEmpty()){
+		while(!unexploredStates.isEmpty() && !killed){
 			Estimate currentEstimate = unexploredStates.get(0);
 			Board currentState = currentEstimate.getBoard();
 			
@@ -64,10 +64,15 @@ public class AstarSolver extends Solver {
 			
 			Queue<Action> actions = getPossibleActions(currentState, currentState.getPlayer());
 			
+
+			//update per depth statistics
 			if(statMode){
-				statistics += currentEstimate.getStepValue() + " " +
-						(exploredStates.size()+unexploredStates.size()) + " " +
-						currentEstimate.getEstimatedValue() + "\n";
+			    Integer d = new Integer(currentEstimate.getStepValue());
+			    Integer stateCount = stateGrowth.get(d);
+			    
+			    if ( stateCount == null || stateCount.intValue() < (exploredStates.size()+unexploredStates.size())){
+				stateGrowth.put(d, new Integer(exploredStates.size()+unexploredStates.size()));
+			    }
 			}
 			if(doPrint){
 				if(currentEstimate.getStepValue() > depth){
@@ -79,7 +84,7 @@ public class AstarSolver extends Solver {
 				}
 			}
 			
-			while(!actions.isEmpty()){
+			while(!actions.isEmpty() && !killed){
 				
 				Action action = actions.poll();
 				try{
@@ -128,6 +133,6 @@ public class AstarSolver extends Solver {
 
 	@Override
 	public String toString() {
-		return "Astar using:{\n" + heuristic + "\n}";
+		return "A(" + heuristic + ")";
 	}
 }

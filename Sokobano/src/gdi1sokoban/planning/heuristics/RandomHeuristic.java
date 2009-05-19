@@ -21,6 +21,6 @@ public class RandomHeuristic extends Heuristic {
 	
 	@Override
 	public String toString() {
-		return "RandomHeuristic";
+	    return "rand";
 	}
 }

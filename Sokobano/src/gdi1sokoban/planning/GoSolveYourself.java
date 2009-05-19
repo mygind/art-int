@@ -10,11 +10,16 @@ import gdi1sokoban.planning.heuristics.RandomHeuristic;
 import gdi1sokoban.planning.heuristics.ShortestPathHeuristic;
 import gdi1sokoban.planning.heuristics.SubGoalIndependence;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.EmptyStackException;
-import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EmptyStackException;
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.Stack;
+
 
 
 public class GoSolveYourself {
@@ -22,9 +27,12 @@ public class GoSolveYourself {
     public static void main(String args[]){
 	
 	String statFilename = null;
-	ArrayList<String> levelFilenames = new ArrayList<String>();
+	ArrayList<File> levelFiles = new ArrayList<File>();
 	int timeoutSecs = 30;
 	boolean doStats = false;
+	boolean toGNUPlot = false;
+	HashMap<Integer, String> totalGrowth = new HashMap<Integer, String>();
+	ArrayList<HashMap<Integer, Integer>> depths = new ArrayList<HashMap<Integer, Integer>>();
 	
 	for ( int i = 0; i < args.length; i++ ){
 	    
@@ -37,7 +45,7 @@ public class GoSolveYourself {
 		    doStats = true;
 		    i++;
 		}else{
-		    System.err.println("No statistics filename supplied");
+		    System.err.println("No statistics prefix filename supplied");
 		    System.exit(-1);
 		}
 	    }else if ( args[i].equals("-t") && i < args.length ){
@@ -47,26 +55,33 @@ public class GoSolveYourself {
 		} catch (NumberFormatException e){
 		    System.err.println("Error "+args[i+1]+" was not formatted correctly as an integer");
 		}
+	    }else if ( args[i].equals("-g")){
+		toGNUPlot = true;
 	    }else{
-		levelFilenames.add(args[i]);
+		levelFiles.add(new File(args[i]));
 	    }
+	}
+
+	if ( toGNUPlot && doStats ){
+	    System.err.println("Cannot print both to gnu plot and regular stats at the same time");
+	    System.exit(-1);
 	}
 	
 	FileWriter o = null;
 	try {
-	
-	     o = new FileWriter(statFilename);
+	    if ( doStats )
+		o = new FileWriter(statFilename);
 	}catch ( IOException e ){
 	    System.err.println("This must not happen "+ e.getMessage());
 	    System.exit(-1);
 	}
 
-    	for ( String file : levelFilenames){
-	    
-	    System.out.print(file+" : ");
+    	for ( File file : levelFiles){
+
+	    System.err.println(file.getName()+" : ");
 	    LevelParser lp = new LevelParser();
 	    try{		
-		Level l = lp.parse(file);
+		Level l = lp.parse(file.getAbsolutePath());
 		Board b = l.getBoard();
 
 		HeuristicsAdder h4 = new HeuristicsAdder(b);
@@ -137,9 +152,11 @@ public class GoSolveYourself {
 		Stack<SolutionPart> solution;
 		long before, after;
 		
-		
+		String header = String.format("%8s","Depth");
 		for(int i = 0; i < solvers.length; i++){
 		    if(run[i]){
+			System.err.println(solvers[i]);
+			header += String.format("%20s",solvers[i]);
 			
 			RunSolver r = new RunSolver(solvers[i]);
 			
@@ -147,29 +164,80 @@ public class GoSolveYourself {
 
 			r.start();
 			Thread.sleep(1000*timeoutSecs);
+			r.kill();
+			r.join();
 
 			after = System.currentTimeMillis();
 			
-			if ( r.isDone() && doStats ){
+			if ( r.isDone() && doStats && !toGNUPlot ){
 			    r.getSolver().setExecutionTime(after-before);
 			    o.write(r.getSolver().getStatistics());
 			}
 			
-			if ( r.isDone() ){
-			    printSolution(r.getSolution());
-			    System.out.println((after-before) + "ms");
-			}else{
-			    System.out.println("Solver was killed after "+(after-before)+"ms");
+			String levelName = file.getName();
+			String name = r.getSolver().toString();
+			long duration = after - before;
+			
+			
+			if ( r.isDone() && !toGNUPlot ){
+			    System.out.print(r.getSolver());
+			    System.out.println(" "+r.getSolution().size()+" "+(after-before) + "ms");
+			}
+			if ( toGNUPlot ){
+			    depths.add(r.getSolver().getGrowthHistory());
+			    System.err.println(r.getSolver().getGrowthHistory().get(new Integer(50)));
 			}
 		    }
+		    System.gc();
 		}
 		
+		if (  toGNUPlot ){
+		    
+		    int maxDepth = 0;
+		    
+		    for ( HashMap<Integer,Integer> m : depths ){
+			for ( Integer d : m.keySet() ){
+			    if ( maxDepth < d )
+				maxDepth = d;
+			}
+		    }
+		    for ( HashMap<Integer, Integer> ii : depths ){
+			
+			for ( int i = 0; i < maxDepth+1; i++){
+			    Integer bigI = new Integer(i);
+
+			    String s = totalGrowth.get(bigI);
+			    if ( s == null )
+				s = "";
+			    
+			    if ( ii.get(bigI) != null ){
+				s+=String.format("%20d",ii.get(bigI));
+			    }else{
+				s+=String.format("%20d",0);
+			    }
+
+			    totalGrowth.put(bigI, s);
+
+			}
+		    }
+		    ArrayList<Integer> depthList = new ArrayList<Integer>(totalGrowth.keySet());
+		    Collections.sort(depthList);
+		    System.out.println(header);
+		    for ( Integer i : depthList ){
+			System.out.println(String.format("%8d ",i.intValue()+1) + totalGrowth.get(i));
+		    }
+
+		}
+		
+
+		    
 	    } catch (Exception e){
 		e.printStackTrace();
 	    }
 	}
 	try {
-	    o.close();
+	    if ( doStats) 
+		o.close();
 	}catch(IOException e){
 	    System.err.println("Could not close file "+statFilename +" "+e.getMessage());
 	    System.exit(-1);
@@ -192,8 +260,7 @@ public class GoSolveYourself {
 		// Stack empty, that means we are done
 	    }
 	}
-	System.out.println("### Solution ###");
-	System.out.println(str);
+	System.out.print(str.length());
     }
 }
 
@@ -217,6 +284,11 @@ class RunSolver extends Thread {
     public Solver getSolver(){
 	return s;
     }
+
+    public void kill(){
+	s.killMe();
+    }
+    
     public Stack<SolutionPart> getSolution(){
 	return solution;
     }

@@ -26,7 +26,7 @@ public class BFSolver extends Solver {
 		
 		statistics = "depth discovered_states\n";
 		Board currentState;
-		while((currentState = unexploredStates.poll()) != null){
+		while((currentState = unexploredStates.poll()) != null && !killed){
 			Queue<Action> unexploredActions = getPossibleActions(currentState, currentState.getPlayer());
 			
 			if(unexploredActions.size() > 0){
@@ -42,10 +42,6 @@ public class BFSolver extends Solver {
 						
 						if(!discoveredStates.containsKey(newState)){
 							int depth = discoveredStates.get(currentState).intValue()+1;
-							if(statMode){
-								statistics += depth + " " +
-								(discoveredStates.size()) + "\n";
-							}
 							if(depth > maxDepth){
 								maxDepth = depth;
 								//System.out.println("Depth: " + maxDepth + " States: " + discoveredStates.size());
@@ -58,11 +54,22 @@ public class BFSolver extends Solver {
 							
 						} else {
 						}
+
 					} catch (IllegalActionException e){
 					}
 				}
 			} else {
 			}
+			if(statMode){
+			    int  depth =discoveredStates.get(currentState).intValue()+1;
+			    Integer d = new Integer(depth);
+			    int stateSize = (discoveredStates.size());
+			    if ( stateGrowth.get(d) == null || stateGrowth.get(d).intValue() <  
+				 stateSize  ) {
+				stateGrowth.put(new Integer(depth), new Integer(stateSize));
+			    }
+			}
+
 		}
 
 			return null;
