@@ -25,6 +25,6 @@ public class HeuristicsAdder extends HeuristicsCombiner {
 
 	@Override
 	public String toString() {	
-		return "HeuristicsAdder{\n"+super.toString()+"\n}";
+		return "+{"+super.toString()+"\n}";
 	}
 }

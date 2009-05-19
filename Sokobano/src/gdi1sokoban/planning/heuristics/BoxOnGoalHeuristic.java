@@ -19,7 +19,7 @@ public class BoxOnGoalHeuristic extends Heuristic {
 				if(boxesNotGoaled < lowest){
 					lowest = boxesNotGoaled;
 					//System.out.println(lowest);
-					System.out.println(b);
+					//System.out.println(b);
 				}
 			}
 		}
@@ -29,7 +29,7 @@ public class BoxOnGoalHeuristic extends Heuristic {
 
 	@Override
 	public String toString() {
-		return "BoxOnGoalHeuristic";
+		return "+";
 	}
 
 }

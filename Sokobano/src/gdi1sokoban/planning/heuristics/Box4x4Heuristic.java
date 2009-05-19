@@ -41,6 +41,6 @@ public class Box4x4Heuristic extends Heuristic {
 
 	@Override
 	public String toString() {
-		return "Box4x4Heuristic";
+		return "4";
 	}
 }

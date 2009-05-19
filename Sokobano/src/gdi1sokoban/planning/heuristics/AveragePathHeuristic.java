@@ -34,4 +34,7 @@ public class AveragePathHeuristic extends ShortestPathHeuristic {
 			return distSum/noFreeGoals;
 		}
 	}
+    public String toString(){
+	return "a";
+    }
 }

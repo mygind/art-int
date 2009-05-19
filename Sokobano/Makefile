@@ -8,7 +8,7 @@ FILES=$(shell find src -name *.java)
 
 compile: $(FILES)
 	if [ ! -d bin ]; then mkdir bin; fi
-	javac -sourcepath $(SOURCEPATH) -d bin src/gdi1sokoban/Application.java src/gdi1sokoban/planning/GoSolveYourself.java
+	javac -nowarn -sourcepath $(SOURCEPATH) -d bin src/gdi1sokoban/Application.java src/gdi1sokoban/planning/GoSolveYourself.java
 
 
 run: 

@@ -12,7 +12,9 @@ public abstract class Solver {
 	protected Stack<SolutionPart> finalSolution;
 	
 	protected String statistics;
-	
+
+        protected long execTime;
+
 	public Solver(Board startState) {
 		this.startState = startState;
 		this.statistics = "";
@@ -88,4 +90,8 @@ public abstract class Solver {
 	}
 	
 	public abstract String toString();
+    
+        public void setExecutionTime(long execTime){
+	    this.execTime = execTime;
+	}
 }

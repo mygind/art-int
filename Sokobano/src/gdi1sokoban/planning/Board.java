@@ -267,7 +267,7 @@ public class Board {
 		StringBuilder s = new StringBuilder();
 
 		for (String l : landscape ){
-			s.append(l+" "+l.hashCode()+"\n");
+			s.append(l+"\n");
 		}
 		return s.toString();
 	}
