@@ -54,6 +54,7 @@ The true heuristics are the heuristics that does the actual estimation. They est
 When running the algorithm the distance from the box to the nearest goal is looked up in these maps and the shortest distance is used. To evaluate the performance estimate in the same way as in the SubGoalIndependence.
 \begin{figure}[htp]
 	\centering
+	\includegraphics[scale=0.5]{img/src/shortestpathheuristic.png}
 	\caption{Distances calculated by the ShortestPathHeuristic}
 	\label{fig:shortestpathheuristic}
 \end{figure}
@@ -64,7 +65,60 @@ If it is more important to find a solution quickly than to find a short solution
 
 \subsubsection{Deadlock detection}
 The heuristics in this category are responsible for finding deadlocks, that is a state where one or more boxes are placed at a spot from which they cannot be moved. When such a state is found an exception is thrown telling the \astar algorithm not to use this state. We have implemented two very simple deadlock detectors, but more and better detectors might be needed for the planner to work better.
-\paragraph{Box4x4Heuristic}The Box4x4Heuristic checks every box if they are stuck in a 4x4 block without being on a goal square. 
-\paragraph{CornerHeuristic}
+\paragraph{Box4x4Heuristic}The Box4x4Heuristic checks every box if they are stuck in a 4x4 block without being on a goal square. If this happens the heuristic will throw an exception telling that this state is not to be used. An example of a state found by this heuristic can be seen on figure \ref{fig:box4x4} on the left.
+
+The heuristic works by for all boxes not standing on goal squares checking if they are placed adjent to boxes or walls making meking them form a 4x4 square. In figure \ref{fig:box4x4} on the right, the algorithm has found a 4x4 square shown by the green square. The red squares indicate that a 4x4 square has not been found in these directions.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.3\textwidth]{box4x4}
+	\includegraphics[width=0.3\textwidth]{box4x4detect}
+	\caption{Box4x4Heuristic detects this state as a deadlock state.}
+	\label{fig:box4x4}
+\end{figure}
+
+\paragraph{CornerHeuristic}Another very powerful deadlock detector is the CornerHeuristic. It decides on which squares the boxes will never be allowed, illegal squares, as the boxes will not be able to leave these areas thus making them reach the goal imposible. The illegal squares are found using corners: inner corners indicated by \textit{i} in figure \ref{fig:cornerheuristic} and outer corners indicated by \textit{o}.
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.18\textwidth]{corner1}
+	\caption{Finding corners}
+	\label{fig:cornerheuristic}
+\end{figure}
+To find the corners the algorithm checks all wall squares. The algorithm only look at the squares located diagonally from the wall, that is the squares NE, NW, SE and SW.
+\begin{itemize}
+	\item As the square in NE is a wall it can not be a corner.
+	\item The square NW is not a wall and none of the squares N and W are walls. Therefore the square NW is an outer corner.
+	\item The squareSW is not a wall but one of the squares S and W is a wall while the other is not. Therefore there is no corner in square SW.
+	\item Finally the square SE is not a wall while both of the squares S and E are. This makes the square SE an inner corner.
+
+All squares between two inner corners are then seen as illegal squares and these squares will be indicated by \textit{\!}. The inner corner squares are also marked as illegal squares. Squares on the same line as an outer square or a goal is not illegal squares, so when the squares have been marked, the squares on line with goals are unmarked. This is done by checking each goal if they have been marked as an illegal square. If it has been marked, the algorithm finds out in which direction a wall is located and unmarks all fields in the direction ortogonal to this.
+
+In steps the algorithm does the following. The steps is also illustrated in figure \ref{fig:cornerheuristic}.
+\begin{itemize}
+	\item The map is read
+	\item Each corner is found and marked by either \textit{i} or \textit{o}.
+	\item All fields between inner corners are marked as illegal squares.
+	\item All fields on line with a goal marked as an illegal square are unmarked as boxes are allowed on this line in order to push them onto the goal square.
+	\item That leaves all the illegal squares marked.
+\end{itemize}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=0.18\textwidth]{corner1}
+	\includegraphics[width=0.18\textwidth]{corner2}
+	\includegraphics[width=0.18\textwidth]{corner3}
+	\includegraphics[width=0.18\textwidth]{corner4}
+	\includegraphics[width=0.18\textwidth]{corner5}
+	\caption{CornerHeuristic in steps}
+	\label{fig:cornerheuristic}
+\end{figure}
+
+
+
+
+
+
+
+
 
 
