@@ -27,19 +27,44 @@ original problem in order for this exercise to make any sense.
 
 Removing all preconditions in Sokoban 
 
-SubGoalIndependence
+\subsubsection{SubGoalIndependence}
+Another approach is to divide the problem into a number of subproblems. The idea is that when solving the subproblems one at a time, the entire problem will be solved.
 
-HeuristicsCombiner
-HeuristicsAdder
-HeuristicsMultiplier
+\subsection{Implemented heuristics}
+In order to find the best heuristics we have implemented many different heuristics. Some are them are very similar while others differ alot. The heuristics can be divided into the categories \textit{The true heuristics} containing the actual heuristics, \textit{Deadlock detection} holding the heuristics which determines whether a deadlock has occurred or not and the \textit{Combiners} which combines a number of heuristics into one.
 
-BoxOnGoalHeuristic
+To get as little code duplication as possible we have our heuristics doing very small things. In order to get a good heuristic we then have to combine the heuristics.
 
-ShortestPathHeuristic
+\subsubsection{Combiners}
+A \textit{combiner} is a heuristic combining one or more of the heuristics. It has a number of heuristics assigned to it which in the following will be reffered to as its children. When asked for a performance estimate of a given state it will take the performance estimates given by its childrens and combine them into a single performance estimate.
+We have implementet two different combiners, a \textit{HeuristicsAdder} and \textit{HeuristicsMultiplier} both sharing a number of methods stored in the abstract class \textit{HeuristicsCombiner}.
+%HeuristicsCombiner
+\paragraph{HeuristicsAdder}The HeuristicsAdder adds the results of its children. This is useful for when having heuristics used to check for a small part of a gamestate. 
+\paragraph{HeuristicsMultiplier}The HeuriscsMultiplier multiplies the results of its children. This is very useful when a heuristic is very critical for the solution. The value of this heuristic can then be multiplied with itself in order to make its performance estimate count much more or to a HeuristicsAdder to make the heurstics in the adder count less.
 
-\subsection{Pattern Recognition}
+\subsubsection{The true heuristics}
+The true heuristics are the heuristics that does the actual estimation. They estimate how well a given state is depending on the location of the goals, the player and the boxes.
 
-Box4x4Heuristic
-CornerHeuristic
+\paragraph{BoxOnGoalHeuristic}The simplest heuristic is the BoxOnGoalHeuristic. It returns the number of boxes not placed on a goal thus making the solutions with boxes put on goals better than those without. It becomes very powerful when multiplying it with an adder containing some of the better heuristics, as the the bonus of having a box on a goal is huge.
+
+\paragraph{SubGoalIndependence}The SubGoalIndependence is a heuristic inspired by the general heuristic mentioned in \citet{Russell2003GeneralHeuristics}. It divides the problem into subproblems looking at only at the player, one box and the goal closest to the box. Then it evaluates the distance from the player to the box and adds it to the distance from the box to the goal. Adding the results of all the boxes an approximation of the number of steps from a given state to the goalstate can be found.
+
+\paragraph{ShortestPathHeuristic}An improvement to the SubGoalIndependence is the ShortestPathHeuristics. It evalutes the distances to all goals from all squares on the board before starting the \astar algorithm. The distances are measured using a BreadthFirst-algorithm that starts in a goal and writes down the distance to the goal in all squares reachable from the goal. This is done for each goal and the result is a map of distances for each goal. An example of such a map can be seen in figure \ref{fig:shortestpathheuristic}.
+
+When running the algorithm the distance from the box to the nearest goal is looked up in these maps and the shortest distance is used. To evaluate the performance estimate in the same way as in the SubGoalIndependence.
+\begin{figure}[htp]
+	\centering
+	\caption{Distances calculated by the ShortestPathHeuristic}
+	\label{fig:shortestpathheuristic}
+\end{figure}
+
+\paragraph{AveragePathHeuristic}The AveragePathHeuristic looks much like the ShortestPathHeuristic. Instead of looking at the distance to the nearest goal it takes the average distance to all the goals which are not yet occupied by boxes. In this way a very likely estimation of the number of steps needed to reach the goal state from a given state is estimated.
+
+If it is more important to find a solution quickly than to find a short solution, the distance from the goalstate could be squared. This would make the algorithm weigh the distance higher than the number of steps used and hence make it try the best looking path (even if it does not follow the best possible path) before going back for the second best looking path.
+
+\subsubsection{Deadlock detection}
+The heuristics in this category are responsible for finding deadlocks, that is a state where one or more boxes are placed at a spot from which they cannot be moved. When such a state is found an exception is thrown telling the \astar algorithm not to use this state. We have implemented two very simple deadlock detectors, but more and better detectors might be needed for the planner to work better.
+\paragraph{Box4x4Heuristic}The Box4x4Heuristic checks every box if they are stuck in a 4x4 block without being on a goal square. 
+\paragraph{CornerHeuristic}
 
 
