@@ -2,6 +2,9 @@
 \label{cha:design}
 
 \section{Introduction}
+Here we present the design of the model and solver parts. 
+
+
 
 \section{Overall model}
 The planner can be devided into three areas: the objects describing
@@ -10,14 +13,18 @@ by the \astar solver to estimate the performance of a given state.
 
 \section{World objects}
 Each level the planner is to solve is given in a level format
-described on www.sokobano.de/wiki/. This level is loaded into an array
-of Strings each letter being one square in the Sokobano world. These
-strings are mainly used when the world is being explored by the
-algorithm, but in order to do some more advanced moves the positions
-of the boxes, the player and the goals is stored in a set giving
-access to the positions.  When performing an action this is done by
-the action itself. It is responsible for updating the world accroding
-to what the effects of the action.
+described by \citet{sokobano:level_format}. This level is loaded into
+an array of Strings each letter being one square in the Sokobano
+world. These strings are mainly used when the world is being explored
+by the algorithm, but in order to do some more advanced moves the
+positions of the boxes, the player and the goals is stored in a set
+giving access to the positions.  When performing an action this is
+done by the action itself. The action is responsible for updating the
+world according to what the effects of the action is.
+
+The result of solving a levels returns an action trace that is also
+defined by \citet{sokobano:level_format}. The length of this path is 
+a good performance indicator.
 
 \section{The heuristics}
 The heuristics are thoroughly described in chapter
@@ -58,3 +65,12 @@ deadlocked state is not being explored making a solution building on a
 deadlocked state (that we are able to find) impossible.
 
 % Solver using A* (problem step 3)
+\section{User Interface}
+We have found a 3D engine that could be used to display the results of
+the solver activity. (See \url{http://sokobano.sourceforge.net/})
+Therefore we chose implement the solvers and models described in as a
+subpackage to this project, in order to let easily hack into the
+controls. To be precise all code related to this project will be in
+the package \texttt{gdi1sokoban.planning} and below. The rest of the
+code is available via the GNU General Public License \cite{gpl}, under whose term
+we also release our modifications and additions.
