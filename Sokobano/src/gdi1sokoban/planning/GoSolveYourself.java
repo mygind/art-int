@@ -176,6 +176,10 @@ public class GoSolveYourself {
 			    System.err.println(r.getSolver().getGrowthHistory().get(new Integer(50)));
 			}
 
+			if ( !toGNUPlot && !doStats){
+				System.out.println(r.getSolver()+"\nDone in "+(after-before)+"ms\n"+
+						r.getSolver().getSolutionString()+"\n");
+			}
 		    }
 		    
 		}
