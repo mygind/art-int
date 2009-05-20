@@ -4,17 +4,18 @@
 \section{Introduction}
 
 \section{Overall model}
-
-The planner can be devided into three areas: the objects describing the world, the solvers (planning algorithms) and the heuristics used by the \astar solver.
+The planner can be devided into three areas: the objects describing the world, the solvers (planning algorithms) and the heuristics used by the \astar solver to estimate the performance of a given state.
 
 \section{World objects}
-\todo{Not yet written}
+Each level the planner is to solve is given in a level format described on www.sokobano.de/wiki/. This level is loaded into an array of Strings each letter being one square in the Sokobano world. These strings are mainly used when the world is being explored by the algorithm, but in order to do some more advanced moves the positions of the boxes, the player and the goals is stored in a set giving access to the positions.
+When performing an action this is done by the action itself. It is responsible for updating the world accroding to what the effects of the action.
 
 \section{The heuristics}
 The heuristics are thoroughly described in chapter \ref{cha:heuristics}.
 
 \section{Solvers}
 The planner has two solvers: a BreadthFirst (BF) Solver and an \astar solver. At a given state the solvers look at all neighbour states, states reachable using a single action, and adds them to a queue of states to investigate.
+
 \subsection{BreadthFirst Solver}
 The BF solver adds the new found states to the end of the queue, called unexplored states. This ensures that states discovered first are explored before states found later. As a result it finds the shortest possible solution, but it might take very long as it does not care if states are close to or far from the goal state.
 
