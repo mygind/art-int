@@ -1,5 +1,11 @@
 \chapter{Conclusion}
 \label{cha:conclusion}
 
-as we weight a solution found quickly much higher than a short solution we prefer to use an advanced heuristic that does go a long way around once in a while.
-The best planner would be to run both the A(+{*{B,B,a,a},c,4}) and the A(+{*{B,B,s,s},c,4}) and choose the shortest solution.
+We have implemented the simple BFSolver, an \astar solver using a general heuristic (the SudGoalIndependence) and a number of heuristics optimized for the Sokoban problem.
+
+We are not able to solve all Sokoban floorplans, and especially the original levelset seems to make our planner struggle. We have proposed a number of improvements in order to mitigate this.
+
+The planner is able to get through the entire levelset 0 shown in appendix \ref{app:levelset0}. And this is only possible because of the heuristics optimized for the Sokoban puzzle.
+
+As we weigh a solution found quickly much higher than a short solution we would prefer to use one of our advanced heuristics that quickly finds a longer solution.
+The best planner we have created seems to be either the A(+{*{B,B,a,a},c,4}) or the A(+{*{B,B,s,s},c,4})\footnote{An explanation of the heuristics can be found in section \ref{sec:speedvssolsize}}.

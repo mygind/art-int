@@ -32,7 +32,7 @@ The high game complexity stems from, among other things:
 \item The game is PSPACE Complete. \cite{culberson97sokobanpspace}
 \item Some game states cannot be reversed (deadlocks, pushing boxes
   against walls, etc.)
-\item Up to moves at each state. (Grows as $n^4$.)
+\item Up to four moves at each state. (Grows as $n^4$.)
 \end{itemize}
 
 
@@ -49,7 +49,7 @@ level original game.
 
 \section{Problem Formulation}
 
-The assignment leaves us rather free to chose our focus, but there are
+The assignment leaves us rather free to choose our focus, but there are
 some minimum requirements we must meet. In this list of tasks we chose
 some of them to focus on and others to address more lightly.
 
@@ -58,8 +58,8 @@ We chose to put our primary focus in the project and the report on
 implementating a solver for arbitrary Sokoban floor plans.
 
 This means that large parts of this report will deal with the design
-and implemenation of such a solver and the heuristics that goes along
-with it.
+and implemenation of such a solver and especially the heuristics used 
+by the solver will be put in focus.
 
 This also implies that we to a lesser degree address the more academic
 studies of complexity in the game.
@@ -68,9 +68,9 @@ We will implement at least 3 different techniques for solving the
 Sokoban challenges:
 \begin{itemize}
 \item Simple breadth first progression planner. %done
-\item The same as above, only using a general heuristic. %done
+\item An \astar progression planner, only using a general heuristic. %done
 \item The same as above, replacing the general heuristic with one we
-  design ourselves.
+  design ourselves with the Sokoban game in mind.
 \end{itemize}
 
 

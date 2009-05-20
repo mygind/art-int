@@ -40,6 +40,7 @@ but also \emph{accurate}. A heuristic is accurate if it leads to
 solution trace that is as short as possible.
 
 \section{Speed vs. solution size}
+\label{sec:speedvssolsize}
 When we use a better heuristic the time needed to find a solution in a level is of course decreased. The solution found however is often bigger the faster it is found. Tables containing informations on the speed and solution size of the different heuristics can be found in appendix \ref{app:solutions}.
 
 The heuristic names are simplified very much so that:
@@ -60,7 +61,7 @@ If we use the heuristic A(+\{*\{B,B,s,s\},c,4\})\footnote{an \astar solver with 
 
 At the same time the better heuristics make larger the solution. This is due to the fact that once the algorithm finds a path that looks good it follows it And the algorithm prefer to put a box all the way to a goal square before trying to get the next box to a goal.
 
-The easier the level the less clear it is to see that the more advanced heursitics are faster. This is due to the increased time the advanced heuristics needs in order to evaluate each step. This increased time/step makes the evaluation time longer when the number of states seen are about the same for the advanced as for the the less advanced heuristic. On small, easy levels this increased step time matter alot, but as soon as the level increase in complexity the extra time spent is gained by not having to explore a lot of irrelevant states. This is clearly seen in Level40 where the A(+\{*\{s,s\},c,4\}) barely makes it in time and the best heuristic finds a solution in under a second. When the solution length gets even higher only the most advanced heuristics are able to find a solution. (See figure \ref{fig:std1solution}) As an example the solution we find to the 1st level of the original game is on 380 steps which would be impossible for the BFSolver to find in a reasonable time.
+The easier the level the less clear it is to see that the more advanced heursitics are faster. This is due to the increased time the advanced heuristics needs in order to evaluate each step. This increased time/step makes the evaluation time longer when the number of states seen are about the same for the advanced as for the the less advanced heuristic. On small, easy levels this increased step time matter alot, but as soon as the level increase in complexity the extra time spent is gained by not having to explore a lot of irrelevant states. This is clearly seen in Level40 where the A(+\{*\{s,s\},c,4\}) barely makes it in time and the best heuristic finds a solution in under a second. When the solution length gets even higher only the most advanced heuristics are able to find a solution. (See figure \ref{fig:std1solution}) As an example the solution we find to the 1st level of the original game (Figure \ref{fig:soko-org-screen} page \pageref{fig:soko-org-screen}) is on 380 steps which would be impossible for the BFSolver to find in a reasonable time.
 \begin{figure}[htp]
 \begin{verbatim}
 		screen.1.level
@@ -77,9 +78,13 @@ The easier the level the less clear it is to see that the more advanced heursiti
 \end{figure}
 
 \subsection{The long solution vs. the slow solution}
-If we hold up the A(+\{*\{B,B,a,a\},c,4\}) against the BFSolver the level where the \astar solution is furthest away from the shortest solution (found by the BFSolver) is level37. The solution found by the \astar solver is 107 steps long while the shortest solution is only 71 steps long. That is an increase in solution size of 150\%.
-The time used to find this solution is 56ms for the \astar and 900ms for the BFSolver - that is only 6\% time spent on finding a solution.
+If we hold up the A(+\{*\{B,B,a,a\},c,4\}) against the BFSolver the level where the \astar solution is furthest away from the shortest solution (found by the BFSolver) is level04. The solution found by the \astar solver is 40 steps long while the shortest solution is only 23 steps long. That is an increase in solution size of 174\%.
+The time used to find this solution is 28ms for the \astar and 1438ms for the BFSolver - that is only 2\% of the time the the BFSolver needed to find a solution.
 
 This is the most extreme case found in the levels where the BFSolver could make it through in under 10seconds. Most of the time the solution found by the \astar is up to 125\% of the size of the shortest possible solution, and the time spent to find it is at most 50\% of the time spent finding the optimal solution.
 
+\subsubsection{BFSolver only usable in small levels}
+As the BFSolver is only able to find a solution in smaller levels: the biggest solution we have found using the BFSolver in 10second was on 107 steps. Had this been the size of the solution in the worst case scenario, namely a level which were an open field being 100+ squares from east to west and north to south, the amount of visited states would have reached $O({noPossibleDirections}^{size_{solution}} = 4^{107} = 2.6 \cdot 10^{64}$ visited states. This would be impossible for any computer to solve.
+
+The \astar algorithm always tries to get closer to the goal. Its worst case running time is the same as the BFSolvers but for most of the time it will approach the goal state for every step it moves. At least if the heuristic assigned to the solver does a good estimation of the performance.
 
