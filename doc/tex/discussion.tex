@@ -48,14 +48,21 @@ algorithm very slow?
 \end{figure}
 
 \subsection{A different planning method}
+To improve the algorithm a different planning method could be used. We will try to argue if \textit{POP planning} and \textit{Regression planning} could improve the planning algorithm further.
 \subsubsection{POP planning}
-\subsubsection{Regression planning}
-Regression planning might work better than progression planning as the puzzles might be created 
+Using Partial order planning to solve planning problems require the problem to be dividable into independent subproblems. In most Sokoban problems this is not possible as the moving one box influences the solution for the other boxes. Furthermore the a box almost always have to be moved in order to get another box in to a goal.
 
-Variants of sokoban
-\begin{itemize}
-\item Colored boxes
+\subsubsection{Regression planning}
+Regression planning might work better than progression planning as the puzzles might be created bearing in mind that the solution should be hard to find from the beginning. Especially if the branches a lot in the early states an less in the later a regression planner might work great. At the same time it might work quite bad as well, especially on big but easy maps, as they might be created bearing in mind that the level should be easy to solve using progression planning.
+
+Many levels contain a goal area where all boxes have to get into. These are easier to solve using progression planning as it does not matter which box goes to which goal square. Using regression planning on these maps might be hard as the algorithm would have to find out which box to place at its startposition first.
+
+\section{Other variants of Sokoban}
+There exists a number of variants of Sokoban-like games. Some of these variants might be solvable by the planner by making small modifications to the planner while others might be almost imposible to solve.
+
+\begin{description}
+\item[Colored boxes] One variant is to play Sokoban with colored boxes and goals. The objective would then be to get a box with a given color put on a goal of the same color. Our planner would probably be able to solve the problem if the distance heuristics measured the distance between boxes and goals of the same color instead of the distance to all/the nearest goal(s).
 \item Several Pushers
 \item Push rows of boxes
 \item Traps/doors
-\end{itemize}
+\end{description}
