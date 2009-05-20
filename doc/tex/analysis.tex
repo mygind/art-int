@@ -39,7 +39,39 @@ It is, however, important that the heuristic is not only determinate,
 but also \emph{accurate}. A heuristic is accurate if it leads to
 solution trace that is as short as possible.
 
-\section{}
+\section{Speed vs. solution size}
+When we use a better heuristic the time needed to find a solution in a level is of course decreased. The solution found however is often bigger the faster it is found. Tables containing informations on the speed and solutionsize of the different heuristics can be found in appendix \ref{app:solutions}.
+
+The heuristic names are simplified very much so that:
+\begin{itemize}
+\item +\{a, b, c\} is a HeuristicsAdder adding the heuristics a, b, and c
+\item *\{a, b, c\} is a HeuristicsMultiplier multiplying the results of the heuristics a, b, and c
+\item i is a SubGoalIndependence heuristic
+\item c is a CornerHeursitic
+\item 4 is a Box4x4Heuristic
+\item B is a BoxOnGoalHeuristic
+\item s is a ShortestPathHeuristic
+\item a is a AveragePathHeuristic
+\item A(a) is an \astar solver with the heuristic a
+\item and finally a BFSolver is a BreadthFirst Solver
+\end{itemize}
+
+If we use the heuristic A(+\{*\{B,B,s,s\},c,4\})\footnote{an \astar solver with an HeuristicAdder (+) adding the results of a cornerHeuristic (c), a Box4x4Heuristic (4) and a HeuristicMultiplier (*) which multiplys the results of two BoxOnGoalHeursitics (B) and two ShortestPathHeuristic (s)} the time spent on finding a solution is much smaller than when we use the simple BreadthFirst Solver. And on the hard levels (Level40) only the best heuristics are able to find a solution in under 10 seconds.
+
+At the same time the better the heuristic, the larger the solution.
+
+The easier the level the less clear it is to see that the more advanced heursitics should be faster. The more advanced heuristics take longer to evaluate each step and hence makes the evaluation time longer. On small easy levels this increased step time matter, but as soon as the level increase in complexity the time spents is paid back tenfold.
+
+\begin{verbatim}
+		screen.1.level
+		Name                Time      Sol. len. 
+		----------------------------------------
+		BFSolver                 10525         0
+		A(+{*{i,i},c,4})         10001         0
+		A(+{*{s,s},c,4})         10046         0
+		A(+{*{B,B,s,s},c,4})       548       380
+		A(+{*{B,B,a,a},c,4})       518       380
+\end{verbatim}
 
 
 
