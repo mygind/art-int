@@ -42,10 +42,7 @@ public class BFSolver extends Solver {
 						
 						if(!discoveredStates.containsKey(newState)){
 							int depth = discoveredStates.get(currentState).intValue()+1;
-							if(depth > maxDepth){
-								maxDepth = depth;
-								//System.out.println("Depth: " + maxDepth + " States: " + discoveredStates.size());
-							}
+							
 							discoveredStates.put(newState, new Integer(depth));
 							
 							unexploredStates.add(newState);

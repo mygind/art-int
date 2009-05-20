@@ -39,15 +39,7 @@ public class GoSolveYourself {
 	    if ( args[i].equals("--")){
 		break;
 	    }else if ( args[i].equals("-s") ){
-		if ( i < args.length){
 		    doStats = true;
-		    statFilename=args[i+1];
-		    doStats = true;
-		    i++;
-		}else{
-		    System.err.println("No statistics prefix filename supplied");
-		    System.exit(-1);
-		}
 	    }else if ( args[i].equals("-t") && i < args.length ){
 		try { 
 		    timeoutSecs = Integer.parseInt(args[i+1]);
@@ -67,18 +59,11 @@ public class GoSolveYourself {
 	    System.exit(-1);
 	}
 	
-	FileWriter o = null;
-	try {
-	    if ( doStats )
-		o = new FileWriter(statFilename);
-	}catch ( IOException e ){
-	    System.err.println("This must not happen "+ e.getMessage());
-	    System.exit(-1);
-	}
 
+	
     	for ( File file : levelFiles){
-
-	    System.err.println(file.getName()+" : ");
+	    if ( toGNUPlot )
+		System.err.println(file.getName()+" : ");
 	    LevelParser lp = new LevelParser();
 	    try{		
 		Level l = lp.parse(file.getAbsolutePath());
@@ -130,7 +115,7 @@ public class GoSolveYourself {
 		h9.add(new Box4x4Heuristic(b));
 		
 
-		boolean[] run = {true, true, true, true, true, true, true, true, true, true};
+		boolean[] run = {true, false, false, false, false, true, true, true, true, false};
 		Solver[] solvers = {new BFSolver(new Board(l.getBoard())),
 		                    new AstarSolver(new Board(l.getBoard()), new SubGoalIndependence(b)),
 		                    new AstarSolver(new Board(l.getBoard()), new CornerHeuristic(b)),
@@ -152,10 +137,21 @@ public class GoSolveYourself {
 		Stack<SolutionPart> solution;
 		long before, after;
 		
+		if ( doStats ){
+		    System.out.println(file.getName());
+		    String head = String.format("%-20s%-10s%-10s","Name", "Time", "Sol. len.");
+		    System.out.println(head);
+		    for ( int i = head.length(); i>0; i--){
+			System.out.print("-");
+		    }
+		    System.out.print("\n");
+		}
+
 		String header = String.format("%8s","Depth");
 		for(int i = 0; i < solvers.length; i++){
 		    if(run[i]){
-			System.err.println(solvers[i]);
+			if ( toGNUPlot )
+			    System.err.println(solvers[i]);
 			header += String.format("%20s",solvers[i]);
 			
 			RunSolver r = new RunSolver(solvers[i]);
@@ -163,7 +159,7 @@ public class GoSolveYourself {
 			before = System.currentTimeMillis();
 
 			r.start();
-			Thread.sleep(1000*timeoutSecs);
+			r.join(1000*timeoutSecs);
 			r.kill();
 			r.join();
 
@@ -171,25 +167,20 @@ public class GoSolveYourself {
 			
 			if ( r.isDone() && doStats && !toGNUPlot ){
 			    r.getSolver().setExecutionTime(after-before);
-			    o.write(r.getSolver().getStatistics());
+			    System.out.println(String.format("%-20s",r.getSolver())+r.getSolver().getStatistics());
 			}
 			
-			String levelName = file.getName();
-			String name = r.getSolver().toString();
-			long duration = after - before;
 			
-			
-			if ( r.isDone() && !toGNUPlot ){
-			    System.out.print(r.getSolver());
-			    System.out.println(" "+r.getSolution().size()+" "+(after-before) + "ms");
-			}
 			if ( toGNUPlot ){
 			    depths.add(r.getSolver().getGrowthHistory());
 			    System.err.println(r.getSolver().getGrowthHistory().get(new Integer(50)));
 			}
+
 		    }
-		    System.gc();
+		    
 		}
+		if ( doStats )
+		    System.out.println();
 		
 		if (  toGNUPlot ){
 		    
@@ -235,15 +226,6 @@ public class GoSolveYourself {
 		e.printStackTrace();
 	    }
 	}
-	try {
-	    if ( doStats) 
-		o.close();
-	}catch(IOException e){
-	    System.err.println("Could not close file "+statFilename +" "+e.getMessage());
-	    System.exit(-1);
-	}
-
-	
     }
     
     private static void printSolution(Stack<SolutionPart> solution){

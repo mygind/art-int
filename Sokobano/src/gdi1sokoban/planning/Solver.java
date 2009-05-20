@@ -49,7 +49,11 @@ public abstract class Solver {
 	public abstract Stack<SolutionPart> solve(boolean statMode);
 
 	public String getStatistics() {
-		return statistics;
+	    if ( execTime == (long)0 ){
+		return String.format("%10s%10s","N/A","N/A");
+	    }else{
+		return String.format("%10d%10d",execTime,this.getSolutionString().length());
+	    }
 	}
 	
 	protected Queue<Action> getPossibleActions(Board state, Player player) {

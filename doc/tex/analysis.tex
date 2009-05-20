@@ -12,6 +12,15 @@ Here we define the set of levels on which we are going to compare the
 heuristics and solvers. 
 
 \subsection{Levelset}
+The 3D engine (see Chapter \ref{cha:design}) we found came with a
+number of simple levelsets. We chose the first of these as our primary
+target set. This set of levels is consists mostly of small levels. The
+average area of the levels in this was found to be $52.4$, whereas the
+original levelset (of which the first floor-plan is depicted in Figure
+\ref{fig:soko-org-screen}) has an average area of
+$280.1$.\footnote{These areas is computed by multiplying the number of
+  lines in the level-file with the length of the longest line in the
+  level. So it is not exact, but is a good indicator of difficulty.}
 
 \subsection{Variables}
 Solution length, total no of states visited, total no of states seen, run
