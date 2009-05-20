@@ -46,8 +46,8 @@ algorithm very slow?
 
 \begin{figure}[htp]
   \centering
-  \includegraphics[width=0.4\textwidth]{blockednarrow}
-  \includegraphics[width=0.4\textwidth]{blockedentrance}
+  \includegraphics[totalheight=0.2\textheight]{narrow}
+  \includegraphics[totalheight=0.2\textheight]{blockedentrance}
   \caption{Deadlocks not found by our heuristics}
   \label{fig:missingdeadlocks}
 \end{figure}
@@ -67,7 +67,7 @@ There exists a number of variants of Sokoban-like games. Some of these variants 
 
 \begin{description}
 \item[Colored boxes] One variant is to play Sokoban with colored boxes and goals. The objective would then be to get a box with a given color put on a goal of the same color. Our planner would probably be able to solve the problem if the distance heuristics measured the distance between boxes and goals of the same color instead of the distance to all/the nearest goal(s).
-\item Several Pushers
-\item Push rows of boxes
-\item Traps/doors
+\item[Several Pushers] Another variant might let the there be more than one player/pusher. In order to solve the puzzles the players would have to cooperate. Our implementation does not allow more than one player, but even if it had it would be hard to find a solution as the number of possible actions in each state would rise quite fast with the number of players. The number of searched states would then grow bigger even faster and thereby make it harder to find a solution. The heuristics would have a hard time figuring out which states are good as the order in which the players would be moved would make lots of parallel paths.
+\item[Push rows of boxes] If it was allowed to push rows of boxes this action would have to be implemented. But after having done this the levels might still be solvable by the planner we have created. As long as the heuristics are good at estimating the performance more actions will only have a small influence on the solution. More actions would mean that more states would be discovered, but only one of these states would be placed in the top of the queue. As opposed to the \textit{Several Pushers} variant the paths of the new actions would not create alot of parallel paths.
+\item[Doors] The last variant we could think of is a variant having doors which would only open when a box is placed on a button or only letting the player pass through without a box. Doors only opening when a box is placed on a button would require the planner being able to solve the goal of getting a box on the button before trying to plan its way through the door. This would require a completely new planner. Doors only allowing the player to pass could easily be implemented using the method used by the \textit{Corner Heuristic}(Section \ref{sec:cornerheur}) marking the door an illegal square. Such a Sokoban map would probably be solvable by the planner.
 \end{description}
