@@ -125,14 +125,16 @@ public class CornerHeuristic extends Heuristic {
 	private void markCorner(int x, int y, int dx, int dy, CornerBoard b){
 		try{
 			if(b.get(x, y) == '#'){
-				if(b.get(x+dx, y) == '#' && b.get(x, y+dy) == '#'){
-					if(b.get(x+dx, y+dy) != '#'){
-						mark(x+dx, y+dy, 'i', b);
-					}
-				} else if(b.get(x+dx, y) != '#' && b.get(x, y+dy) != '#'){
+				// If on a wall check for outer corners
+				if(b.get(x+dx, y) != '#' && b.get(x, y+dy) != '#'){
 					if(b.get(x+dx, y+dy) != '#'){
 						mark(x+dx, y+dy, 'o', b);
 					}
+				}
+			} else {
+				// If its not a wall check for inner corner
+				if(b.get(x+dx, y) == '#' && b.get(x, y+dy) == '#'){
+					mark(x, y, 'i', b);
 				}
 			}
 		} catch (IndexOutOfBoundsException e){

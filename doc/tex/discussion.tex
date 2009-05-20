@@ -18,15 +18,10 @@ An example of this is shown in \ref{fig:level7}. A human player will quite fast 
 \end{figure}
 
 \subsection{Deadlock detection}
-Solving Sokobano puzzles is much about avoiding deadlocked states. As
-it can be hard to describe when a state contains a deadlock and hard
-to check if it has one in a very short time, human players might be
-better at spotting these states. Though the computer would ``just''
-need a better deadlock detection than what we have been able to come
-up with.
+Solving Sokobano puzzles is much about avoiding deadlocked states. As it can be hard to describe when a state contains a deadlock and hard to check if it has one in a very short time, human players might be better at spotting these states. Though the computer would ``just'' need a better deadlock detection than what we have been able to come up with.
 
 \section{Improvements}
-\section{More deadlock detection}
+\subsection{More deadlock detection}
 To improve the algorithm, better deadlock detections must be
 created. The first to implement would be heuristics that detect the
 states in figure \ref{fig:missingdeadlocks}.
@@ -52,8 +47,10 @@ algorithm very slow?
   \label{fig:missingdeadlocks}
 \end{figure}
 
-
-POP planning, regression planning?
+\subsection{A different planning method}
+\subsubsection{POP planning}
+\subsubsection{Regression planning}
+Regression planning might work better than progression planning as the puzzles might be created 
 
 Variants of sokoban
 \begin{itemize}

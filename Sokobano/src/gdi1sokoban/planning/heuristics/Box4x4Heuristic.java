@@ -29,10 +29,15 @@ public class Box4x4Heuristic extends Heuristic {
 	}
 	
 	private boolean isStuck(int x, int y, int dx, int dy, Board b){
+		try{
 		return 
 		       isObstructing(b.get(x+dx, y)) &&
 		       isObstructing(b.get(x+dx, y+dy)) &&
 		       isObstructing(b.get(x, y+dy));
+		} catch (IndexOutOfBoundsException e){
+			//System.err.println("pos: ("+x+","+y+") dir: ("+(x+dx)+","+(y+dy)+")\n" + b);
+			return false;
+		}
 	}
 	
 	private boolean isObstructing(char c){
