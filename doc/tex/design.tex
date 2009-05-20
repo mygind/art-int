@@ -2,4 +2,27 @@
 \label{cha:design}
 
 \section{Introduction}
+
+\section{Overall model}
+
+The planner can be devided into three areas: the objects describing the world, the solvers (planning algorithms) and the heuristics used by the \astar solver.
+
+\section{World objects}
+\todo{Not yet written}
+
+\section{The heuristics}
+The heuristics are thoroughly described in chapter \ref{cha:heuristics}.
+
+\section{Solvers}
+The planner has two solvers: a BreadthFirst (BF) Solver and an \astar solver. At a given state the solvers look at all neighbour states, states reachable using a single action, and adds them to a queue of states to investigate.
+\subsection{BreadthFirst Solver}
+The BF solver adds the new found states to the end of the queue, called unexplored states. This ensures that states discovered first are explored before states found later. As a result it finds the shortest possible solution, but it might take very long as it does not care if states are close to or far from the goal state.
+
+When a state is found is added to unexplored states only if it has not been seen before. When it is first found it is added to the set discovered states which is then able to tell if a state has been found before.
+
+\subsection{\astar solver}
+The \astar solver works very much like the BF solver though instead of a FIFO (first in, first out) queue it uses a priority queue sorting the unexplored states according to their performance estimations (determined by the heuristic). If a heuristic always returning the same number the solver works as a BF solver because the only number determining the priority of a state is the number of steps to get to the state.
+
+As some of the heuristics might throw a DeadlockException the \astar solver also has to be able to handle this. If such an exception is caught, the state is added to discovered states without being added to the unexplored states. In this way the neighbour states to the deadlocked state is not being explored making a solution building on a deadlocked state (that we are able to find) impossible.
+
 % Solver using A* (problem step 3)

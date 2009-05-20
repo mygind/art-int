@@ -5,6 +5,21 @@
 \section{Observation}
 Difference between levels that are easy for humans and computers.
 
+\subsection{Patterns}
+Some levels contains an overall pattern which humans will easily spot while the computer will have a hard time solving the puzzle. A pattern could be where the player has to push the boxes in chain reaction.
+
+An example of this is shown in \ref{fig:level7}. A human player will quite fast spot that the level is build up by a circle of boxes only moveable by moving one of the bottom boxes to the midle and then by moving the box above its startposition one square down. Following this direction around the circle all the boxes can be put onto a goal square. The computer will have to try alot of moves before finding the correct pattern.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[scale=0.5]{level7}
+	\caption{Level 7 - a level with a pattern easy to spot for a human}
+	\label{fig:level7}
+\end{figure}
+
+\subsection{Deadlock detection}
+Solving Sokobano puzzles is much about avoiding deadlocked states. As it can be hard to describe when a state contains a deadlock and hard to check if it has one in a very short time, human players might be better at spotting these states. Though the computer would ''just´´ need a better deadlock detection than what we have been able to come up with.
+
 \section{Improvements}
 \section{More deadlock detection}
 To improve the algorithm, better deadlock detections must be
