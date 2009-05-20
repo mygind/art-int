@@ -22,8 +22,26 @@ $280.1$.\footnote{These areas is computed by multiplying the number of
   lines in the level-file with the length of the longest line in the
   level. So it is not exact, but is a good indicator of difficulty.}
 
-\subsection{Variables}
-Solution length, total no of states visited, total no of states seen, run
-time, branching factor, 
+
+\subsection{Methodology}
+We will run all solvers on the level set defined above and observe the
+number of total states discovered as a function of the solution trace.
+These traces will give us some idea of which of these solvers, along
+with which heuristics seem interesting.
+
+We anticipate that the better (and thereby faster) the
+solver/heuristic combination, the lower branching factor. The
+branching factor for this kind of tree is would be calculated as an
+average branching factor since it is irregular. We call this branching
+factor, the \emph{determination} of the heuristic.
+
+It is, however, important that the heuristic is not only determinate,
+but also \emph{accurate}. A heuristic is accurate if it leads to
+solution trace that is as short as possible.
+
+\section{}
+
+
+
 
 

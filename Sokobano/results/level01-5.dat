@@ -1,4 +1,4 @@
-   Depth            BFSolver                A(i)                A(c)           A(+{c,i})         A(+{c,i,4})    A(+{*{i,i},c,4})    A(+{*{s,s},c,4})A(+{*{B,B,s,s},c,4})A(+{*{B,B,a,a},c,4})             A(rand)
+   Depth            BFSolver                A(i)                A(c)           A(+{c,i})         A(+{c,i,4})    A(+{*{i,i},c,4})    A(+{*{s,s},c,4}) A(+{*{B,B,s,s},c,4}) A(+{*{B,B,a,a},c,4})           A(rand)
        1                    0                   1                   1                   1                   1                   1                   1                   1                   1                   1
        2                    3                   4                   4                   4                   4                   4                   4                   4                   4                   5
        3                    5                   6                   6                   6                   6                   6                   6                   6                   6                   6
