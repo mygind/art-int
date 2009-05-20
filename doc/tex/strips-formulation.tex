@@ -18,7 +18,7 @@ We wish to keep our STRIPS description as simple as possible. If we
 look at the rules of the game we see that the only real action is to
 move the player, everything else happens is a result of this.
 
-%\subsection{Required Actions}
+% \subsection{Required Actions}
 Sokoban can be viewed as a single agent system\footnote{At least in in
   this incarnation. See Section \ref{sec:scope}.} As such the primary
 action needed must be to move this agent.
@@ -90,6 +90,20 @@ action. We refer to Figure \ref{fig:strips-push}.
   \label{fig:strips-pushtotarget}
 \end{figure}
 
-We need to avoid 
+The last push, onto a goal square, is somewhat special. We need a
+seperate action to mark that the box in question is now on a goal
+square. Since this is the only action that can push a box onto the
+goal square (due to preconditions in both Move and Push) we know that,
+using a regular push action will never result in box landing on a goal
+square.
+
+
+\section{Summary}
+Using the STRIPS language we have created a very small description of
+our system. Having this very compact description will enable us to
+build a highly effective model and solver, since we are able to keep a
+system-wide overview.
+
+
 
 
