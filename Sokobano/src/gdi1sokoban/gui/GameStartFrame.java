@@ -16,9 +16,16 @@ import gdi1sokoban.logic.LevelSetIdentifier;
 import gdi1sokoban.logic.LevelStatistic;
 import gdi1sokoban.logic.Player;
 import gdi1sokoban.logic.Savegame;
+import gdi1sokoban.planning.AstarSolver;
+import gdi1sokoban.planning.Board;
 import gdi1sokoban.planning.LevelParser;
+import gdi1sokoban.planning.heuristics.AveragePathHeuristic;
+import gdi1sokoban.planning.heuristics.Box4x4Heuristic;
+import gdi1sokoban.planning.heuristics.BoxOnGoalHeuristic;
+import gdi1sokoban.planning.heuristics.CornerHeuristic;
+import gdi1sokoban.planning.heuristics.HeuristicsAdder;
+import gdi1sokoban.planning.heuristics.HeuristicsMultiplier;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -148,17 +155,30 @@ public class GameStartFrame extends Frame {
 		public void run(){
 			try{
 				gdi1sokoban.planning.LevelParser lp = new LevelParser();
-				gdi1sokoban.planning.BFSolver solver = new gdi1sokoban.planning.BFSolver(lp.parse(filename).getBoard());
+
+				// Creating planner
+				Board b = lp.parse(filename).getBoard();
+				HeuristicsAdder h9 = new HeuristicsAdder(new Board(b));
+				HeuristicsMultiplier h9a = new HeuristicsMultiplier(new Board(b));
+				h9a.add(new BoxOnGoalHeuristic(new Board(b)));
+				h9a.add(new BoxOnGoalHeuristic(new Board(b)));
+				h9a.add(new AveragePathHeuristic(new Board(b)));
+				h9a.add(new AveragePathHeuristic(new Board(b)));
+				h9.add(h9a);
+				h9.add(new CornerHeuristic(new Board(b)));
+				h9.add(new Box4x4Heuristic(new Board(b)));
+				
+				gdi1sokoban.planning.AstarSolver solver = new gdi1sokoban.planning.AstarSolver(new Board(b), h9);
 				solver.solve(false);
 				String solution = solver.getSolutionString();
 				System.out.println(solution);
 				
-				long time = 300;
+				long sleepTime = 1000;
 	
 				Queue<KeyboardEvent> moves = generateMoves(solution);
 				
 				for(KeyboardEvent kb: moves){
-					try{Thread.sleep(time);}catch(Exception e){};
+					try{Thread.sleep(sleepTime);}catch(Exception e){};
 					gf.processKeyboardEvent(kb);
 				}
 			}catch(Exception e){
